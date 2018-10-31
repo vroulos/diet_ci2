@@ -14,9 +14,16 @@ class Dietitians extends CI_controller
 		$this->load->model('dietitian_model');	
 	}
 
+	public function insert_diet(){
+		$this->dietitian_model->insert_dietitian();
+	}
+
 
 
 	public function logind(){
+
+		// create the data object
+		$data = new stdClass();
 
 		$this->load->helper('form');
 		$this->load->library('form_validation');
@@ -36,13 +43,31 @@ class Dietitians extends CI_controller
 		else {
 			
 			// set variables from the form
-			$username = $this->input->post('username');
-			$password = $this->input->post('password');
+			$dusername = $this->input->post('dietname');
+			$dpassword = $this->input->post('password');
 			
-			if ($this->user_model->resolve_user_login($username, $password)) {
+			
+			if ($this->dietitian_model->resolve_dietitian_login($dusername, $dpassword)) {
+				//echo '  noooooo  !!!';
+				$duser_id = $this->dietitian_model->get_dietitian_id_from_username($dusername);
+				$duser    = $this->dietitian_model->get_dietitian($duser_id);
+
+				//echo $row['dietitian_id'];
+
+				// set session user datas
+				//$_SESSION['dietitian_id']      = (int)$duser->dietitian_id;
+				// $_SESSION['diet_name']     = (string)$duser->dietitian_name;
+				// $_SESSION['logged_in']    = (bool)true;
+				//$_SESSION['is_confirmed'] = (bool)$duser->is_confirmed;
+
+				$newdata = array('dietitian_id' => $dusername );
+				$this->session->set_userdata($newdata);
+				echo 'the fucking name is  : '. $dusername ;
+				// user login ok
+				$this->load->view('dietitian/headerd');
+				$this->load->view('dietitian/login/logind_success');
 				
-				$user_id = $this->user_model->get_user_id_from_username($username);
-				$user    = $this->user_model->get_user($user_id);
+				
 			
 			}
 		}

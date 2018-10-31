@@ -42,6 +42,12 @@ class User_model extends CI_Model {
 		return $this->db->insert('users', $data);
 		
 	}
+
+	private function hash_password($password) {
+		
+		return password_hash($password, PASSWORD_BCRYPT);
+		
+	}
 	
 	/**
 	 * resolve_user_login function.
@@ -57,8 +63,9 @@ class User_model extends CI_Model {
 		$this->db->from('users');
 		$this->db->where('username', $username);
 		$hash = $this->db->get()->row('password');
-		
-		return $this->verify_password_hash($password, $hash);
+		$nainai = $this->verify_password_hash($password, $hash);
+		echo 'nai nai nai nai nai nai nai   :  '.$nainai ;
+		return $nainai;
 		
 	}
 	
@@ -101,11 +108,16 @@ class User_model extends CI_Model {
 	 * @param mixed $password
 	 * @return string|bool could be a string on success, or bool false on failure
 	 */
-	private function hash_password($password) {
+
+	
+    
+	// 	private function hash_password($password) {
 		
-		return password_hash($password, PASSWORD_BCRYPT);
+	// 	return password_hash($password, PASSWORD_BCRYPT);
 		
-	}
+	// }
+
+	
 	
 	/**
 	 * verify_password_hash function.
