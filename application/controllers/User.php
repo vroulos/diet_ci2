@@ -25,7 +25,12 @@ class User extends CI_Controller {
 	
 	
 	public function index() {
+
+		$data = new stdClass;
 		
+		$this->load->view('header');
+		$this->load->view('user/login/login_success', $data);
+		$this->load->view('footer');
 
 		
 	}
@@ -107,14 +112,16 @@ class User extends CI_Controller {
 		$this->form_validation->set_rules('username', 'Username', 'required|alpha_numeric');
 		$this->form_validation->set_rules('password', 'Password', 'required');
 		
-		if ($this->form_validation->run() == false) {
+		//if (!isset($_SESSION['username'])) {
+			if ($this->form_validation->run() == false) {
+				echo ' ti malakies eina aytes';
+				// validation not ok, send validation errors to the view
+				$this->load->view('header');
+				$this->load->view('user/login/login');
+				$this->load->view('footer');
+			}
 			
-			// validation not ok, send validation errors to the view
-			$this->load->view('header');
-			$this->load->view('user/login/login');
-			$this->load->view('footer');
-			
-		} else {
+		 else {
 			
 			// set variables from the form
 			$username = $this->input->post('username');
@@ -136,6 +143,9 @@ class User extends CI_Controller {
 				$this->load->view('header');
 				$this->load->view('user/login/login_success', $data);
 				$this->load->view('footer');
+
+				//redirect to index function 
+				redirect('user/index' , 'refresh');
 				
 			} else {
 				
@@ -150,9 +160,11 @@ class User extends CI_Controller {
 			}
 			
 		}
+
 		
 	}
-	
+
+
 	/**
 	 * logout function.
 	 * 
@@ -175,12 +187,13 @@ class User extends CI_Controller {
 			$this->load->view('header');
 			$this->load->view('user/logout/logout_success', $data);
 			$this->load->view('footer');
+			redirect('User/login' , 'refresh');
 			
 		} else {
 			
 			// there user was not logged in, we cannot logged him out,
 			// redirect him to site root
-			redirect('/');
+			redirect('User/login' , 'refresh');
 			
 		}
 		

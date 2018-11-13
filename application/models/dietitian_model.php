@@ -44,20 +44,20 @@ class Dietitian_model extends CI_Model
 	}
 
 	private function verify_password_hash1($dpassword, $hash) {
-		echo '   it works';
+		
 		if (password_verify($dpassword, $hash)) {
 			echo 'success !';
 		}
-			else{
-				echo 'error';
-				}
+		else{
+			echo 'error';
+		}
 		//return password_verify($dpassword, $hash);
 		
 	}
 
 	public function insert_dietitian(){
 		$password = 12345;
-	$data = array(
+		$data = array(
 			'dietitian_name'   => 'solinas4',
 			'dietitian_email'      => 'sol@gmail.com',
 			'dietitian_password'   => $this->hash_password($password),
@@ -66,7 +66,7 @@ class Dietitian_model extends CI_Model
 		
 		$this->db->insert('dietitian', $data);
 		echo 'data inserted !';
-	
+		
 		
 	}
 	// public function hash_password1($password){
@@ -79,7 +79,12 @@ class Dietitian_model extends CI_Model
 		return password_hash($password, PASSWORD_BCRYPT);
 		
 	}
+
+	public function insert_food(){
+		$food = $this->input->post('food');
+		$this->db->query("insert into food(foodname) values('$food')");
+	}
 	
 }
 
- ?>
+?>

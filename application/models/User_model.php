@@ -64,7 +64,7 @@ class User_model extends CI_Model {
 		$this->db->where('username', $username);
 		$hash = $this->db->get()->row('password');
 		$nainai = $this->verify_password_hash($password, $hash);
-		echo 'nai nai nai nai nai nai nai   :  '.$nainai ;
+		//echo 'nai nai nai nai nai nai nai   :  '.$nainai ;
 		return $nainai;
 		
 	}

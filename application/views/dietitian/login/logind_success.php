@@ -1,82 +1,71 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
-<link rel="stylesheet" href="assets/style.css" type="text/css">
-
-<!DOCTYPE html>
-<html>
-<head>
-  <title></title>
-   <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i" rel="stylesheet">
-<link rel="stylesheet" type="text/css" href="<?php echo site_url('assets/css/calendar.css') ?>">
 
 
 
-
-
-
-
-
-
-
-</style>
-
-</head>
-<body>
-
-</body>
-</html>
 <div class="container">
-	<div class="row">
-		<div class="col-md-12">
-			<div class="page-header">
-				<?php $name =  $this->input->post('dietname'); ?>
-		    <!-- button to logout -->
-        <ul class="nav navbar-nav navbar-left">
-        <li><a href="<?= base_url('dietitians/logoutd') ?>">Logout</a></li>
-      </ul>
-				<h1>Login success!</h1>
-			</div>
-			<p>You are now logged in dietitian.</p>
-		</div>
-	</div><!-- .row -->
-</div><!-- .container -->
 
-    <div class="row">
-      <div class="col-md-3">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-      
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Dropdown
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Disabled</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="<?= base_url('dietitians/logoutd') ?>">Αποσύνδεση</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
 
-
-
-
-       
-
-
-<body>
-<div id='wrap'>
-
-<div id='calendar'></div>
-
-<div style='clear:both'></div>
 </div>
-</body>
 
 
-
-
-
-        </div>
-      <div class="col-md-3">
-        Section 2
-        </div>
-      <div class="col-md-3">
-        Section 3
-        </div>
-      <div class="col-md-3">
-        Section 4
-        </div>
+<div class="container">
+  <h2>Εισαγωγή φαγητού</h2>
+<?= form_open(); ?>
+    <div class="form-group">
+      <label for="food">φαγητό:</label>
+      <input type="text" class="form-control" id="food" name="food">
     </div>
+<!--       <button type="submit" class="btn btn-primary">Submit</button>
+ -->  <?php echo form_submit('mysubmit', 'Υποβολή'); ?>
 
+ <div class="alert alert-success" role="alert">
+<?php 
+  if (isset($foodname)) {
+    echo $foodname;
+  }else{
+    echo 'δεν έχεις εισάγη κάποιο φαγητό ακόμη';
+  }
+ ?>  
+</div>
+</div>
+
+</body>
 </html>
