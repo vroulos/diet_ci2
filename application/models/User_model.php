@@ -132,5 +132,29 @@ class User_model extends CI_Model {
 		return password_verify($password, $hash);
 		
 	}
+	public function get_foods(){
+		//$query = $this->db->query('SELECT foodname FROM  food');
+		$name = $_SESSION['username'];
+		$query = $this->db->query("SELECT * FROM nutricion_program where customer_name = '$name'");
+		$row = $query->row();
+		if (empty($query->result())){
+			echo 'you are unlucky . You do not have program';
+		}else{
+			echo 'yeah';
+		}
+
+		// foreach ($query->result() as $row) {
+		// 	echo $row->foodname;
+		// }
+
+		//using the row() function to return a single result row
+		//$fai = $query->row();
+		// from object $fai echo the foodname 
+		//echo $fai->foodname;
+
+		 //$data = $fai->foodname;
+
+		 return $query;
+	}
 	
 }

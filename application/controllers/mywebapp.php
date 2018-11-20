@@ -14,7 +14,7 @@ class mywebapp extends CI_Controller
 	}
 
 	public function first(){
-			
+		
 		$this->load->view('mywebapp_view');
 
 	}
@@ -23,4 +23,4 @@ class mywebapp extends CI_Controller
 
 
 
- ?>
+?>

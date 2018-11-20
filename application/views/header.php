@@ -31,12 +31,14 @@
 						<span class="icon-bar"></span>
 						<span class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="<?= base_url() ?>">mywebapp</a>
+					<a class="navbar-brand" href="<?= base_url('user/index') ?>">mywebapp</a>
 				</div>
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 					<ul class="nav navbar-nav navbar-right">
 						<?php if (isset($_SESSION['username']) && $_SESSION['logged_in'] === true) : ?>
+							<li><a href="<?=base_url('user/view_program')?>">πρόγραμμα διατροφής</a></li>
 							<li><a href="<?= base_url('logout') ?>">Αποσύνδεση</a></li>
+
 						<?php else : ?>
 							<li ><a href="<?= base_url('mywebapp/first') ?>">Αρχική</a></li>
 							<li><a href="<?= base_url('register') ?>">Εγγραφή</a></li>

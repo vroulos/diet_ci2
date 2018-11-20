@@ -34,6 +34,35 @@ class User extends CI_Controller {
 
 		
 	}
+	//the user sees his program
+	public function view_program(){
+
+		$data = $this->user_model->get_foods();
+
+		$datakia = array('monday_launch' => $data->row(0)->monday_lau ,
+						  'monday_morning' => $data->row(1)->monday_break,
+						   'monday_dinner' => $data->row(2)->monday_din,
+						  // 'tuesday_morning' =>$data->row(3)->foodname,
+						  // 'tuesday_launch' =>$data->row(4)->foodname,
+						  // 'tuesday_dinner' =>$data->row(5)->foodname,
+						  // 'wendsday_morning' =>$data->row(6)->foodname,
+						  // 'wendsday_launch' =>$data->row(7)->foodname,
+						  // 'wendsday_dinner' =>$data->row(8)->foodname,
+		 );
+		//num_rows return the number of lines in the query
+		$rows = $data->num_rows();
+		echo $rows;
+
+		
+		for ($i=0; $i <$rows ; $i++) { 
+			
+		}
+
+		$this->load->view('header');
+		$this->load->view('user/nutricion_program_view' , $datakia);
+
+		//$this->user_model->get_foods();
+	}
 	
 	/**
 	 * register function.

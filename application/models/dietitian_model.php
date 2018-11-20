@@ -80,11 +80,44 @@ class Dietitian_model extends CI_Model
 		
 	}
 
-	public function insert_food(){
+	public function insert_food_model(){
 		$food = $this->input->post('food');
 		$this->db->query("insert into food(foodname) values('$food')");
 	}
 	
+	public function get_customers(){
+		$query = $this->db->query("SELECT * FROM users");
+
+		return $query->result();
+
+	}
+
+	public function get_customer($customer_id){
+
+
+		$id = $customer_id;
+		$query = $this->db->query("SELECT username FROM users WHERE id = $id ");
+
+		return $query;
+
+	}
+
+	public function get_foods(){
+		$query = $this->db->query("SELECT * FROM food");
+		return $query->result();
+	}
+
+	public function insert_program_model(){
+		$breakf_mond = $this->input->post('breakfast_monday');
+		$lunch_mond = $this->input->post('lunch_monday');
+		$dinner_mond = $this->input->post('dinner_monday');
+		//echo $dinner_mond;
+		$customer_name = $_SESSION['customer_name'];
+		$this->db->query("INSERT INTO food(foodname) values('$breakf_mond')");
+		$this->db->query("INSERT INTO nutricion_program(monday_break , customer_name, monday_lau, monday_din) values('$breakf_mond' , '$customer_name' , '$lunch_mond', '$dinner_mond')
+			");
+		
+}
 }
 
 ?>

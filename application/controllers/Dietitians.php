@@ -13,6 +13,8 @@ class Dietitians extends CI_controller
 		$this->load->helper(array('url'));
 		$this->load->model('dietitian_model');	
 		$this->load->library('session');
+		$this->load->helper('form');
+		$this->load->library('form_validation');
 	}
 
 	public function insert_diet(){
@@ -22,31 +24,76 @@ class Dietitians extends CI_controller
 	//here dietitian inserts the foods in food table
 	public function insert_food(){
 
-			$this->load->helper('form');
-			$this->load->library('form_validation');
+		//fetch all customers and save them in $data table
+		$data['users'] = $this->dietitian_model->get_customers();
 
-			$this->form_validation->set_rules('food', 'Food', 'trim|required|min_length[5]|max_length[120]');
+
+		$this->load->helper('form');
+		$this->load->library('form_validation');
+
+		$this->form_validation->set_rules('food', 'Food', 'trim|required|min_length[5]|max_length[120]');
 			//if form do not run
 		if ($this->form_validation->run() == false) {
 			$this->load->view('dietitian/headerd');
-			$this->load->view('dietitian/login/logind_success');
+			$this->load->view('dietitian/login/insert_food_view', $data);
 			echo 'if is running';
 		} else{
 			//run the insert_food function
-			$this->dietitian_model->insert_food();
+			$this->dietitian_model->insert_food_model();
 			//set foodname variable
 			$data['foodname'] = "το φαγητό μπήκε στη βάση";
 
 
 			$this->load->view('dietitian/headerd' , $data);
-			$this->load->view('dietitian/login/logind_success' , $data);
+			$this->load->view('dietitian/login/insert_food_view' , $data , $users);
 		}
 		
+	}
+
+	public function customer(){
+		
+		//the customer id
+		$customer_id = $this->input->get('id');
+		//get the customer using get_customer function 
+		$dos = $this->dietitian_model->get_customer($customer_id);
+		// row() : This method returns a single result row. It returns the data as object
+		$row = $dos->row();
+
+		$customer_name = $row->username;
+
+		$data = array('name' => $customer_name );
+		$data['foods'] = $this->dietitian_model->get_foods();
+		$this->session->set_userdata('customer_name' , $customer_name);
+
+		echo $_SESSION['customer_name'];
+
+		$this->load->view('dietitian/headerd', $data);
+		$this->load->view('dietitian/customer_view', $data );
+
 
 		
 	}
 
-	
+	// inserts the customer's program to database
+	public function insert_program(){
+		$data = 'fdsaf';
+		$this->form_validation->set_rules('breakfast_monday', 'Breakfast_monday', 'trim|required|min_length[5]|max_length[12]');
+
+		if ($this->form_validation->run() == false) {
+			$this->load->view('dietitian/headerd', $data);
+			$this->load->view('dietitian/customer_view', $data );
+			
+		}
+		else{
+			$this->dietitian_model->insert_program_model();
+
+			$this->load->view('dietitian/headerd', $data);
+			$this->load->view('dietitian/customer_view', $data );
+		}	
+	}
+
+
+	//login dietitian
 	public function logind(){
 
 		// create the data object
@@ -71,7 +118,7 @@ class Dietitians extends CI_controller
 			// validation not ok, send validation errors to the view
 				$this->load->view('dietitian/headerd');
 				$this->load->view('dietitian/login/logind');
-				
+				echo 'false validation if is running';
 				//echo CI_VERSION;
 			}
 			else {
@@ -82,7 +129,7 @@ class Dietitians extends CI_controller
 
 
 				if ($this->dietitian_model->resolve_dietitian_login($dusername, $dpassword)) {
-				
+
 					$duser_id = $this->dietitian_model->get_dietitian_id_from_username($dusername);
 					$duser    = $this->dietitian_model->get_dietitian($duser_id);
 
@@ -94,6 +141,7 @@ class Dietitians extends CI_controller
 				// user login ok
 					$this->load->view('dietitian/headerd');
 					$this->load->view('dietitian/login/logind_success');
+					echo 'nooowerrr';
 
 				}
 
