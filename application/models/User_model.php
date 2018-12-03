@@ -156,5 +156,65 @@ class User_model extends CI_Model {
 
 		 return $query;
 	}
+
+	public function get_messages(){
+
+		if (isset($_SESSION['username'])) {
+		$customer_name = $_SESSION['username'] ;
+
+		$query = $this->db->query("SELECT * FROM messages where customer = '$customer_name'");
+
+		return $query->result();
+
+	}else{
+		redirect('user/login','refresh');
+	}
+
+	}
+
+	public function delete_message($id){
+
+		$this->db->query("DELETE FROM messages where id = '$id'");
+
+	}
+
+	public function add_weight_model($weight){
+		if (isset($_SESSION['username'])){
+		$cust = $_SESSION['username'];
+		echo 'the weight in model is ' . $weight;
+		// $this->db->query("insert INTO personal_data(customer, date) values('$cust', 'CURRENT_TIMESTAMP()')");
+		$this->db->query("insert INTO personal_data(customer, date, weight ) values('$cust', NOW(), '$weight') ");
+	}else{
+		redirect('user/login','refresh');
+	}
+		// header("location: index");
+		// exit;
+	}
+
+	public function get_weight(){
+		if (isset($_SESSION['username'])){
+			$user = $_SESSION['username'];
+
+			 $query = $this->db->query("SELECT weight FROM personal_data where customer = '$user' ORDER BY id DESC LIMIT 1");
+
+			//select id 
+			// $this->db->select_max('id');
+			
+			// //where customer = $user
+			//  $this->db->where('customer' , $user);
+
+			// //Returns the number of rows changed by the last executed query.
+			 $number_of_rows = $this->db->affected_rows();
+			// // from personal_data table
+			// $query = $this->db->get('personal_data');
+
+			echo 'the number of sql query is ' .$number_of_rows;
+
+			return $query->result();
+		}
+	}
+
+
+
 	
 }

@@ -17,6 +17,15 @@ class Dietitians extends CI_controller
 		$this->load->library('form_validation');
 	}
 
+	public function initial(){
+		$data = 'lele';
+
+		
+		$this->load->view('dietitian/headerd', $data);
+		$this->load->view('dietitian/initial_view', $data);
+		
+	}
+
 	public function insert_diet(){
 		$this->dietitian_model->insert_dietitian();
 	}
@@ -50,6 +59,9 @@ class Dietitians extends CI_controller
 		
 	}
 
+	
+
+
 	public function customer(){
 		
 		//the customer id
@@ -65,31 +77,71 @@ class Dietitians extends CI_controller
 		$data['foods'] = $this->dietitian_model->get_foods();
 		$this->session->set_userdata('customer_name' , $customer_name);
 
-		echo $_SESSION['customer_name'];
-
 		$this->load->view('dietitian/headerd', $data);
-		$this->load->view('dietitian/customer_view', $data );
+		$this->load->view('dietitian/initial_view', $data );
 
 
 		
 	}
 
+	public function add_nutricion_program(){
+		$data['foods'] = $this->dietitian_model->get_foods();
+
+
+		$this->load->view('dietitian/headerd', $data);
+		$this->load->view('dietitian/add_nutricion_program_view', $data );
+	}
+
+	public function choose_customer(){
+		//fetch all customers and save them in $data table
+		$data['users'] = $this->dietitian_model->get_customers();
+
+		$this->load->view('dietitian/headerd' , $data);
+		$this->load->view('dietitian/choose_customer_view' , $data);
+
+
+	}
+
 	// inserts the customer's program to database
 	public function insert_program(){
+
 		$data = 'fdsaf';
 		$this->form_validation->set_rules('breakfast_monday', 'Breakfast_monday', 'trim|required|min_length[5]|max_length[12]');
 
 		if ($this->form_validation->run() == false) {
 			$this->load->view('dietitian/headerd', $data);
 			$this->load->view('dietitian/customer_view', $data );
-			
+
 		}
 		else{
 			$this->dietitian_model->insert_program_model();
 
-			$this->load->view('dietitian/headerd', $data);
-			$this->load->view('dietitian/customer_view', $data );
+			$this->load->view('dietitians/headerd', $data);
+			$this->load->view('dietitians/customer_view', $data );
 		}	
+	}
+
+	public function send_message(){
+		//check if dietitian has choose a customer to proccess
+		if(isset($_SESSION['customer_name'])){
+			//if yes 
+		$this->form_validation->set_rules('send_message', 'Send_message', 'trim|required|min_length[5]|max_length[12000]');
+		// if form is not submited the displays the views
+		if ($this->form_validation->run() == false){
+			$this->load->view('dietitian/headerd');
+			$this->load->view('dietitian/send_message_view');
+
+		//if form submited send the message
+		}else{
+		 //$message = $this->input->post('send_message');
+		// echo $message;
+			$this->dietitian_model->send_message_model();
+			$this->load->view('dietitian/headerd');
+			$this->load->view('dietitian/send_message_view');
+		}
+	}else{
+
+	}
 	}
 
 

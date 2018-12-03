@@ -118,6 +118,13 @@ class Dietitian_model extends CI_Model
 			");
 		
 }
+
+	public function send_message_model(){
+		$message = $this->input->post('send_message');
+		$customer = $_SESSION['customer_name'];
+
+		$this->db->query("INSERT INTO messages(customer , message) values('$customer', '$message')");
+	}
 }
 
 ?>

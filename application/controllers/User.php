@@ -20,6 +20,8 @@ class User extends CI_Controller {
 		$this->load->library(array('session'));
 		$this->load->helper(array('url'));
 		$this->load->model('user_model');
+		$this->load->helper('form');
+		$this->load->library('form_validation');
 		
 	}
 	
@@ -37,6 +39,8 @@ class User extends CI_Controller {
 	//the user sees his program
 	public function view_program(){
 
+		if (isset($_SESSION['username'])){
+
 		$data = $this->user_model->get_foods();
 
 		$datakia = array('monday_launch' => $data->row(0)->monday_lau ,
@@ -53,15 +57,59 @@ class User extends CI_Controller {
 		$rows = $data->num_rows();
 		echo $rows;
 
-		
-		for ($i=0; $i <$rows ; $i++) { 
-			
-		}
 
 		$this->load->view('header');
 		$this->load->view('user/nutricion_program_view' , $datakia);
+	}else{
+		redirect('user/login','refresh');
+	}
 
 		//$this->user_model->get_foods();
+	}
+
+	public function add_weight(){
+
+		$this->form_validation->set_rules('weihgt', 'Weight', 'trim|required|min_length[1]|max_length[12]');
+
+		if 	($this->form_validation->run() == false){
+			$this->load->view('header');
+			$this->load->view('dietitian/add_weight_view');
+			echo 'if is fucking running';
+		}else{
+			$user_weight = $this->input->post('weihgt');
+			$this->user_model->add_weight_model($user_weight);
+			echo 'this is the  weight '. $user_weight;
+
+			$data['weight'] = $this->user_model->get_weight();
+			
+
+			$this->load->view('header');
+			$this->load->view('dietitian/add_weight_view' , $data);
+
+
+
+		}
+
+	}
+
+
+	public function messages(){
+		//get the user message form database
+		$this->user_model->get_messages();
+
+		//$message_to_delete = $this->db->input('post');
+		$id = $this->input->post('message_to_delete');
+		if(isset($id)){
+			$this->user_model->delete_message($id);
+		}
+		
+
+		//echo $message_to_delete;
+		// delete the messages
+
+		$data['messages'] = $this->user_model->get_messages();
+		$this->load->view('header');
+		$this->load->view('user/message_user_view' , $data);
 	}
 	
 	/**
@@ -160,6 +208,8 @@ class User extends CI_Controller {
 				
 				$user_id = $this->user_model->get_user_id_from_username($username);
 				$user    = $this->user_model->get_user($user_id);
+
+				
 				
 				// set session user datas
 				$_SESSION['user_id']      = (int)$user->id;
@@ -167,6 +217,8 @@ class User extends CI_Controller {
 				$_SESSION['logged_in']    = (bool)true;
 				$_SESSION['is_confirmed'] = (bool)$user->is_confirmed;
 				$_SESSION['is_admin']     = (bool)$user->is_admin;
+
+				echo 'i session einai'. $_SESSION['username'] ;
 				
 				// user login ok
 				$this->load->view('header');

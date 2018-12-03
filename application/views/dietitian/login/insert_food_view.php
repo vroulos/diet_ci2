@@ -23,7 +23,7 @@
   <h2>Εισαγωγή φαγητού</h2>
 
 <?= form_open('dietitians/customer'); ?>
-    <div class="form-group">
+    <div id="meal" class="form-group">
       <label for="food">φαγητό:</label>
       <input type="text" class="form-control" id="food" name="food">
     </div>

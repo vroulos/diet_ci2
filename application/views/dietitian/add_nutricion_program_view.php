@@ -1,6 +1,6 @@
 
-<h3>πρόσθεσε το εβδομαδιαίο γεύμα στον <?php if (isset($name)){
-	echo $name;
+<h3>πρόσθεσε το εβδομαδιαίο γεύμα στον <?php if (isset($_SESSION['customer_name'])){
+	echo $_SESSION['customer_name'];
 } ?> </h3>
 
 <h1></h1>
