@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 04, 2018 at 05:43 PM
+-- Generation Time: Dec 06, 2018 at 08:22 PM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.10
 
@@ -212,61 +212,11 @@ INSERT INTO `dietitian` (`dietitian_id`, `dietitian_name`, `dietitian_email`, `d
 --
 
 CREATE TABLE `food` (
-  `id` int(255) NOT NULL,
-  `foodname` varchar(255) NOT NULL
+  `id` int(11) NOT NULL,
+  `foodname` varchar(122) NOT NULL,
+  `food_type` varchar(132) NOT NULL,
+  `calories_per_100` int(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `food`
---
-
-INSERT INTO `food` (`id`, `foodname`) VALUES
-(4, 'μουσακάς'),
-(7, 'τραχανάς'),
-(8, 'γεμιστά'),
-(9, 'μεζεδάκια'),
-(10, 'ρεβύθια'),
-(11, 'φακές'),
-(12, 'γιαούρτι'),
-(13, 'σπανακόρυζο'),
-(14, 'μοσχάρι'),
-(15, 'κεφτεδάκια'),
-(16, 'μακαρόνια'),
-(19, 'καφές'),
-(20, 'καφές'),
-(21, 'καφές'),
-(22, 'κάστανα'),
-(23, 'κάστανα'),
-(24, 'πεϊνιρλί'),
-(25, 'keftedakia'),
-(26, 'keftedakia'),
-(27, 'keftedakia'),
-(28, 'fiali'),
-(29, 'φρυγανιές'),
-(30, 'πορτοκάλι'),
-(31, 'fiali'),
-(32, 'παστίτσιο'),
-(33, 'τομάτα'),
-(34, 'τομάτα'),
-(35, 'τομάτα'),
-(36, 'τομάτα'),
-(37, 'τομάτα'),
-(38, 'τομάτα'),
-(39, 'τομάτα'),
-(40, 'τομάτα'),
-(41, 'κοτόπουλο'),
-(42, 'κοκορα'),
-(43, 'κοκορα'),
-(44, 'κοκίρ'),
-(45, 'κοκίρ'),
-(46, 'κοκίρ'),
-(47, 'κοκίρ'),
-(48, 'πεπονέτο'),
-(49, 'πεπονέτο'),
-(50, 'πεπονέτο'),
-(51, 'καφές'),
-(52, 'καφές'),
-(53, 'φακές');
 
 -- --------------------------------------------------------
 
@@ -292,7 +242,9 @@ INSERT INTO `messages` (`id`, `customer`, `message`) VALUES
 (10, '', 'το μεσημέρι έχει μουσακά'),
 (11, '', 'Είσαι σε πολύ καλό δρόμο'),
 (13, 'saliaris', 'fvdgfdgf'),
-(14, 'saliaris', 'jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj');
+(14, 'saliaris', 'jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj'),
+(15, 'pipikas', 'gfdsgds'),
+(16, 'pipikas', 'gfdsgfdsg');
 
 -- --------------------------------------------------------
 
@@ -302,6 +254,7 @@ INSERT INTO `messages` (`id`, `customer`, `message`) VALUES
 
 CREATE TABLE `nutricion_program` (
   `id` int(255) NOT NULL,
+  `user_id` int(11) UNSIGNED NOT NULL,
   `monday_break` varchar(255) NOT NULL,
   `monday_lau` varchar(255) NOT NULL,
   `monday_din` varchar(255) NOT NULL,
@@ -326,13 +279,6 @@ CREATE TABLE `nutricion_program` (
   `customer_name` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `nutricion_program`
---
-
-INSERT INTO `nutricion_program` (`id`, `monday_break`, `monday_lau`, `monday_din`, `tuesday_break`, `tuesday_lau`, `tuesday_din`, `wendsday_break`, `wendsday_lau`, `wendsday_din`, `thursday_break`, `thursday_lau`, `thursday_din`, `friday_break`, `friday_lau`, `friday_din`, `saturday_break`, `saturday_lau`, `saturday_din`, `sunday_break`, `sunday_lau`, `sunday_din`, `customer_name`) VALUES
-(23, 'φακές', 'γάλατάκι', 'κολοκυθάκια', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'saliaris');
-
 -- --------------------------------------------------------
 
 --
@@ -353,13 +299,10 @@ CREATE TABLE `personal_data` (
 INSERT INTO `personal_data` (`id`, `customer`, `date`, `weight`) VALUES
 (26, 'saliaris', '2018-11-23 18:07:59', 67),
 (27, 'saliaris', '2018-11-23 18:09:43', 67),
-(28, 'saliaris', '2018-11-23 18:16:55', 0),
 (29, 'saliaris', '2018-11-23 18:17:08', 67),
 (30, 'saliaris', '2018-11-23 18:18:15', 67),
 (31, 'saliaris', '2018-11-23 18:18:19', 67),
 (32, 'saliaris', '2018-11-23 18:18:46', 67),
-(33, 'saliaris', '2018-11-23 18:18:55', 645),
-(34, 'saliaris', '2018-11-23 18:20:17', 677),
 (35, 'saliaris', '2018-11-26 17:53:00', 80),
 (36, 'saliaris', '2018-11-27 15:22:45', 91),
 (37, 'saliaris', '2018-11-27 15:31:03', 91),
@@ -413,7 +356,25 @@ INSERT INTO `personal_data` (`id`, `customer`, `date`, `weight`) VALUES
 (85, 'saliaris', '2018-12-03 14:35:19', 78),
 (86, 'saliaris', '2018-12-03 14:35:47', 78),
 (87, 'saliaris', '2018-12-03 14:36:01', 78),
-(88, 'saliaris', '2018-12-03 18:34:24', 77);
+(88, 'saliaris', '2018-12-03 18:34:24', 77),
+(89, 'saliaris', '2018-12-05 15:12:06', 78),
+(90, 'saliaris', '2018-12-05 15:24:27', 78),
+(91, 'saliaris', '2018-12-05 15:48:35', 78),
+(92, 'saliaris', '2018-12-05 16:00:12', 78),
+(93, 'saliaris', '2018-12-05 16:22:28', 54),
+(94, 'saliaris', '2018-12-06 10:24:49', 88),
+(95, 'saliaris', '2018-12-06 10:25:00', 98),
+(96, 'saliaris', '2018-12-06 13:16:03', 65),
+(97, 'saliaris', '2018-12-06 16:41:46', 78),
+(98, 'saliaris', '2018-12-06 16:49:03', 60),
+(99, 'saliaris', '2018-12-06 16:49:30', 60),
+(100, 'saliaris', '2018-12-06 16:57:38', 80),
+(101, 'saliaris', '2018-12-06 16:59:28', 80),
+(102, 'saliaris', '2018-12-06 17:00:47', 70),
+(103, 'saliaris', '2018-12-06 17:01:40', 70),
+(104, 'saliaris', '2018-12-06 17:05:50', 91),
+(105, 'saliaris', '2018-12-06 17:06:12', 87),
+(106, 'saliaris', '2018-12-06 17:06:39', 87);
 
 -- --------------------------------------------------------
 
@@ -468,13 +429,15 @@ ALTER TABLE `data1`
 -- Indexes for table `dietitian`
 --
 ALTER TABLE `dietitian`
-  ADD PRIMARY KEY (`dietitian_id`);
+  ADD PRIMARY KEY (`dietitian_id`),
+  ADD KEY `dietitian_name` (`dietitian_name`);
 
 --
 -- Indexes for table `food`
 --
 ALTER TABLE `food`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `foodname` (`foodname`);
 
 --
 -- Indexes for table `messages`
@@ -486,7 +449,8 @@ ALTER TABLE `messages`
 -- Indexes for table `nutricion_program`
 --
 ALTER TABLE `nutricion_program`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `personal_data`
@@ -498,7 +462,8 @@ ALTER TABLE `personal_data`
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `username` (`username`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -520,13 +485,13 @@ ALTER TABLE `dietitian`
 -- AUTO_INCREMENT for table `food`
 --
 ALTER TABLE `food`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `nutricion_program`
@@ -538,13 +503,23 @@ ALTER TABLE `nutricion_program`
 -- AUTO_INCREMENT for table `personal_data`
 --
 ALTER TABLE `personal_data`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `nutricion_program`
+--
+ALTER TABLE `nutricion_program`
+  ADD CONSTRAINT `nutricion_with_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
