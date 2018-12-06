@@ -214,6 +214,15 @@ class User_model extends CI_Model {
 		}
 	}
 
+	public function get_weight_history(){
+		$user = $_SESSION['username'];
+
+		$query = $this->db->query("SELECT * FROM personal_data where customer = '$user' ");
+
+		return $query->result();
+
+	}
+
 
 
 	

@@ -69,18 +69,33 @@ class User extends CI_Controller {
 
 	public function add_weight(){
 
+		if (isset($_SESSION['username'])){
+			$data['alpha'] = '0';
+		if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['someAction']))
+			{
+				$data['weight_history'] = $this->user_model->get_weight_history();
+				echo 'go is running';
+
+				$this->load->view('header');
+			$this->load->view('dietitian/add_weight_view' , $data);
+				
+
+				
+			}else{	
 		$this->form_validation->set_rules('weihgt', 'Weight', 'trim|required|min_length[1]|max_length[12]');
 
 		if 	($this->form_validation->run() == false){
-			$this->load->view('header');
-			$this->load->view('dietitian/add_weight_view');
+			$this->load->view('header' , $data);
+			$this->load->view('dietitian/add_weight_view' , $data);
 			echo 'if is fucking running';
-		}else{
+		}
+		else{
 			$user_weight = $this->input->post('weihgt');
 			$this->user_model->add_weight_model($user_weight);
 			echo 'this is the  weight '. $user_weight;
 
 			$data['weight'] = $this->user_model->get_weight();
+			
 			
 
 			$this->load->view('header');
@@ -89,6 +104,11 @@ class User extends CI_Controller {
 
 
 		}
+
+	}
+
+
+	}
 
 	}
 
