@@ -66,7 +66,7 @@ class User extends CI_Controller {
 
 		//$this->user_model->get_foods();
 	}
-
+	// o pelatis prosthetei to varos tou
 	public function add_weight(){
 
 		if (isset($_SESSION['username']))
@@ -74,6 +74,7 @@ class User extends CI_Controller {
 			$data = NULL;
 			if (isset($_POST['weightHistory']))
 			{
+				//apothikeuo to istoriko varous 
 				$data['weight_history'] = $this->user_model->get_weight_history();
 			}
 			elseif ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['addWeight']))
@@ -93,12 +94,62 @@ class User extends CI_Controller {
 					$data['weight'] = $this->user_model->get_weight();
 				}
 			}
-
 			$this->load->view('header');
 			$this->load->view('dietitian/add_weight_view' , $data);
 		}
 	}
 
+	public function add_user_note(){
+		//$data = new stdClass;
+
+		if (isset($_SESSION['username'])){
+
+		$this->form_validation->set_rules('add_note', 'fieldlabel', 'trim|required|min_length[5]|max_length[1500]');
+
+
+if ($this->form_validation->run() ==  FALSE) {
+
+			$data['notes'] = $this->user_model->get_notes();
+
+			
+			$this->load->view('header', $data);
+			$this->load->view('user/user_note_view', $data);
+		} else {
+			$note = $this->input->post('add_note');
+			$this->user_model->add_note($note);
+
+			$data['notes'] = $this->user_model->get_notes();
+
+
+
+			$this->load->view('header', $data);
+			$this->load->view('user/user_note_view', $data);
+		}
+	
+		}
+	}
+
+	public function delete_note(){
+		if (isset($_SESSION['username'])){
+		
+
+			$note_for_delete = $this->input->post("note_to_delete");
+
+			if(isset($note_for_delete)){
+
+			$this->user_model->delete_note($note_for_delete);
+			
+
+			$data['notes'] = $this->user_model->get_notes();
+
+			$this->load->view('header', $data);
+			$this->load->view('user/user_note_view', $data);
+			}
+		}
+	}
+
+
+>>>>>>> 71296d4... eftiaksa ton  user_notes TABLE o pelatis mporei na krataei simioseis kai na tis diagrafei
 	public function messages(){
 		//get the user message form database
 		$this->user_model->get_messages();

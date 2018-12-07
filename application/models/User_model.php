@@ -220,6 +220,30 @@ class User_model extends CI_Model {
 		return $query->result();
 	}
 
+	public function add_note($note){
+
+		$user_id = $_SESSION['user_id'];
+		$user = $_SESSION['username'];
+		echo 'add note is running';
+		$query = $this->db->query("insert INTO user_notes(note, user_id) values('$note', (SELECT id FROM users WHERE username = '$user')) ");
+
+
+			}
+
+	public function get_notes(){
+		$user_id = $_SESSION['user_id'];
+		$user = $_SESSION['username'];
+
+		$query = $this->db->query("SELECT * FROM user_notes WHERE user_id = '$user_id'");
+		
+		return $query->result();
+	}		
+
+	public function delete_note($id){
+		$query = $this->db->query("DELETE FROM user_notes WHERE id = '$id' ");
+
+	}
+
 
 
 	
