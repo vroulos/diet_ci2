@@ -66,38 +66,41 @@ class User extends CI_Controller {
 
 		//$this->user_model->get_foods();
 	}
-
+	// o pelatis prosthetei to varos tou
 	public function add_weight(){
 
 		if (isset($_SESSION['username'])){
 			$data['alpha'] = '0';
+			// elegxei an paththike to koumpi istoriko varous stin add_weight_view
 		if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['someAction']))
 			{
+				//apothikeuo to istoriko varous 
 				$data['weight_history'] = $this->user_model->get_weight_history();
-				echo 'go is running';
-
-				$this->load->view('header');
+	
+			// load the view
+			$this->load->view('header');
 			$this->load->view('dietitian/add_weight_view' , $data);
 				
 
 				
 			}else{	
+				//theto kanones gia tin forma
 		$this->form_validation->set_rules('weihgt', 'Weight', 'trim|required|min_length[1]|max_length[12]');
 
+		//an then patithei to koumpi ths formas
 		if 	($this->form_validation->run() == false){
 			$this->load->view('header' , $data);
 			$this->load->view('dietitian/add_weight_view' , $data);
 			echo 'if is fucking running';
 		}
 		else{
+			//an patithi h forma pairnw to baros apo ti forma 
 			$user_weight = $this->input->post('weihgt');
+			//prostheto to varos sti vasi
 			$this->user_model->add_weight_model($user_weight);
-			echo 'this is the  weight '. $user_weight;
-
+			//fernw to varos apo tin vasi
 			$data['weight'] = $this->user_model->get_weight();
 			
-			
-
 			$this->load->view('header');
 			$this->load->view('dietitian/add_weight_view' , $data);
 
@@ -110,6 +113,55 @@ class User extends CI_Controller {
 
 	}
 
+	}
+
+	public function add_user_note(){
+		//$data = new stdClass;
+
+		if (isset($_SESSION['username'])){
+
+		$this->form_validation->set_rules('add_note', 'fieldlabel', 'trim|required|min_length[5]|max_length[1500]');
+
+
+if ($this->form_validation->run() ==  FALSE) {
+
+			$data['notes'] = $this->user_model->get_notes();
+
+			
+			$this->load->view('header', $data);
+			$this->load->view('user/user_note_view', $data);
+		} else {
+			$note = $this->input->post('add_note');
+			$this->user_model->add_note($note);
+
+			$data['notes'] = $this->user_model->get_notes();
+
+
+
+			$this->load->view('header', $data);
+			$this->load->view('user/user_note_view', $data);
+		}
+	
+		}
+	}
+
+	public function delete_note(){
+		if (isset($_SESSION['username'])){
+		
+
+			$note_for_delete = $this->input->post("note_to_delete");
+
+			if(isset($note_for_delete)){
+
+			$this->user_model->delete_note($note_for_delete);
+			
+
+			$data['notes'] = $this->user_model->get_notes();
+
+			$this->load->view('header', $data);
+			$this->load->view('user/user_note_view', $data);
+			}
+		}
 	}
 
 
