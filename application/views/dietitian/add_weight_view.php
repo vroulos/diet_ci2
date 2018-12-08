@@ -32,8 +32,6 @@
 		</div>
 
 		<?php if(isset($weight_history)){ //if the $weight_history is set then run the chart ?>
-
-			<p> CHART IS RUNNING</p>
 			<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 			<script type="text/javascript">
 				google.charts.load('current', {'packages':['corechart']});

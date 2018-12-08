@@ -148,8 +148,6 @@ if ($this->form_validation->run() ==  FALSE) {
 		}
 	}
 
-
->>>>>>> 71296d4... eftiaksa ton  user_notes TABLE o pelatis mporei na krataei simioseis kai na tis diagrafei
 	public function messages(){
 		//get the user message form database
 		$this->user_model->get_messages();
