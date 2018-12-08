@@ -208,7 +208,7 @@ class User_model extends CI_Model {
 			// // from personal_data table
 			// $query = $this->db->get('personal_data');
 
-			echo 'the number of sql query is ' .$number_of_rows;
+			//echo 'the number of sql query is ' .$number_of_rows;
 
 			return $query->result();
 		}
@@ -216,35 +216,8 @@ class User_model extends CI_Model {
 
 	public function get_weight_history(){
 		$user = $_SESSION['username'];
-
 		$query = $this->db->query("SELECT * FROM personal_data where customer = '$user' ");
-
 		return $query->result();
-
-	}
-
-	public function add_note($note){
-
-		$user_id = $_SESSION['user_id'];
-		$user = $_SESSION['username'];
-		echo 'add note is running';
-		$query = $this->db->query("insert INTO user_notes(note, user_id) values('$note', (SELECT id FROM users WHERE username = '$user')) ");
-
-
-			}
-
-	public function get_notes(){
-		$user_id = $_SESSION['user_id'];
-		$user = $_SESSION['username'];
-
-		$query = $this->db->query("SELECT * FROM user_notes WHERE user_id = '$user_id'");
-		
-		return $query->result();
-	}		
-
-	public function delete_note($id){
-		$query = $this->db->query("DELETE FROM user_notes WHERE id = '$id' ");
-
 	}
 
 

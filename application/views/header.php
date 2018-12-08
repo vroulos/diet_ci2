@@ -50,7 +50,6 @@
           <a class="dropdown-item" href="<?php echo base_url('user/add_weight') ?>">προσθήκη βάρους</a>
           <a class="dropdown-item" href="#">ποσοστό λίπους</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="<?php echo base_url('user/add_user_note'); ?>">προσωπικές σημειώσεις</a>
           <a class="dropdown-item" href="#">περιφέρεια μέσης</a>
         </div>
       </li>
