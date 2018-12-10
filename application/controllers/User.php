@@ -41,56 +41,61 @@ class User extends CI_Controller {
 
 		if (isset($_SESSION['username'])){
 
-		$data = $this->user_model->get_foods();
+			$data = $this->user_model->get_foods();
 
-		$datakia = array('monday_launch' => $data->row(0)->monday_lau ,
-						  'monday_morning' => $data->row(1)->monday_break,
-						   'monday_dinner' => $data->row(2)->monday_din,
+			$datakia = array('monday_launch' => $data->row(0)->monday_lau ,
+				'monday_morning' => $data->row(1)->monday_break,
+				'monday_dinner' => $data->row(2)->monday_din,
 						  // 'tuesday_morning' =>$data->row(3)->foodname,
 						  // 'tuesday_launch' =>$data->row(4)->foodname,
 						  // 'tuesday_dinner' =>$data->row(5)->foodname,
 						  // 'wendsday_morning' =>$data->row(6)->foodname,
 						  // 'wendsday_launch' =>$data->row(7)->foodname,
 						  // 'wendsday_dinner' =>$data->row(8)->foodname,
-		 );
+			);
 		//num_rows return the number of lines in the query
-		$rows = $data->num_rows();
-		echo $rows;
+			$rows = $data->num_rows();
+			echo $rows;
 
 
-		$this->load->view('header');
-		$this->load->view('user/nutricion_program_view' , $datakia);
-	}else{
-		redirect('user/login','refresh');
-	}
+			$this->load->view('header');
+			$this->load->view('user/nutricion_program_view' , $datakia);
+		}else{
+			redirect('user/login','refresh');
+		}
 
 		//$this->user_model->get_foods();
 	}
 	// o pelatis prosthetei to varos tou
 	public function add_weight(){
-
+		//check if the user has logged in
 		if (isset($_SESSION['username']))
 		{
 			$data = NULL;
+			//an patiso to koumpi me onoma weightHistory tha emfanisei to istoriko varous
 			if (isset($_POST['weightHistory']))
 			{
 				//apothikeuo to istoriko varous 
 				$data['weight_history'] = $this->user_model->get_weight_history();
 			}
+			//an patiso to koumpi ypovoli 
 			elseif ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['addWeight']))
-			{
+			{	//set rules for the input data
 				$this->form_validation->set_rules
-					('weight', 'Weight', 'trim|required|min_length[2]|max_length[2]',
-						array(
-							'required'      => 'You have not provided a valid %s.',
-							'min_length'    => 'The %s you have provided is too low.',
-							'max_length'    => 'I don\'t think you are THAT fat.'
-						)
-					);
+				('weight', 'Weight', 'trim|required|min_length[2]|max_length[2]',
+					array(
+						'required'      => 'You have not provided a valid %s.',
+						'min_length'    => 'The %s you have provided is too low.',
+						'max_length'    => 'I don\'t think you are THAT fat.'
+					)
+				);
 				// Run validation and add weight if everything is ok
 				if ($this->form_validation->run()){
+					//pairnw to varos apo pou vazei o xristis
 					$user_weight = $this->input->post('weight');
+					//apotikeuo sti vasi to varos
 					$this->user_model->add_weight_model($user_weight);
+					// sti $weight vazw to trexon varos
 					$data['weight'] = $this->user_model->get_weight();
 				}
 			}
@@ -99,51 +104,52 @@ class User extends CI_Controller {
 		}
 	}
 
+	// display and add the user notes
 	public function add_user_note(){
-		//$data = new stdClass;
+		$data = NULL;
 
 		if (isset($_SESSION['username'])){
 
-		$this->form_validation->set_rules('add_note', 'fieldlabel', 'trim|required|min_length[5]|max_length[1500]');
+			if ($_SERVER['REQUEST_METHOD'] = "POST" and isset($_POST['add_note'])){
 
+				$this->form_validation->set_rules('add_note', 'πεδίο', 'trim|required|min_length[5]|max_length[1500]',
+					array(
+						'required'      => 'Γράψε και κάτι στο %s.',
+						'min_length'    => 'The %s you have provided is too low.',
+						'max_length'    => 'I don\'t think you are so many thinks to write.'
+					)
+			);
 
-if ($this->form_validation->run() ==  FALSE) {
+				if ($this->form_validation->run()) {
+					//the form is running			
+					$note = $this->input->post('add_note');
+
+					$this->user_model->add_note($note);
+				} 
+			}
 
 			$data['notes'] = $this->user_model->get_notes();
+			$this->load->view('header');
+			$this->load->view('user/user_note_view' , $data);
 
-			
-			$this->load->view('header', $data);
-			$this->load->view('user/user_note_view', $data);
-		} else {
-			$note = $this->input->post('add_note');
-			$this->user_model->add_note($note);
-
-			$data['notes'] = $this->user_model->get_notes();
-
-
-
-			$this->load->view('header', $data);
-			$this->load->view('user/user_note_view', $data);
-		}
-	
 		}
 	}
 
 	public function delete_note(){
 		if (isset($_SESSION['username'])){
-		
+
 
 			$note_for_delete = $this->input->post("note_to_delete");
 
 			if(isset($note_for_delete)){
 
-			$this->user_model->delete_note($note_for_delete);
-			
+				$this->user_model->delete_note($note_for_delete);
 
-			$data['notes'] = $this->user_model->get_notes();
 
-			$this->load->view('header', $data);
-			$this->load->view('user/user_note_view', $data);
+				$data['notes'] = $this->user_model->get_notes();
+
+				$this->load->view('header', $data);
+				$this->load->view('user/user_note_view', $data);
 			}
 		}
 	}
@@ -224,7 +230,7 @@ if ($this->form_validation->run() ==  FALSE) {
 		}
 		
 	}
-		
+
 	/**
 	 * login function.
 	 * 
@@ -245,15 +251,15 @@ if ($this->form_validation->run() ==  FALSE) {
 		$this->form_validation->set_rules('password', 'Password', 'required');
 		
 		//if (!isset($_SESSION['username'])) {
-			if ($this->form_validation->run() == false) {
-				echo ' ti malakies eina aytes';
+		if ($this->form_validation->run() == false) {
+			echo ' ti malakies eina aytes';
 				// validation not ok, send validation errors to the view
-				$this->load->view('header');
-				$this->load->view('user/login/login');
-				$this->load->view('footer');
-			}
-			
-		 else {
+			$this->load->view('header');
+			$this->load->view('user/login/login');
+			$this->load->view('footer');
+		}
+
+		else {
 			
 			// set variables from the form
 			$username = $this->input->post('username');

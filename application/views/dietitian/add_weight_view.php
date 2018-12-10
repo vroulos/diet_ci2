@@ -17,6 +17,7 @@
 	</div>
 
 	<div class="col-md-offset-10">
+		
 		<form action="<?php echo base_url('user/add_weight') ?>" method = "post">
 			<input type="submit" name="weightHistory" class="btn btn-primary" value="ιστορικό βάρους"/>
 		</form>

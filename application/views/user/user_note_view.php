@@ -2,7 +2,8 @@
 
  <div class="form-group">
     <label for="exampleFormControlTextarea1">Προσθήκη σημείωσης</label>
-    <textarea class="form-control" name="add_note" id="exampleFormControlTextarea1" rows="3"></textarea>
+    <textarea class="form-control" name="add_note" id="new_note" rows="3"></textarea>
+    <?php echo validation_errors(); //display validation errors ?>
   </div>
   	<!-- <button type="submit" class="btn btn-primary">Αποστολή</button> -->
   <?php echo form_submit('add', 'Προσθήκη'); ?>
