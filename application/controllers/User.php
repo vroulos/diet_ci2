@@ -69,50 +69,34 @@ class User extends CI_Controller {
 	// o pelatis prosthetei to varos tou
 	public function add_weight(){
 
-		if (isset($_SESSION['username'])){
-			$data['alpha'] = '0';
-			// elegxei an paththike to koumpi istoriko varous stin add_weight_view
-		if($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['someAction']))
+		if (isset($_SESSION['username']))
+		{
+			$data = NULL;
+			if (isset($_POST['weightHistory']))
 			{
 				//apothikeuo to istoriko varous 
 				$data['weight_history'] = $this->user_model->get_weight_history();
-	
-			// load the view
+			}
+			elseif ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['addWeight']))
+			{
+				$this->form_validation->set_rules
+					('weight', 'Weight', 'trim|required|min_length[2]|max_length[2]',
+						array(
+							'required'      => 'You have not provided a valid %s.',
+							'min_length'    => 'The %s you have provided is too low.',
+							'max_length'    => 'I don\'t think you are THAT fat.'
+						)
+					);
+				// Run validation and add weight if everything is ok
+				if ($this->form_validation->run()){
+					$user_weight = $this->input->post('weight');
+					$this->user_model->add_weight_model($user_weight);
+					$data['weight'] = $this->user_model->get_weight();
+				}
+			}
 			$this->load->view('header');
 			$this->load->view('dietitian/add_weight_view' , $data);
-				
-
-				
-			}else{	
-				//theto kanones gia tin forma
-		$this->form_validation->set_rules('weihgt', 'Weight', 'trim|required|min_length[1]|max_length[12]');
-
-		//an then patithei to koumpi ths formas
-		if 	($this->form_validation->run() == false){
-			$this->load->view('header' , $data);
-			$this->load->view('dietitian/add_weight_view' , $data);
-			echo 'if is fucking running';
 		}
-		else{
-			//an patithi h forma pairnw to baros apo ti forma 
-			$user_weight = $this->input->post('weihgt');
-			//prostheto to varos sti vasi
-			$this->user_model->add_weight_model($user_weight);
-			//fernw to varos apo tin vasi
-			$data['weight'] = $this->user_model->get_weight();
-			
-			$this->load->view('header');
-			$this->load->view('dietitian/add_weight_view' , $data);
-
-
-
-		}
-
-	}
-
-
-	}
-
 	}
 
 	public function add_user_note(){
@@ -163,7 +147,6 @@ if ($this->form_validation->run() ==  FALSE) {
 			}
 		}
 	}
-
 
 	public function messages(){
 		//get the user message form database

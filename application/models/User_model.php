@@ -208,7 +208,7 @@ class User_model extends CI_Model {
 			// // from personal_data table
 			// $query = $this->db->get('personal_data');
 
-			echo 'the number of sql query is ' .$number_of_rows;
+			//echo 'the number of sql query is ' .$number_of_rows;
 
 			return $query->result();
 		}
@@ -216,11 +216,8 @@ class User_model extends CI_Model {
 
 	public function get_weight_history(){
 		$user = $_SESSION['username'];
-
 		$query = $this->db->query("SELECT * FROM personal_data where customer = '$user' ");
-
 		return $query->result();
-
 	}
 
 	public function add_note($note){
