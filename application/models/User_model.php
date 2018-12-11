@@ -244,6 +244,23 @@ class User_model extends CI_Model {
 
 	}
 
+	public function add_fat($fat){
+
+		$user = $_SESSION['username'];
+		$user_id = $_SESSION['user_id'];
+		echo $fat;
+
+		$query = $this->db->query("INSERT INTO fat_percentage (fat_percent, date, user_id ) values('$fat', NOW(), (SELECT id from users where id = '$user_id'))");
+
+	}
+
+	public function get_fat_history(){
+
+		$query = $this->db->query("SELECT * FROM fat_percentage ");
+		echo 'get fat running in user_model';
+		return $query->result();
+	}
+
 
 
 	

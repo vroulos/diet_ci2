@@ -47,6 +47,7 @@ class Dietitians extends CI_controller
 			$this->load->view('dietitian/login/insert_food_view', $data);
 			echo 'if is running';
 		} else{
+			//$food = $this->input->post('food');
 			//run the insert_food function
 			$this->dietitian_model->insert_food_model();
 			//set foodname variable
@@ -125,23 +126,23 @@ class Dietitians extends CI_controller
 		//check if dietitian has choose a customer to proccess
 		if(isset($_SESSION['customer_name'])){
 			//if yes 
-		$this->form_validation->set_rules('send_message', 'Send_message', 'trim|required|min_length[5]|max_length[12000]');
+			$this->form_validation->set_rules('send_message', 'Send_message', 'trim|required|min_length[5]|max_length[12000]');
 		// if form is not submited the displays the views
-		if ($this->form_validation->run() == false){
-			$this->load->view('dietitian/headerd');
-			$this->load->view('dietitian/send_message_view');
+			if ($this->form_validation->run() == false){
+				$this->load->view('dietitian/headerd');
+				$this->load->view('dietitian/send_message_view');
 
 		//if form submited send the message
-		}else{
+			}else{
 		 //$message = $this->input->post('send_message');
 		// echo $message;
-			$this->dietitian_model->send_message_model();
-			$this->load->view('dietitian/headerd');
-			$this->load->view('dietitian/send_message_view');
-		}
-	}else{
+				$this->dietitian_model->send_message_model();
+				$this->load->view('dietitian/headerd');
+				$this->load->view('dietitian/send_message_view');
+			}
+		}else{
 
-	}
+		}
 	}
 
 
@@ -186,8 +187,9 @@ class Dietitians extends CI_controller
 					$duser    = $this->dietitian_model->get_dietitian($duser_id);
 
 
-
+					//
 					$newdata = array('dietitian_name' => $dusername );
+					//set the session variables
 					$this->session->set_userdata($newdata);
 					
 				// user login ok

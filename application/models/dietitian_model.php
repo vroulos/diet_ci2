@@ -92,11 +92,11 @@ class Dietitian_model extends CI_Model
 
 	}
 
-	public function get_customer($customer_id){
+	public function get_customer($customer_id){a
 
 
 		$id = $customer_id;
-		$query = $this->db->query("SELECT username FROM users WHERE id = $id ");
+		$query = $this->db->query("SELECT username FROM users WHERE id = '$id' ");
 
 		return $query;
 

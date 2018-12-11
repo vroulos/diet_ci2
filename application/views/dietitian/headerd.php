@@ -28,11 +28,13 @@
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav mr-auto">
 						<li class="nav-item active">
-							<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+							<a class="nav-link" href="#">κάτι θα βάλω <span class="sr-only">(current)</span></a>
 						</li>
+						<?php if (isset($_SESSION['dietitian_name'])){ ?>
 						<li class="nav-item">
 							<a class="nav-link" href="<?php echo base_url('dietitians/choose_customer') ?>">επιλογή πελάτη</a>
 						</li>
+					<?php } ?>
 						<?php if(isset($_SESSION['customer_name'])) {?>
 						
 						<li class="nav-item dropdown">

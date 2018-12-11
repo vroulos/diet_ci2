@@ -100,7 +100,43 @@ class User extends CI_Controller {
 				}
 			}
 			$this->load->view('header');
-			$this->load->view('dietitian/add_weight_view' , $data);
+			$this->load->view('user/add_weight_view' , $data);
+		}
+	}
+	//prosthetei kai emfanizei to pososto lipous
+	public function add_percent_fat(){
+		$data = NULL;
+
+		if (isset($_SESSION['username'])){
+			//an patithei to koumpi istoriko varous
+			if(isset($_POST['fatHistory'])){
+				
+
+					$data['fatPercentageHistory'] = $this->user_model->get_fat_history();
+			}
+			elseif ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['addFat'])){
+				echo 'add fat is ok';
+				$this->form_validation->set_rules
+				('fat', 'Weight', 'trim|required|min_length[1]|max_length[3]',
+					array(
+						'required'      => 'You have not provided a valid %s.',
+						'min_length'    => 'The %s you have provided is too low.',
+						'max_length'    => 'I don\'t think you are THAT fatty.'
+					)
+				);
+
+				if ($this->form_validation->run()) {
+
+					$fat = $this->input->post('fat');
+					$this->user_model->add_fat($fat);
+
+				} 
+				
+			}
+			$this->load->view('header', $data);
+			$this->load->view('user/add_percent_fat', $data);
+		}else{
+			redirect('user/login','refresh');
 		}
 	}
 
@@ -118,7 +154,7 @@ class User extends CI_Controller {
 						'min_length'    => 'The %s you have provided is too low.',
 						'max_length'    => 'I don\'t think you are so many thinks to write.'
 					)
-			);
+				);
 
 				if ($this->form_validation->run()) {
 					//the form is running			
