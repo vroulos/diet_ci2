@@ -255,13 +255,28 @@ class User_model extends CI_Model {
 	}
 
 	public function get_fat_history(){
+		//save the user id from session variable to take the values only from user that is //logged in
+		$user_id = $_SESSION['user_id'];
 
-		$query = $this->db->query("SELECT * FROM fat_percentage ");
-		echo 'get fat running in user_model';
+		$query = $this->db->query("SELECT * FROM fat_percentage WHERE user_id = '$user_id'");
+		
 		return $query->result();
 	}
 
+	public function add_waistline($waistline){
+		$user_id = $_SESSION['user_id'];	
+	    
 
+		$query = $this->db->query("INSERT INTO waistline (user_waistline, date, user_id) values('$waistline', NOW(), (SELECT id FROM users WHERE id = '$user_id')) ");
+	}
 
-	
+	public function get_waistline(){
+
+		$user_id = $_SESSION['user_id'];
+
+		$query = $this->db->query("SELECT * FROM waistline WHERE user_id = '$user_id'");
+
+		return $query->result();
+	}
+
 }

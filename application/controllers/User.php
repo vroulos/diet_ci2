@@ -77,6 +77,7 @@ class User extends CI_Controller {
 			{
 				//apothikeuo to istoriko varous 
 				$data['weight_history'] = $this->user_model->get_weight_history();
+
 			}
 			//an patiso to koumpi ypovoli 
 			elseif ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['addWeight']))
@@ -140,6 +141,39 @@ class User extends CI_Controller {
 		}
 	}
 
+	//prosthetei tin perifereia mesis 
+	public function add_waistline(){
+			$data = NULL;
+		if(isset($_SESSION['username'])){
+			
+			if(isset($_POST['waistlineHistory'])){
+
+				$data['waistlineValues'] = $this->user_model->get_waistline();
+				
+			}
+			elseif ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['addWaistline'])){
+				$this->form_validation->set_rules('waistline', 'Waistline', 'trim|required|min_length[2]|max_length[3]',
+					 array('required'      => 'You have not provided a valid %s.',
+						'min_length'    => 'The %s you have provided is too low.',
+						'max_length'    => 'I don\'t think you are THAT fatty.' 
+					)
+					);
+			
+				if ($this->form_validation->run()) {
+					$waistline = $this->input->post('waistline');
+
+					$this->user_model->add_waistline($waistline);
+
+				}
+			}
+			$this->load->view('header', $data);
+			$this->load->view('user/waistline_view', $data);
+		}else{
+			redirect('user/login','refresh');
+		}
+	
+	}
+
 	// display and add the user notes
 	public function add_user_note(){
 		$data = NULL;
@@ -155,7 +189,7 @@ class User extends CI_Controller {
 						'max_length'    => 'I don\'t think you are so many thinks to write.'
 					)
 				);
-
+				//an einai ola kala me tin forma trexo
 				if ($this->form_validation->run()) {
 					//the form is running			
 					$note = $this->input->post('add_note');

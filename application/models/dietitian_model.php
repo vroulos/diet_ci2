@@ -92,7 +92,7 @@ class Dietitian_model extends CI_Model
 
 	}
 
-	public function get_customer($customer_id){a
+	public function get_customer($customer_id){
 
 
 		$id = $customer_id;
