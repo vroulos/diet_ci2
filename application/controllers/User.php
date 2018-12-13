@@ -60,6 +60,7 @@ class User extends CI_Controller {
 
 			$this->load->view('header');
 			$this->load->view('user/nutricion_program_view' , $datakia);
+			$this->load->view('footer', $data );
 		}else{
 			redirect('user/login','refresh');
 		}
@@ -102,6 +103,7 @@ class User extends CI_Controller {
 			}
 			$this->load->view('header');
 			$this->load->view('user/add_weight_view' , $data);
+			$this->load->view('footer', $data );
 		}
 	}
 	//prosthetei kai emfanizei to pososto lipous
@@ -136,6 +138,7 @@ class User extends CI_Controller {
 			}
 			$this->load->view('header', $data);
 			$this->load->view('user/add_percent_fat', $data);
+			$this->load->view('footer', $data );
 		}else{
 			redirect('user/login','refresh');
 		}
@@ -166,8 +169,9 @@ class User extends CI_Controller {
 
 				}
 			}
-			$this->load->view('header', $data);
+			$this->load->view('header1', $data);
 			$this->load->view('user/waistline_view', $data);
+			$this->load->view('footer', $data );
 		}else{
 			redirect('user/login','refresh');
 		}
@@ -201,6 +205,7 @@ class User extends CI_Controller {
 			$data['notes'] = $this->user_model->get_notes();
 			$this->load->view('header');
 			$this->load->view('user/user_note_view' , $data);
+			$this->load->view('footer', $data );
 
 		}
 	}
@@ -220,6 +225,7 @@ class User extends CI_Controller {
 
 				$this->load->view('header', $data);
 				$this->load->view('user/user_note_view', $data);
+				$this->load->view('footer', $data );
 			}
 		}
 	}
@@ -241,6 +247,7 @@ class User extends CI_Controller {
 		$data['messages'] = $this->user_model->get_messages();
 		$this->load->view('header');
 		$this->load->view('user/message_user_view' , $data);
+		$this->load->view('footer', $data );
 	}
 	
 	/**
@@ -322,7 +329,7 @@ class User extends CI_Controller {
 		
 		//if (!isset($_SESSION['username'])) {
 		if ($this->form_validation->run() == false) {
-			echo ' ti malakies eina aytes';
+			
 				// validation not ok, send validation errors to the view
 			$this->load->view('header');
 			$this->load->view('user/login/login');

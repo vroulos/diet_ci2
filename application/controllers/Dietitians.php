@@ -23,6 +23,7 @@ class Dietitians extends CI_controller
 		
 		$this->load->view('dietitian/headerd', $data);
 		$this->load->view('dietitian/initial_view', $data);
+		$this->load->view('footer');
 		
 	}
 
@@ -45,6 +46,7 @@ class Dietitians extends CI_controller
 		if ($this->form_validation->run() == false) {
 			$this->load->view('dietitian/headerd');
 			$this->load->view('dietitian/login/insert_food_view', $data);
+			$this->load->view('footer');
 			echo 'if is running';
 		} else{
 			//$food = $this->input->post('food');
@@ -56,6 +58,7 @@ class Dietitians extends CI_controller
 
 			$this->load->view('dietitian/headerd' , $data);
 			$this->load->view('dietitian/login/insert_food_view' , $data , $users);
+			$this->load->view('footer');
 		}
 		
 	}
@@ -80,6 +83,7 @@ class Dietitians extends CI_controller
 
 		$this->load->view('dietitian/headerd', $data);
 		$this->load->view('dietitian/initial_view', $data );
+		$this->load->view('footer');
 
 
 		
@@ -91,6 +95,7 @@ class Dietitians extends CI_controller
 
 		$this->load->view('dietitian/headerd', $data);
 		$this->load->view('dietitian/add_nutricion_program_view', $data );
+		$this->load->view('footer');
 	}
 
 	public function choose_customer(){
@@ -99,6 +104,7 @@ class Dietitians extends CI_controller
 
 		$this->load->view('dietitian/headerd' , $data);
 		$this->load->view('dietitian/choose_customer_view' , $data);
+		$this->load->view('footer');
 
 
 	}
@@ -112,6 +118,7 @@ class Dietitians extends CI_controller
 		if ($this->form_validation->run() == false) {
 			$this->load->view('dietitian/headerd', $data);
 			$this->load->view('dietitian/customer_view', $data );
+			$this->load->view('footer');
 
 		}
 		else{
@@ -119,6 +126,7 @@ class Dietitians extends CI_controller
 
 			$this->load->view('dietitians/headerd', $data);
 			$this->load->view('dietitians/customer_view', $data );
+			$this->load->view('footer');
 		}	
 	}
 
@@ -131,6 +139,7 @@ class Dietitians extends CI_controller
 			if ($this->form_validation->run() == false){
 				$this->load->view('dietitian/headerd');
 				$this->load->view('dietitian/send_message_view');
+				$this->load->view('footer');
 
 		//if form submited send the message
 			}else{
@@ -139,6 +148,7 @@ class Dietitians extends CI_controller
 				$this->dietitian_model->send_message_model();
 				$this->load->view('dietitian/headerd');
 				$this->load->view('dietitian/send_message_view');
+				$this->load->view('footer');
 			}
 		}else{
 
@@ -158,6 +168,7 @@ class Dietitians extends CI_controller
 			
 			$this->load->view('dietitian/headerd');
 			$this->load->view('dietitian/login/logind_success');
+			$this->load->view('footer');
 		}else{
 
 			$this->load->helper('form');
@@ -171,6 +182,8 @@ class Dietitians extends CI_controller
 			// validation not ok, send validation errors to the view
 				$this->load->view('dietitian/headerd');
 				$this->load->view('dietitian/login/logind');
+				$this->load->view('footer');
+
 				echo 'false validation if is running';
 				//echo CI_VERSION;
 			}
@@ -195,7 +208,8 @@ class Dietitians extends CI_controller
 				// user login ok
 					$this->load->view('dietitian/headerd');
 					$this->load->view('dietitian/login/logind_success');
-					echo 'nooowerrr';
+					$this->load->view('footer');
+					
 
 				}
 

@@ -1,13 +1,16 @@
-<?php defined('BASEPATH') OR exit('No direct script access allowed'); ?>
-	</main><!-- #site-content -->
+<footer class="footer bg-dark">
+      <div class="container">
+        <span class="text-muted">Διπλωματική εργασία</span>
+      </div>
+    </footer>
 
-	<footer id="site-footer" role="contentinfo">
-	</footer><!-- #site-footer -->
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="<?php echo base_url('assets/jQuery/jQuery-3.3.1.min.js'); ?>"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="<?php echo base_url('assets/bootstrap/js/bootstrap.js'); ?>"></script>
 
-	<!-- js -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-	<script src="<?= base_url('assets/js/bootstrap.min.js') ?>"></script>
-	<script src="<?= base_url('assets/js/script.js') ?>"></script>
+<script type="text/javascript" src="<?php echo base_url('assets/js/script.js') ?>"></script>
+
 
 </body>
 </html>
