@@ -5,4 +5,4 @@
     <textarea class="form-control" name="send_message" id="exampleFormControlTextarea1" rows="3"></textarea>
   </div>
   	<!-- <button type="submit" class="btn btn-primary">Αποστολή</button> -->
-  <?php echo form_submit('send', 'Αποστολή'); ?>
+  <?php echo form_submit('send', 'Αποστολή', "class = 'btn btn-dark' "); ?>

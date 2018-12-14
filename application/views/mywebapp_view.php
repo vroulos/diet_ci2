@@ -4,6 +4,8 @@
 
 	<link href="<?= base_url('assets/css/bootstrap.min.css') ?>" rel="stylesheet">
 	<link href="<?= base_url('assets/css/style.css') ?>" rel="stylesheet">
+	<!-- google fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
 
 	<title>connect to eat better</title>
 
@@ -18,13 +20,19 @@ img{
 	width: 300px;
 }
 h1{
-	font-family: "Comic Sans MS", cursive, sans-serif;
+	
+
+    font-family: 'Roboto', sans-serif;
+
+  
 }
+
+
 </style>
 
 </head>
 <body>
-	<h1>welcome to mywebapp</h1>
+	<h1>Καλως όρισες στην εφαρμογή </h1>
 
 
 

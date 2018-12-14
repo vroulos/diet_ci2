@@ -1,42 +1,34 @@
 <div class="container">
 
-
-  
-
-  <table class="table">
-    <thead>
-      <th>πελάτης</th>
-    </thead>
-    <tbody>
-      <?php // emfanizontai oloi oi pelates se morfi pinaka ?>
-      <?php foreach ($users as $row) { ?>
-        <tr>
-      <td><a href="http://localhost/diet_ci2/dietitians/customer?id=<?php echo $row->id  ?>"><?php echo $row->username; ?></a></td>
-      </tr>
-     <?php } ?>
-    </tbody>
-
-  </table>
-
-
-
   <h2>Εισαγωγή φαγητού</h2>
 
-<?= form_open('dietitians/customer'); ?>
-    <div id="meal" class="form-group">
-      <label for="food">φαγητό:</label>
-      <input type="text" class="form-control" id="food" name="food">
-    </div>
-<!--       <button type="submit" class="btn btn-primary">Submit</button>
- -->  <?php echo form_submit('submit_food', 'Υποβολή'); ?>
+  <!-- forma eisagogis fagitou -->
+  <?= form_open('dietitians/insert_food'); ?>
 
- <div class="alert alert-success" role="alert">
-<?php 
-  if (isset($foodname)) {
-    echo $foodname;
-  }else{
-    echo 'δεν έχεις εισάγη κάποιο φαγητό ακόμη';
-  }
- ?>  
-</div>
+  <div id="meal" class="form-group">
+    <label for="food">φαγητό:</label>
+    <input type="text" class="form-control" id="food" name="food">
+    <label for="type">τύπος φαγητού</label>
+    <input type="text" class="form-control" name="type" id="type">
+    <label for="calories">θερμίδες ανά 100 γραμμάρια</label>
+    <input type="number" class="form-control" name="calories" id="calories">
+  </div>
+
+  <?php echo form_submit('submit_food', 'Υποβολή' , "class = 'btn btn-dark' "); ?>
+
+  <?php echo validation_errors(); //display validation errors ?>
+
+  <div class="alert alert-success" role="alert">
+    <?php 
+    //$success variable is set on dietitian model . if the query success
+    if (isset($success)){
+       
+      echo 'Το φαγητό μπήκε στη βάση επιτυχώς';
+    }else{
+      echo 'δεν έχεις εισάγη κάποιο φαγητό ακόμη';
+    
+    }
+   
+    ?>  
+  </div>
 </div>

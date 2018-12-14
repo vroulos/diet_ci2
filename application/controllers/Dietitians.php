@@ -26,7 +26,7 @@ class Dietitians extends CI_controller
 		$this->load->view('footer');
 		
 	}
-
+    // eisagogi neou diaitologou
 	public function insert_diet(){
 		$this->dietitian_model->insert_dietitian();
 	}
@@ -34,41 +34,38 @@ class Dietitians extends CI_controller
 	//here dietitian inserts the foods in food table
 	public function insert_food(){
 
-		//fetch all customers and save them in $data table
-		$data['users'] = $this->dietitian_model->get_customers();
+		$data = NULL;
+		if (isset($_SESSION['dietitian_name'])){
+			if ($_SERVER['REQUEST_METHOD'] == "POST" and $_POST['submit_food']) {
+				
+				$this->form_validation->set_rules('food', 'Food', 'trim|required|min_length[3]|max_length[20]',
+				 array('required' => 'πρέπει να συμπληρώσεις το φαγητό'  ));
+				 $this->form_validation->set_rules('type', 'Type', 'trim|required|min_length[2]|max_length[12]');
+				 $this->form_validation->set_rules('calories', 'Calories', 'trim|required|min_length[1]|max_length[12]');	
+				 if ($this->form_validation->run() ) {
+				 	
+				 	$data['success'] = $this->dietitian_model->add_food_model();
 
 
-		$this->load->helper('form');
-		$this->load->library('form_validation');
+				 }
 
-		$this->form_validation->set_rules('food', 'Food', 'trim|required|min_length[5]|max_length[120]');
-			//if form do not run
-		if ($this->form_validation->run() == false) {
-			$this->load->view('dietitian/headerd');
-			$this->load->view('dietitian/login/insert_food_view', $data);
-			$this->load->view('footer');
-			echo 'if is running';
-		} else{
-			//$food = $this->input->post('food');
-			//run the insert_food function
-			$this->dietitian_model->insert_food_model();
-			//set foodname variable
-			$data['foodname'] = "το φαγητό μπήκε στη βάση";
-
-
+			}
 			$this->load->view('dietitian/headerd' , $data);
-			$this->load->view('dietitian/login/insert_food_view' , $data , $users);
+			$this->load->view('dietitian/login/insert_food_view' , $data );
 			$this->load->view('footer');
+		}else{
+			redirect('dietitians/logind','refresh');
 		}
-		
+
+
 	}
 
 	
 
 
 	public function customer(){
-		
-		//the customer id
+		if (isset($_SESSION['dietitian_name'])){
+				//the customer id
 		$customer_id = $this->input->get('id');
 		//get the customer using get_customer function 
 		$dos = $this->dietitian_model->get_customer($customer_id);
@@ -84,8 +81,9 @@ class Dietitians extends CI_controller
 		$this->load->view('dietitian/headerd', $data);
 		$this->load->view('dietitian/initial_view', $data );
 		$this->load->view('footer');
-
-
+	}else{
+		redirect('dietitians/logind','refresh');
+	}
 		
 	}
 
@@ -99,12 +97,18 @@ class Dietitians extends CI_controller
 	}
 
 	public function choose_customer(){
-		//fetch all customers and save them in $data table
+		if (isset($_SESSION['dietitian_name'])){
+
+			//fetch all customers and save them in $data table
 		$data['users'] = $this->dietitian_model->get_customers();
 
 		$this->load->view('dietitian/headerd' , $data);
 		$this->load->view('dietitian/choose_customer_view' , $data);
 		$this->load->view('footer');
+		}else{
+			redirect('dietitians/logind','refresh');
+		}
+		
 
 
 	}
@@ -112,8 +116,9 @@ class Dietitians extends CI_controller
 	// inserts the customer's program to database
 	public function insert_program(){
 
-		$data = 'fdsaf';
-		$this->form_validation->set_rules('breakfast_monday', 'Breakfast_monday', 'trim|required|min_length[5]|max_length[12]');
+		$data = NULL;
+		if (isset($_SESSION['dietitian_name'])){
+			$this->form_validation->set_rules('breakfast_monday', 'Breakfast_monday', 'trim|required|min_length[5]|max_length[12]');
 
 		if ($this->form_validation->run() == false) {
 			$this->load->view('dietitian/headerd', $data);
@@ -128,11 +133,17 @@ class Dietitians extends CI_controller
 			$this->load->view('dietitians/customer_view', $data );
 			$this->load->view('footer');
 		}	
+
+		}else{
+			redirect('dietitians/logind','refresh');
+		}
+		
+		
 	}
 
 	public function send_message(){
 		//check if dietitian has choose a customer to proccess
-		if(isset($_SESSION['customer_name'])){
+		if(isset($_SESSION['customer_name']) && $_SESSION['dietitian_name']){
 			//if yes 
 			$this->form_validation->set_rules('send_message', 'Send_message', 'trim|required|min_length[5]|max_length[12000]');
 		// if form is not submited the displays the views
@@ -151,7 +162,7 @@ class Dietitians extends CI_controller
 				$this->load->view('footer');
 			}
 		}else{
-
+				redirect('dietitians/logind','refresh');
 		}
 	}
 

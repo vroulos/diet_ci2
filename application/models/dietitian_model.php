@@ -79,10 +79,18 @@ class Dietitian_model extends CI_Model
 		return password_hash($password, PASSWORD_BCRYPT);
 		
 	}
-
-	public function insert_food_model(){
+	//add food to the table food
+	public function add_food_model(){
 		$food = $this->input->post('food');
-		$this->db->query("insert into food(foodname) values('$food')");
+		$type = $this->input->post('type');
+		$calories = $this->input->post('calories');
+
+		$this->db->query("insert into food(foodname, food_type, calories_per_100) values('$food', '$type', '$calories')");
+
+		//Displays the number of affected rows, when doing “write” type queries
+		$number = $this->db->affected_rows();
+
+		return $number;
 	}
 	
 	public function get_customers(){

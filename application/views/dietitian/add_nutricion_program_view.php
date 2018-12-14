@@ -67,4 +67,4 @@
  
   </tbody>
 </table>
-<?php echo form_submit('program_submit', 'υποβολή'); ?>
+<?php echo form_submit('program_submit', 'υποβολή', "class='btn btn-dark'"); ?>
