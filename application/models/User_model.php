@@ -64,7 +64,7 @@ class User_model extends CI_Model {
 		$this->db->where('username', $username);
 		$hash = $this->db->get()->row('password');
 		$nainai = $this->verify_password_hash($password, $hash);
-		//echo 'nai nai nai nai nai nai nai   :  '.$nainai ;
+		//echo 'nainai : '. $nainai ; echo'   ' .$password;
 		return $nainai;
 		
 	}
@@ -139,9 +139,6 @@ class User_model extends CI_Model {
 		$user_id = $_SESSION['user_id'];
 		//select the row with user max user id . that row has the current nutricion program
 		$query = $this->db->query("SELECT * FROM nutricion_program where user_id = '$user_id' ORDER BY id DESC LIMIT 1");
-
-		$rows_affected = $this->db->affected_rows();
-		
 		
 
 		return $query;

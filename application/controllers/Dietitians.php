@@ -233,8 +233,7 @@ class Dietitians extends CI_controller
 				$this->load->view('dietitian/login/logind');
 				$this->load->view('footer');
 
-				echo 'false validation if is running';
-				//echo CI_VERSION;
+				
 			}
 			else {
 
@@ -260,6 +259,8 @@ class Dietitians extends CI_controller
 					$this->load->view('footer');
 					
 
+				}else{
+					redirect('dietitians/logind','refresh');
 				}
 
 

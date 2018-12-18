@@ -22,6 +22,7 @@ class User extends CI_Controller {
 		$this->load->model('user_model');
 		$this->load->helper('form');
 		$this->load->library('form_validation');
+		$this->load->database();
 		
 	}
 	
@@ -38,11 +39,15 @@ class User extends CI_Controller {
 	}
 	//the user sees his program
 	public function view_program(){
-
+		$datakia = NULL;
 		if (isset($_SESSION['username'])){
 
 			$data = $this->user_model->get_nutricion_program();
-
+			//rows of the query
+			$affected_rows = $this->db->affected_rows();
+			//check if query returns
+			if ($affected_rows > 0){
+				
 			$datakia = array(
 				'monday_morning' => $data->row(0)->monday_break,
 				'monday_launch' => $data->row(1)->monday_lau ,
@@ -75,12 +80,18 @@ class User extends CI_Controller {
 			 );
 		//num_rows return the number of lines in the query
 			$datakia['rows'] = $data->num_rows();
+		
 			
 
 
 			$this->load->view('header');
 			$this->load->view('user/nutricion_program_view' , $datakia);
 			$this->load->view('footer', $data );
+			}else{
+				$this->load->view('header');
+				$this->load->view('footer', $data );
+			}
+
 		}else{
 			redirect('user/login','refresh');
 		}

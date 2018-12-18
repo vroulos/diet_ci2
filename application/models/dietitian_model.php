@@ -17,13 +17,11 @@ class Dietitian_model extends CI_Model
 		$this->db->from('dietitian');
 		$this->db->where('dietitian_name', $dusername);
 		$hash = $this->db->get()->row('dietitian_password');
-		// echo '-----the password is : '. $dpassword;
-		// echo '-----the username is :   '. $dusername;
-		// echo '----hash is : ' .$hash;
+		
 		$answer = $this->verify_password_hash1($dpassword, $hash);
 		
 		//$this->verify_password_hash1($dpassword, $hash);
-		return 1; //i return 1 because i had a problem with the verify_password
+		return $answer; //i return 1 because i had a problem with the verify_password
 		
 	}
 	public function get_dietitian($duser_id) {
@@ -45,22 +43,16 @@ class Dietitian_model extends CI_Model
 
 	private function verify_password_hash1($dpassword, $hash) {
 		
-		if (password_verify($dpassword, $hash)) {
-			echo 'success !';
-		}
-		else{
-			echo 'error';
-		}
-		//return password_verify($dpassword, $hash);
+		return password_verify( $dpassword, $hash);
 		
 	}
 
 	public function insert_dietitian(){
-		$password = 12345;
+		$dpassword = "12345";
 		$data = array(
 			'dietitian_name'   => 'solinas4',
 			'dietitian_email'      => 'sol@gmail.com',
-			'dietitian_password'   => $this->hash_password($password),
+			'dietitian_password'   => $this->hash_password1($dpassword),
 			//'created_at' => date('Y-m-j H:i:s'),
 		);
 		
@@ -69,16 +61,13 @@ class Dietitian_model extends CI_Model
 		
 		
 	}
-	// public function hash_password1($password){
-	// 	$this->load->model('user_model');
-	// $this->user_model->hash_password($password);
-	// }
-	
-	private function hash_password($password) {
+	private function hash_password1($dpassword) {
 		
-		return password_hash($password, PASSWORD_BCRYPT);
+		return password_hash($dpassword, PASSWORD_BCRYPT);
 		
 	}
+	
+
 	//add food to the table food
 	public function add_food_model(){
 		$food = $this->input->post('food');
