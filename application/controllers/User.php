@@ -41,21 +41,41 @@ class User extends CI_Controller {
 
 		if (isset($_SESSION['username'])){
 
-			$data = $this->user_model->get_foods();
+			$data = $this->user_model->get_nutricion_program();
 
-			$datakia = array('monday_launch' => $data->row(0)->monday_lau ,
-				'monday_morning' => $data->row(1)->monday_break,
+			$datakia = array(
+				'monday_morning' => $data->row(0)->monday_break,
+				'monday_launch' => $data->row(1)->monday_lau ,
 				'monday_dinner' => $data->row(2)->monday_din,
-						  // 'tuesday_morning' =>$data->row(3)->foodname,
-						  // 'tuesday_launch' =>$data->row(4)->foodname,
-						  // 'tuesday_dinner' =>$data->row(5)->foodname,
-						  // 'wendsday_morning' =>$data->row(6)->foodname,
-						  // 'wendsday_launch' =>$data->row(7)->foodname,
-						  // 'wendsday_dinner' =>$data->row(8)->foodname,
-			);
+
+						  'tuesday_morning' =>$data->row(3)->tuesday_break,
+						  'tuesday_launch' =>$data->row(4)->tuesday_lau,
+						  'tuesday_dinner' =>$data->row(5)->tuesday_din,
+
+						  'wendsday_morning' =>$data->row(6)->wendsday_break,
+						  'wendsday_launch' =>$data->row(7)->wendsday_lau,
+						  'wendsday_dinner' =>$data->row(8)->wendsday_din,
+
+						  'thursday_morning' =>$data->row(9)->thursday_break,
+						  'thursday_launch' =>$data->row(10)->thursday_lau,
+						  'thursday_dinner' =>$data->row(11)->thursday_din,
+
+						  'friday_morning' =>$data->row(12)->friday_break,
+						  'friday_launch' =>$data->row(13)->friday_lau,
+						  'friday_dinner' =>$data->row(14)->friday_din,
+
+						  'saturday_morning' =>$data->row(15)->saturday_break,
+						  'saturday_launch' =>$data->row(16)->saturday_lau,
+						  'saturday_dinner' =>$data->row(17)->saturday_din,
+
+						  'sunday_morning' =>$data->row(18)->sunday_break,
+						  'sunday_launch' =>$data->row(19)->sunday_lau,
+						  'sunday_dinner' =>$data->row(20)->sunday_din
+
+			 );
 		//num_rows return the number of lines in the query
-			$rows = $data->num_rows();
-			echo $rows;
+			$datakia['rows'] = $data->num_rows();
+			
 
 
 			$this->load->view('header');

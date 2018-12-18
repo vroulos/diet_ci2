@@ -119,11 +119,42 @@ class Dietitian_model extends CI_Model
 		$breakf_mond = $this->input->post('breakfast_monday');
 		$lunch_mond = $this->input->post('lunch_monday');
 		$dinner_mond = $this->input->post('dinner_monday');
+
+		$breakf_tue = $this->input->post('breakfast_tuesday');
+		$l_tue = $this->input->post('lunch_tuesday');
+		$d_tue = $this->input->post('dinner_tuesday');
+
+		$b_wen = $this->input->post('breakfast_wendsday');
+		$l_wen = $this->input->post('lunch_wendsday');
+		$d_wen = $this->input->post('dinner_wendsday');
+
+		$b_thu = $this->input->post('breakfast_thursday');
+		$l_thu = $this->input->post('lunch_thursday');
+		$d_thu = $this->input->post('dinner_thursday');
+
+		$b_fri = $this->input->post('breakfast_friday');
+		$l_fri = $this->input->post('lunch_friday');
+		$d_fri = $this->input->post('dinner_friday');
+
+		$b_sat = $this->input->post('breakfast_saturday');
+		$l_sat = $this->input->post('lunch_saturday');
+		$d_sat = $this->input->post('dinner_saturday');
+
+		$b_sun = $this->input->post('breakfast_sunday');
+		$l_sun = $this->input->post('lunch_sunday');
+		$d_sun = $this->input->post('dinner_sunday');
 		//echo $dinner_mond;
 		$customer_name = $_SESSION['customer_name'];
+
 		$this->db->query("INSERT INTO food(foodname) values('$breakf_mond')");
-		$this->db->query("INSERT INTO nutricion_program(monday_break , customer_name, monday_lau, monday_din) values('$breakf_mond' , '$customer_name' , '$lunch_mond', '$dinner_mond')
+
+		//insert the program to database
+		$this->db->query("INSERT INTO nutricion_program(monday_break , customer_name, monday_lau, monday_din, tuesday_break, tuesday_lau, tuesday_din,     wendsday_break, wendsday_lau, wendsday_din,        thursday_break, thursday_lau, thursday_din,       friday_break, friday_lau, friday_din,     saturday_break, saturday_lau,saturday_din,        sunday_break , sunday_lau, sunday_din, user_id) values('$breakf_mond' , '$customer_name' , '$lunch_mond', '$dinner_mond', '$breakf_tue','
+			$l_tue', '$d_tue', '$b_wen',  '$l_wen','$d_wen',  '$b_thu', '$l_thu', '$d_thu',  '$b_fri', '$l_fri', '$d_fri',  '$b_sat',  '$l_sat', '$d_sat',  '$b_sun', '$l_sun', '$d_sun',  (SELECT id FROM users WHERE username = '$customer_name' ))
 			");
+
+		$row_affected = $this->db->affected_rows();
+
 		
 }
 

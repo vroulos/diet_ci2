@@ -19,7 +19,7 @@
     <header id="site-header">
 		
 		<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light"> -->
-			<nav class="navbar navbar-expand-md navbar-dark bg-dark">
+			<nav class="navbar fixed-top navbar-expand-md navbar-dark bg-dark">
 			<a class="navbar-brand" href="#">DietCi2</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
@@ -44,6 +44,10 @@
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="<?php echo base_url('user/add_user_note'); ?>">προσωπικές σημειώσεις</a>
 								<a class="dropdown-item" href="<?php echo base_url('user/add_waistline'); ?>">περιφέρεια μέσης</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="<?php echo base_url('upload/'); ?>">Ανέβασμα Φωτογραφίας</a>
+								<a class="dropdown-item" href="<?php echo base_url('upload/display_image'); ?>">Οι φωτογραφίες μου</a>
+								<a class="dropdown-item" href="<?php //echo base_url('upload/delete_image'); ?>">Διαγραφή φωτογραφίας</a>
 							</div>
 						</li>
 
@@ -52,9 +56,7 @@
 						<li><a class="nav-link" href="<?= base_url('logout') ?>">Αποσύνδεση</a></li>
 
 						
-						<li class="nav-item">
-							<a class="nav-link disabled" href="#">κάτι θα μπει και εδώ</a>
-						</li>
+					
 					</ul>
 					<form class="form-inline my-2 my-lg-0">
 						<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">

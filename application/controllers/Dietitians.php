@@ -86,14 +86,53 @@ class Dietitians extends CI_controller
 	}
 		
 	}
-
+	// prosthiki programmatos gia pelati
 	public function add_nutricion_program(){
-		$data['foods'] = $this->dietitian_model->get_foods();
+		$data = NULL;
+		if (isset($_SESSION['dietitian_name'])){
+			if($_SERVER['REQUEST_METHOD'] == "POST" AND isset($_POST['program_submit'])){
+				
+				$this->form_validation->set_rules('breakfast_monday', 'πρωινό Δευτέρας', 'trim|required|min_length[2]|max_length[22]');
+				$this->form_validation->set_rules('lunch_monday', 'Lunch_monday', 'trim|required|min_length[2]|max_length[22]');
+				$this->form_validation->set_rules('dinner_monday', 'Dinner_monday', 'trim|required|min_length[2]|max_length[22]');
 
+				$this->form_validation->set_rules('breakfast_tuesday', 'Breakfast_tuesday', 'trim|required|min_length[2]|max_length[22]');
+				$this->form_validation->set_rules('lunch_tuesday', 'fieldlabel', 'trim|required|min_length[2]|max_length[22]');
+				$this->form_validation->set_rules('dinner_tuesday', 'Dinner tuesday', 'trim|required|min_length[2]|max_length[22]');
+
+				$this->form_validation->set_rules('breakfast_wendsday', 'breakfast_wendsday', 'trim|required|min_length[2]|max_length[22]');
+				$this->form_validation->set_rules('lunch_wendsday', 'fieldlabel', 'trim|required|min_length[2]|max_length[22]');
+				$this->form_validation->set_rules('dinner_wendsday', 'Dinner wendsday', 'trim|required|min_length[2]|max_length[22]');
+
+				$this->form_validation->set_rules('breakfast_thursday', 'fieldlabel', 'trim|required|min_length[2]|max_length[22]');
+				$this->form_validation->set_rules('lunch_thursday', 'fieldlabel', 'trim|required|min_length[2]|max_length[22]');
+				$this->form_validation->set_rules('dinner_thursday', 'Dinner thursday', 'trim|required|min_length[2]|max_length[22]');
+
+				$this->form_validation->set_rules('breakfast_friday', 'fieldlabel', 'trim|required|min_length[2]|max_length[22]');
+				$this->form_validation->set_rules('lunch_friday', 'fieldlabel', 'trim|required|min_length[2]|max_length[22]');
+				$this->form_validation->set_rules('dinner_friday', 'Dinner friday', 'trim|required|min_length[2]|max_length[22]');
+
+				$this->form_validation->set_rules('breakfast_saturday', 'saturday break', 'trim|required|min_length[2]|max_length[22]');
+				$this->form_validation->set_rules('lunch_saturday', 'saturday launch', 'trim|required|min_length[2]|max_length[22]');
+				$this->form_validation->set_rules('dinner_saturday', 'Dinner saturday', 'trim|required|min_length[2]|max_length[22]');
+
+				$this->form_validation->set_rules('breakfast_sunday', 'su break', 'trim|required|min_length[2]|max_length[22]');
+				$this->form_validation->set_rules('lunch_sunday', '', 'trim|required|min_length[2]|max_length[22]');
+				$this->form_validation->set_rules('dinner_sunday', 'Dinner sunday', 'trim|required|min_length[2]|max_length[22]');
+
+				if($this->form_validation->run() ){
+					$this->dietitian_model->insert_program_model();
+				}
+			}
+					$data['foods'] = $this->dietitian_model->get_foods();
 
 		$this->load->view('dietitian/headerd', $data);
 		$this->load->view('dietitian/add_nutricion_program_view', $data );
 		$this->load->view('footer');
+		}else {
+			redirect('dietitians/logind','refresh');
+		}
+		
 	}
 
 	public function choose_customer(){
@@ -108,8 +147,6 @@ class Dietitians extends CI_controller
 		}else{
 			redirect('dietitians/logind','refresh');
 		}
-		
-
 
 	}
 
@@ -118,6 +155,8 @@ class Dietitians extends CI_controller
 
 		$data = NULL;
 		if (isset($_SESSION['dietitian_name'])){
+
+			if($_SERVER['REQUEST_METHOD'] == "POST" AND isset($_POST['']))
 			$this->form_validation->set_rules('breakfast_monday', 'Breakfast_monday', 'trim|required|min_length[5]|max_length[12]');
 
 		if ($this->form_validation->run() == false) {
@@ -137,8 +176,7 @@ class Dietitians extends CI_controller
 		}else{
 			redirect('dietitians/logind','refresh');
 		}
-		
-		
+				
 	}
 
 	public function send_message(){

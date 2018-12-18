@@ -13,6 +13,7 @@
 	.container {
   display: flex; /* or inline-flex */
   justify-content: space-around;
+  
 }
 
 img{
