@@ -134,12 +134,11 @@ class User_model extends CI_Model {
 	}
 
 
-	public function get_nutricion_program(){
-		$name = $_SESSION['username'];
-		$user_id = $_SESSION['user_id'];
+	public function get_nutricion_program($name, $user_id){
+		
+		
 		//select the row with user max user id . that row has the current nutricion program
 		$query = $this->db->query("SELECT * FROM nutricion_program where user_id = '$user_id' ORDER BY id DESC LIMIT 1");
-		
 
 		return $query;
 	}

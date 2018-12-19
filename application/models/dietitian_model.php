@@ -153,6 +153,12 @@ class Dietitian_model extends CI_Model
 
 		$this->db->query("INSERT INTO messages(customer , message) values('$customer', '$message')");
 	}
+	//fernei olo to istoriko varous
+	public function get_weight_history(){
+		$user = $_SESSION['customer_name'];
+		$query = $this->db->query("SELECT * FROM personal_data where customer = '$user' ");
+		return $query->result();
+	}
 }
 
 ?>

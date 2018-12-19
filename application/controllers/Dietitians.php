@@ -15,6 +15,7 @@ class Dietitians extends CI_controller
 		$this->load->library('session');
 		$this->load->helper('form');
 		$this->load->library('form_validation');
+		$this->load->database();
 	}
 
 	public function initial(){
@@ -62,7 +63,7 @@ class Dietitians extends CI_controller
 
 	
 
-
+	//epilogi pelati kai apothikeysi sto $customer_name ti session tou pelati
 	public function customer(){
 		if (isset($_SESSION['dietitian_name'])){
 				//the customer id
@@ -73,10 +74,12 @@ class Dietitians extends CI_controller
 		$row = $dos->row();
 
 		$customer_name = $row->username;
+		
 
 		$data = array('name' => $customer_name );
 		$data['foods'] = $this->dietitian_model->get_foods();
 		$this->session->set_userdata('customer_name' , $customer_name);
+		$this->session->set_userdata('customer_id' , $customer_id);
 
 		$this->load->view('dietitian/headerd', $data);
 		$this->load->view('dietitian/initial_view', $data );
@@ -204,6 +207,81 @@ class Dietitians extends CI_controller
 		}
 	}
 
+	public function customer_progress(){
+		if (isset($_SESSION['dietitian_name'])){
+
+			
+			$data['weight_history'] = $this->dietitian_model->get_weight_history();
+
+			$this->load->view('dietitian/headerd');
+				$this->load->view('dietitian/customer_progress_view' , $data);
+				$this->load->view('footer');
+		}
+	}
+
+	public function customer_nutricion_program(){
+		$data = NULL;
+		$datakia = NULL;
+		if(isset($_SESSION['dietitian_name'])){
+
+			$this->load->model('user_model');
+			$name = $_SESSION['customer_name'];
+			$user_id = $_SESSION['customer_id'];
+			$data = $this->user_model->get_nutricion_program($name , $user_id);
+
+			//rows of the query
+			$affected_rows = $this->db->affected_rows();
+			//check if query returns
+			if ($affected_rows > 0){
+				
+			 $datakia = array(
+			 	'monday_morning' => $data->row(0)->monday_break,
+				'monday_launch' => $data->row(1)->monday_lau ,
+				'monday_dinner' => $data->row(2)->monday_din,
+
+						  'tuesday_morning' =>$data->row(3)->tuesday_break,
+						  'tuesday_launch' =>$data->row(4)->tuesday_lau,
+						  'tuesday_dinner' =>$data->row(5)->tuesday_din,
+
+						  'wendsday_morning' =>$data->row(6)->wendsday_break,
+						  'wendsday_launch' =>$data->row(7)->wendsday_lau,
+						  'wendsday_dinner' =>$data->row(8)->wendsday_din,
+
+						  'thursday_morning' =>$data->row(9)->thursday_break,
+						  'thursday_launch' =>$data->row(10)->thursday_lau,
+						  'thursday_dinner' =>$data->row(11)->thursday_din,
+
+						  'friday_morning' =>$data->row(12)->friday_break,
+						  'friday_launch' =>$data->row(13)->friday_lau,
+						  'friday_dinner' =>$data->row(14)->friday_din,
+
+						  'saturday_morning' =>$data->row(15)->saturday_break,
+						  'saturday_launch' =>$data->row(16)->saturday_lau,
+						  'saturday_dinner' =>$data->row(17)->saturday_din,
+
+						  'sunday_morning' =>$data->row(18)->sunday_break,
+						  'sunday_launch' =>$data->row(19)->sunday_lau,
+						  'sunday_dinner' =>$data->row(20)->sunday_din
+
+			  );
+		//num_rows return the number of lines in the query
+			$datakia['rows'] = $data->num_rows();
+		
+			
+
+
+			$this->load->view('dietitian/headerd');
+			//i am using the nutricion program view second time
+			$this->load->view('user/nutricion_program_view' , $datakia);
+			$this->load->view('footer', $data );
+			}else{
+				$this->load->view('header');
+				$this->load->view('footer', $data );
+			}
+
+		}
+	}
+
 
 	//login dietitian
 	public function logind(){
@@ -213,7 +291,7 @@ class Dietitians extends CI_controller
 
 		$diet_username = $this->input->post('dietname');
 		//check if the dietitian is logged in . If yes is stays . If not goes to login page
-		if ($this->session->userdata($diet_username) && isset($_SESSION['dietitian_name'])) {
+		if ($this->session->userdata($diet_username) && $_SESSION['dietitian_name'] = $diet_username) {
 			
 			$this->load->view('dietitian/headerd');
 			$this->load->view('dietitian/login/logind_success');

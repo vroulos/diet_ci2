@@ -42,7 +42,9 @@ class User extends CI_Controller {
 		$datakia = NULL;
 		if (isset($_SESSION['username'])){
 
-			$data = $this->user_model->get_nutricion_program();
+			$name = $_SESSION['username'];
+			$user_id = $_SESSION['user_id'];
+			$data = $this->user_model->get_nutricion_program($name, $user_id );
 			//rows of the query
 			$affected_rows = $this->db->affected_rows();
 			//check if query returns
