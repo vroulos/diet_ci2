@@ -303,6 +303,9 @@ class User extends CI_Controller {
 		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|is_unique[users.email]');
 		$this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[6]');
 		$this->form_validation->set_rules('password_confirm', 'Confirm Password', 'trim|required|min_length[6]|matches[password]');
+		$this->form_validation->set_rules('password_identity', 'Recognition Password', 'trim|required|min_length[4]|callback_check_pass_recognition');
+
+
 		
 		if ($this->form_validation->run() === false) {
 			
@@ -317,9 +320,13 @@ class User extends CI_Controller {
 			$username = $this->input->post('username');
 			$email    = $this->input->post('email');
 			$password = $this->input->post('password');
+			$pass_id = $this->input->post('password_identity');
+
+
 			
 			if ($this->user_model->create_user($username, $email, $password)) {
-				
+
+				$this->user_model->delete_pass_identit($username ,$pass_id );
 				// user creation ok
 				$this->load->view('header');
 				$this->load->view('user/register/register_success', $data);
@@ -339,6 +346,17 @@ class User extends CI_Controller {
 			
 		}
 		
+	}
+	//elegxei an yparxei o kodikos gia tin tautopoiisi tou pelati
+	public function check_pass_recognition($pass){
+		$exist = $this->user_model->check_recognition_pass($pass);
+		echo $exist;
+		if($exist > 0 and $exist < 2){
+			return true;
+		}else{
+			$this->form_validation->set_message('check_pass_recognition' , 'The password does not exist. Try again');
+			return false;
+		}
 	}
 
 	/**

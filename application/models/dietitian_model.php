@@ -159,6 +159,38 @@ class Dietitian_model extends CI_Model
 		$query = $this->db->query("SELECT * FROM personal_data where customer = '$user' ");
 		return $query->result();
 	}
+
+		public function get_register_passwords(){
+		$query = $this->db->query("SELECT * FROM pass_identit");
+
+		$affected_rows = $this->db->affected_rows();
+		
+		if ($affected_rows > 0)
+
+		return $query->result();
+	}
+	//vazei o diaitologos ston pinaka pass_identit to kodiko pou epithimei 
+	public function insert_new_register_password($password){
+		
+		$this->db->query("INSERT INTO pass_identit(password_id ) values('$password' )");
+			
+	}
+
+	public function check_password_id($password){
+
+		//select all password to see if already exist below
+		$query = $this->db->query("SELECT * FROM pass_identit where password_id = '$password' ");
+
+		$affected_rows = $this->db->affected_rows();
+		echo $affected_rows;
+		
+		//if the password is already in the database we do not insert it
+		if ($affected_rows > 0) {
+			return TRUE;
+		}else{
+			return false;
+		}		
+	}
 }
 
 ?>

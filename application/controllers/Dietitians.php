@@ -206,11 +206,11 @@ class Dietitians extends CI_controller
 				redirect('dietitians/logind','refresh');
 		}
 	}
-
+	//o dietologos vlepei tin proodo varous toy pelati se grafima 
 	public function customer_progress(){
 		if (isset($_SESSION['dietitian_name'])){
 
-			
+			//olo to istoriko varous
 			$data['weight_history'] = $this->dietitian_model->get_weight_history();
 
 			$this->load->view('dietitian/headerd');
@@ -218,22 +218,26 @@ class Dietitians extends CI_controller
 				$this->load->view('footer');
 		}
 	}
-
+// o diaitologos vlepi to trexon programa tou pelati
 	public function customer_nutricion_program(){
 		$data = NULL;
 		$datakia = NULL;
+		//check if dietitian has logged in
 		if(isset($_SESSION['dietitian_name'])){
 
+			//fortonw to user model gia an xrisimopoiiso ti sunartisi get_nutricion_program()
 			$this->load->model('user_model');
+
 			$name = $_SESSION['customer_name'];
 			$user_id = $_SESSION['customer_id'];
+			//save the current customer program and save it to $data
 			$data = $this->user_model->get_nutricion_program($name , $user_id);
 
 			//rows of the query
 			$affected_rows = $this->db->affected_rows();
 			//check if query returns
 			if ($affected_rows > 0){
-				
+				//pernaw sto array to programma
 			 $datakia = array(
 			 	'monday_morning' => $data->row(0)->monday_break,
 				'monday_launch' => $data->row(1)->monday_lau ,
@@ -280,6 +284,47 @@ class Dietitians extends CI_controller
 			}
 
 		}
+	}
+
+	public function create_customer_identity(){
+		$data = NULL;
+		if(isset($_SESSION['dietitian_name'])){
+
+			if($_SERVER['REQUEST_METHOD'] == "POST" AND isset($_POST['submit_register_password'])){
+
+				$register_password = $this->input->post('register_password');
+
+				$this->form_validation->set_rules('register_password' , 'κωδικός ταυτοποίησης' , 'trim|required|min_length[6]|callback_check_password');
+
+				if($this->form_validation->run() ){
+					
+				$this->dietitian_model->insert_new_register_password($register_password);
+				}
+				
+
+			}
+
+
+			$data['password'] = $this->dietitian_model->get_register_passwords();
+			
+
+			$this->load->view('dietitian/headerd');
+			$this->load->view('dietitian/create_customer_identity_view' , $data);
+			$this->load->view('footer', $data );
+		}
+	}
+
+	public function check_password($password){
+		$result = $this->dietitian_model->check_password_id($password);
+
+		if($result){
+			$this->form_validation->set_message('check_password' , 'Ο κωδικός υπάρχει ήδη');
+
+			return false;
+		}else{
+			return true;
+		}
+
 	}
 
 

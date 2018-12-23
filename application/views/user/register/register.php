@@ -41,6 +41,10 @@
 					<p class="help-block">Must match your password</p>
 				</div>
 				<div class="form-group">
+					<label for="password_recognition">Κωδικός ταυτοποίησης</label>
+					<input type="password" class="form-control" id="password" name="password_identity" placeholder="ταυτοποίση ">
+				</div>
+				<div class="form-group">
 					<input type="submit" class="btn btn-default" value="Register">
 				</div>
 			</form>

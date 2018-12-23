@@ -34,3 +34,9 @@ $user_id = $_SESSION['user_id']; ?>
 		<?php }	?> 
 	</div>
 </div> 
+
+<div>
+		<img src="<?php echo base_url('upload/get_image?Fast-food.jpg') ?>" />
+	<img src="<?php echo base_url();?>upload/get_image/Fast-food.jpg" />
+
+</div>

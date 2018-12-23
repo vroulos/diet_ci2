@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title></title>
+	<title>Διαιτολόγος</title>
 	<!-- load the jquery from cdn because the toggle navigation was not working -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<!-- load local bootstrap css -->
@@ -42,6 +42,9 @@
 						<li class="nav-item">
 							<a class="nav-link" href="<?php echo base_url('dietitians/choose_customer') ?>">επιλογή πελάτη</a>
 						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="<?php echo base_url('dietitians/create_customer_identity') ?>">Ταυτοποίηση πελάτη</a>
+						</li>
 					<?php } ?>
 						<?php if(isset($_SESSION['customer_name'])) {?>
 						
@@ -56,6 +59,7 @@
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="<?php echo base_url('dietitians/customer_progress') ?>">πρόοδος πελάτη</a>
 								<a class="dropdown-item" href="<?php echo base_url('dietitians/customer_nutricion_program') ?>">τρέχων πρόγραμμα</a>
+
 							</div>
 						</li>
 						<li class="nav-item">

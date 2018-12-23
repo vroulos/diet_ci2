@@ -265,4 +265,19 @@ class User_model extends CI_Model {
 		return $query->result();
 	}
 
+	public function check_recognition_pass($pass){
+		$query = $this->db->query("SELECT * FROM pass_identit where password_id = '$pass' " );
+
+		$rec_pass_exist = $this->db->affected_rows($query);
+
+		return $rec_pass_exist;
+	}
+	// otan o pelatis oloklirosei tin eggrafi diagrafetai o kodikos pistopoiisis
+	public function delete_pass_identit($username , $password_id){
+
+		$this->db->query("DELETE FROM pass_identit WHERE password_id = '$password_id' ");
+
+		//$this->db->query("UPDATE pass_identit SET user_id = '1' where username = '$username' ");
+	}
+
 }
