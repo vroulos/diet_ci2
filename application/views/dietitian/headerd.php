@@ -1,7 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
+	
 	<title>Διαιτολόγος</title>
+
+	<!-- Firebase App is always required and must be first -->
+<script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-app.js"></script>
+
+<!-- Add additional services that you want to use -->
+<script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-messaging.js"></script>
+
+
+<script src="https://www.gstatic.com/firebasejs/5.7.1/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCMMDvFcKrcMduuwJx0gVUh5wVwSjRZEW4",
+    authDomain: "sendy-c324f.firebaseapp.com",
+    databaseURL: "https://sendy-c324f.firebaseio.com",
+    projectId: "sendy-c324f",
+    storageBucket: "sendy-c324f.appspot.com",
+    messagingSenderId: "506097740603"
+  };
+  firebase.initializeApp(config);
+</script>
+
+
+
+
 	<!-- load the jquery from cdn because the toggle navigation was not working -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<!-- load local bootstrap css -->
