@@ -3,6 +3,7 @@
 <head>
 	
 	<title>Διαιτολόγος</title>
+	<link rel="icon"  href="<?php echo base_url('assets/images/favicon.png'); ?>">
 
 	<!-- Firebase App is always required and must be first -->
 <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-app.js"></script>
@@ -34,7 +35,11 @@
     <link href="<?php echo base_url('assets/bootstrap/css/bootstrap.min.css'); ?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/bootstrap/css/bootstrap.css'); ?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/css/style.css'); ?>" rel="stylesheet">
-
+    <!-- material icons -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<style type="text/css">
+		.material-icons.md-48 { font-size: 25px;color: #808080; margin-top: 10px;  }
+	</style>
 
 
 	
@@ -91,15 +96,32 @@
 						<li class="nav-item">
 							<a class="nav-link disabled" href="">κενό</a>
 						</li>
+						
 					<?php } ?>
+					<!-- if the dietitian has logged in -->
+					<?php if (isset($_SESSION['dietitian_name'])) { ?>
 						<li class="nav-item">
+							<a class="nav-link disabled" href="<?= base_url('dietitians/settings') ?>">Προφίλ</a>
+						</li>
+						
+							<li class="nav-item">
 							<a class="nav-link disabled" href="<?= base_url('dietitians/logoutd') ?>">Αποσύνδεση</a>
 						</li>
+
+					<?php } ?>
+					
 					</ul>
-					<form class="form-inline my-2 my-lg-0">
-						<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-						<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+					<?php // if the dietitian is logged in the search tool is available
+					if (isset($_SESSION['dietitian_name'])) {?>
+						<form class="form-inline my-2 my-lg-0" action ="<?= base_url('dietitians/search') ?>">
+						<input class="form-control mr-sm-2" type="search" name="search_something"    placeholder="Search"  aria-label="Search">
+						<button class="btn btn-outline-success my-2 my-sm-0"  type="submit">Search</button>
 					</form>
+					<?php } ?>
+
+
+					 
+					
 				</div>
 			</nav>
 

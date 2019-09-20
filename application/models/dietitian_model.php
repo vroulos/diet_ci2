@@ -104,6 +104,15 @@ class Dietitian_model extends CI_Model
 		return $query->result();
 	}
 
+    //search the dietitians in the database
+	public function search_anything($name){
+		$query = $this->db->query("SELECT `dietitian_id`, `dietitian_name`, `dietitian_email`, `dietitian_password`, `dietitian_age`, `dietitian_mobile` FROM `dietitian` WHERE dietitian_name =  '$name' ");
+		if ($query) {
+		
+			return $query->result();
+		}
+	}
+
 	public function insert_program_model(){
 		$breakf_mond = $this->input->post('breakfast_monday');
 		$lunch_mond = $this->input->post('lunch_monday');
@@ -158,6 +167,23 @@ class Dietitian_model extends CI_Model
 		$user = $_SESSION['customer_name'];
 		$query = $this->db->query("SELECT * FROM personal_data where customer = '$user' ");
 		return $query->result();
+	}
+
+	public function get_dietitian_info($dietitian){
+		$query = $this->db->query("SELECT * FROM dietitian WHERE dietitian_name = '$dietitian' ");
+		if ($query) {
+			return $query->row();
+		}
+	}
+
+	public function update_dietitian_info($oldName, $newName, $newEmail, $newMobile, $newAge){
+
+		$query = $this->db->query("UPDATE dietitian SET dietitian_name = '$newName', dietitian_email = '$newEmail', dietitian_mobile = '$newMobile', dietitian_age = '$newAge' where dietitian_name = '$oldName';");
+		if ($query) {
+			//update the session variable with new dietitian name
+			$_SESSION['dietitian_name'] = $newName;
+			
+		}
 	}
 
 		public function get_register_passwords(){
