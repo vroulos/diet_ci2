@@ -12,6 +12,7 @@
 <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-messaging.js"></script>
 
 
+
 <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase.js"></script>
 <script>
   // Initialize Firebase
@@ -25,7 +26,6 @@
   };
   firebase.initializeApp(config);
 </script>
-
 
 
 
@@ -45,6 +45,8 @@
 	
 	</head>
 	<body>
+
+		
 
 		<div class="container-fullwidth" >
 
@@ -126,4 +128,6 @@
 			</nav>
 
 		</div>
+
+
 

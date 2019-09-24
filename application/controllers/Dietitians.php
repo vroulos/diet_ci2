@@ -134,6 +134,8 @@ class Dietitians extends CI_controller
 			$this->load->view('dietitian/headerd', $data);
 			$this->load->view('dietitian/add_nutricion_program_view', $data );
 			$this->load->view('footer');
+
+			//$this->output->set_output(json_encode($data));
 		}else {
 			redirect('dietitians/logind','refresh');
 		}
@@ -362,7 +364,8 @@ class Dietitians extends CI_controller
 				} else {
 					//adds the new information to the database
 					$this->dietitian_model->update_dietitian_info($old_dietitian_name, $newName,$newEmail, $newMobile, $newAge);
-					$_SESSION['dietitian_name'] = $newName;
+					
+					
 
 					//get the updated profile information from database. Run the function with new Name
 					$data['dietitian_profile_info'] = $this->dietitian_model->get_dietitian_info($newName);

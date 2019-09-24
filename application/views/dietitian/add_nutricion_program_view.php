@@ -36,7 +36,7 @@
     	   <td>  
   <div class="form-group mx-sm-3 mb-2">
     <label for="breakfast_monday" class="sr-only">πρωινό</label>
-    <input type="text" class="form-control" name = "breakfast_monday" placeholder="πρωινό">
+    <input id="1" type="text" class="form-control" name = "breakfast_monday" placeholder="πρωινό">
   </div>
  </td>
      
