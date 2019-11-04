@@ -1,4 +1,4 @@
-
+<div id="choose_customer_view">
   <table class="table">
     <thead>
       <th>πελάτης</th>
@@ -13,3 +13,4 @@
     </tbody>
 
   </table>
+  </div>

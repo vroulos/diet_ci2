@@ -1,7 +1,8 @@
+<div id="create_customer_identity">
 <?php echo form_open('dietitians/create_customer_identity'); ?>
-<div class="form-group">
+<div class="form-group" id="insertNewUserPassword">
 	<label>προσθήκη κωδικού</label>
-<input type="text" class="form-control" name="register_password" class="">
+<input type="text" class="form-control" name="register_password" class="" >
 </div>
 <input type="submit" name="submit_register_password" class="btn btn-secondary">
 <?php echo form_close(); ?>
@@ -27,3 +28,4 @@
 <?php } } ?>
   </tbody>
 </table>
+</div>

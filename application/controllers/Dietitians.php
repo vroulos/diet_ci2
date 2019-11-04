@@ -318,6 +318,18 @@ class Dietitians extends CI_controller
 		}
 	}
 
+	public function my_meals(){
+		if (isset($_SESSION['dietitian_name'])) {
+			$data = null;
+
+			$data['my_meals'] = $this->dietitian_model->get_my_meals();
+
+			$this->load->view('dietitian/headerd');
+			$this->load->view('dietitian/my_meals_view', $data);
+			$this->load->view('footer');
+		}
+	}
+
 	//search for dietitians and display nane and email if exists
 	public function search(){
 

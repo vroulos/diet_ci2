@@ -176,6 +176,14 @@ class Dietitian_model extends CI_Model
 		}
 	}
 
+	//get all meals from database
+	public function get_my_meals(){
+		$query = $this->db->query("SELECT * FROM food");
+		if ($query) {
+			return  $query->result();
+		}
+	}
+
 	public function update_dietitian_info($oldName, $newName, $newEmail, $newMobile, $newAge){
 
 		$query = $this->db->query("UPDATE dietitian SET dietitian_name = '$newName', dietitian_email = '$newEmail', dietitian_mobile = '$newMobile', dietitian_age = '$newAge' where dietitian_name = '$oldName';");

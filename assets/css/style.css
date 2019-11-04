@@ -22,7 +22,7 @@ body {
   float: left;
   height: 100%;
   background-color: #ffffff;
-  z-index: 1010101010
+  /*z-index: 1010101010*/
 }
 
 #col-2 {
@@ -31,7 +31,7 @@ body {
   float: left;
   height: 100%;
   background-color: #ffffff;
-  z-index: 1010101010;
+  /*z-index: 1010101010;*/
   display: none;
 
 }
@@ -43,5 +43,19 @@ body {
   color: white;
   font-size: 25px;
   box-sizing: border-box;
+}
+
+#create_customer_identity{
+  margin-right: 200px;
+  margin-left: 200px;
+}
+
+#choose_customer_view{
+  margin-right: 900px;
+  margin-left: 200px;
+}
+
+#insertNewUserPassword{
+  width: 200px;
 }
 

@@ -98,6 +98,8 @@
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="<?php echo base_url('dietitians/customer_progress') ?>">πρόοδος πελάτη</a>
 								<a class="dropdown-item" href="<?php echo base_url('dietitians/customer_nutricion_program') ?>">τρέχων πρόγραμμα</a>
+								<div class="dropdown-divider"></div>
+								<a class="dropdown-item" href="<?php echo base_url('dietitians/my_meals') ?>">Τα γεύματά μου</a>
 
 							</div>
 						</li>
