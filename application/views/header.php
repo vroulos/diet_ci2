@@ -27,14 +27,17 @@
   firebase.initializeApp(config);
 </script>
 
-<!-- jquery autocomplete  -->
-      <link href = "https://code.jquery.com/ui/1.10.4/themes/ui-lightness/jquery-ui.css"
-         rel = "stylesheet">
-      <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
-      <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-<!-- -------------------- -->
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+
+<script
+			  src="https://code.jquery.com/jquery-3.4.1.js"
+			  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+			  crossorigin="anonymous">
+			  	
+</script>
+
 
     <link href="<?php echo base_url('assets/bootstrap/css/bootstrap.min.css'); ?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/bootstrap/css/bootstrap.css'); ?>" rel="stylesheet">
@@ -73,8 +76,8 @@
 								<a class="dropdown-item" href="<?php echo base_url('user/add_waistline'); ?>">περιφέρεια μέσης</a>
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="<?php echo base_url('upload/'); ?>">Ανέβασμα Φωτογραφίας</a>
-								<a class="dropdown-item" href="<?php echo base_url('upload/display_image'); ?>">Οι φωτογραφίες μου</a>
-								<a class="dropdown-item" href="<?php //echo base_url('upload/delete_image'); ?>">Διαγραφή φωτογραφίας</a>
+								<a class="dropdown-item" href="<?php echo base_url('upload/display_images'); ?>">Οι φωτογραφίες μου</a>
+								<a class="dropdown-item" href="<?php echo base_url('upload/delete_image'); ?>">Διαγραφή φωτογραφίας</a>
 								
 							</div>
 						</li>

@@ -7,7 +7,7 @@
 
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="<?php echo base_url('assets/jQuery/jQuery-3.3.1.min.js'); ?>"></script>
+<script src="<?php echo base_url('assets/jQuery/jQuery-3.4.1.js'); ?>"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="<?php echo base_url('assets/bootstrap/js/bootstrap.js'); ?>"></script>
 

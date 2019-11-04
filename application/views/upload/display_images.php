@@ -25,18 +25,40 @@ img:hover {
 $this->load->helper('directory'); //load directory helper
 $user_id = $_SESSION['user_id']; ?>
 
-<div class="images">
+<div class="images" >
 	<div class="row">
 		<?php  foreach ($map as $k) { ?>
 
-			<img class="col-md-4 col-sm-4 col-xs-6" class="img-responsive" src="<?php echo base_url($dir.'/'.$k);?>" >
-
+			<img class="col-md-4 col-sm-4 col-xs-6" class="img-responsive" src="<?php echo base_url($dir.'/'.$k);?>" id = "imageId">
+				<button class="btn btn-dark" id="buttonId">delete</button>
 		<?php }	?> 
 	</div>
 </div> 
 
-<div>
-		<img src="<?php echo base_url('upload/get_image?Fast-food.jpg') ?>" />
-	<img src="<?php echo base_url();?>upload/get_image/Fast-food.jpg" />
+<script>
 
-</div>
+	$("#buttonId").click(function(event) {
+		
+	var path = "uploads/images/"+<?php echo $user_id ?>+"/honey.jpg";
+	var action = "remove_file";
+	console.log(path);
+
+
+	if (confirm("Are you sure?")) {
+	 	$.ajax({
+	 		url: "<?php echo base_url();?>/upload/delete_image",
+	 		type: 'POST',
+	 		
+	 		data: {'paht': path, 'action' : action},
+	 		success: function(data){
+	 			alert('wow men'+data);
+	 		}
+	 	
+	 });
+	}
+});
+	 
+
+</script>
+
+

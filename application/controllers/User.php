@@ -202,7 +202,7 @@ class User extends CI_Controller {
 
 				}
 			}
-			$this->load->view('header1', $data);
+			$this->load->view('header', $data);
 			$this->load->view('user/waistline_view', $data);
 			$this->load->view('footer', $data );
 		}else{
@@ -259,6 +259,29 @@ class User extends CI_Controller {
 				$this->load->view('header', $data);
 				$this->load->view('user/user_note_view', $data);
 				$this->load->view('footer', $data );
+			}
+		}
+	}
+
+
+	public function delete_note1(){
+		if (isset($_SESSION['username'])){
+
+
+			$note_for_delete = $this->input->post('id');
+
+			if(isset($note_for_delete)){
+
+				$this->user_model->delete_note($note_for_delete);
+
+
+				$data['notes'] = $this->user_model->get_notes();
+
+				$this->load->view('header', $data);
+				$this->load->view('user/user_note_view', $data);
+				$this->load->view('footer', $data );
+			}else{
+				echo "lalelloo nonono";
 			}
 		}
 	}

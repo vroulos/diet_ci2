@@ -382,6 +382,9 @@ class Dietitians extends CI_controller
 
 			
 
+		}else{
+			//redirect to login page
+			redirect('dietitians/logind','refresh');
 		}
 	}
 

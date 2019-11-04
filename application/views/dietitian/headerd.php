@@ -29,8 +29,14 @@
 
 
 
-	<!-- load the jquery from cdn because the toggle navigation was not working -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+
+<script
+			  src="https://code.jquery.com/jquery-3.4.1.js"
+			  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+			  crossorigin="anonymous">
+			  	
+</script>
+
 	<!-- load local bootstrap css -->
     <link href="<?php echo base_url('assets/bootstrap/css/bootstrap.min.css'); ?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/bootstrap/css/bootstrap.css'); ?>" rel="stylesheet">
@@ -94,9 +100,6 @@
 								<a class="dropdown-item" href="<?php echo base_url('dietitians/customer_nutricion_program') ?>">τρέχων πρόγραμμα</a>
 
 							</div>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link disabled" href="">κενό</a>
 						</li>
 						
 					<?php } ?>
