@@ -59,7 +59,30 @@ body {
   margin-left: 0px;
 }
 
-.form-group{
+/*.form-group{
   max-width: 230px;
   margin: auto;
+}*/
+
+/*.row{
+  max-width: 80%;
+  margin: auto;
+}*/
+
+/*.mainDiv{
+  max-width: 1400px;
+  margin: auto;
+}*/
+
+#buttonAddNote{
+
+}
+hr {
+    display: block;
+    height: 1px;
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 1em 250px 50px 50px;
+    padding: 0;
+
 }

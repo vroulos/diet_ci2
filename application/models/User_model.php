@@ -118,7 +118,6 @@ class User_model extends CI_Model {
 	// }
 
 	
-	
 	/**
 	 * verify_password_hash function.
 	 * 
@@ -133,7 +132,6 @@ class User_model extends CI_Model {
 		
 	}
 
-
 	public function get_nutricion_program($name, $user_id){
 		
 		
@@ -143,18 +141,18 @@ class User_model extends CI_Model {
 		return $query;
 	}
 
-	public function get_messages(){
+	public function get_messages($customer_name){
 
-		if (isset($_SESSION['username'])) {
-		$customer_name = $_SESSION['username'] ;
+		$query = $this->db->query("SELECT * FROM messages where customer = '$customer_name' ORDER BY date_sent DESC");
 
-		$query = $this->db->query("SELECT * FROM messages where customer = '$customer_name'");
+		$affected_rows = $this->db->affected_rows();
 
-		return $query->result();
-
-	}else{
-		redirect('user/login','refresh');
-	}
+		if ($affected_rows) {
+			return $query->result();
+		}else{
+			return null;
+		}
+		
 
 	}
 
@@ -210,7 +208,6 @@ class User_model extends CI_Model {
 
 		$user_id = $_SESSION['user_id'];
 		$user = $_SESSION['username'];
-		echo 'add note is running';
 		$query = $this->db->query("insert INTO user_notes(note, user_id) values('$note', (SELECT id FROM users WHERE username = '$user')) ");
 
 
@@ -220,7 +217,7 @@ class User_model extends CI_Model {
 		$user_id = $_SESSION['user_id'];
 		$user = $_SESSION['username'];
 
-		$query = $this->db->query("SELECT * FROM user_notes WHERE user_id = '$user_id'");
+		$query = $this->db->query("SELECT * FROM user_notes WHERE user_id = '$user_id' ORDER BY date_inserted DESC");
 		
 		return $query->result();
 	}		

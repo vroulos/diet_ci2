@@ -13,5 +13,11 @@
 
 <script type="text/javascript" src="<?php echo base_url('assets/js/script.js') ?>"></script>
 
+<!--  use a javascript approach, window.history.replaceState to prevent a resubmit on refresh and back button. In other words with this script the form is not submiting again -->
+<script type="text/javascript">
+	if ( window.history.replaceState ) {
+  window.history.replaceState( null, null, window.location.href );
+}
+</script>
 </body>
 </html>

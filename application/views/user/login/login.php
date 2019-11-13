@@ -22,11 +22,11 @@
 			<?= form_open() ?>
 				<div class="form-group">
 					<label for="username">Όνομα Χρήστη</label>
-					<input type="text" class="form-control" id="username" name="username" placeholder="Το Όνομα σου">
+					<input type="text" class="form-control" id="username" name="username" placeholder="Το Όνομα σου" style="max-width: 230px">
 				</div>
 				<div class="form-group">
 					<label for="password">Κωδικός</label>
-					<input type="password" class="form-control" id="password" name="password" placeholder="Ο Κωδικός σου">
+					<input type="password" class="form-control" id="password" name="password" placeholder="Ο Κωδικός σου" style="max-width: 230px">
 				</div>
 				<div class="form-group">
 					<input type="submit" class="btn btn-default" value="Σύνδεση" style="margin-top: 10px">

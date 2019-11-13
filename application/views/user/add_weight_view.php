@@ -5,7 +5,7 @@
 		<label for="water">Προσθήκη βάρους</label>
 		<input type="number" class="form-control" name="weight" id="1"  placeholder="κενό">
 	</div>
-	<input type="submit" name="addWeight" value="Υποβολή" class="btn btn-secondary">
+	<input type="submit" name="addWeight" value="Υποβολή" class="btn btn-secondary" style=" margin-bottom: 10px">
 
 	<div class="col-md-6">
 		<?php if(isset($weight)){ ?>

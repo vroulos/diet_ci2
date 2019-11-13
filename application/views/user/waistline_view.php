@@ -4,7 +4,7 @@
 	<div class="form-group">
 		<label for="water">Περιφέρεια μέσης</label>
 		<input type="number" class="form-control" name="waistline" id="cm"  placeholder="cm">
-			<input type="submit" name="addWaistline" value="Υποβολή" class="btn btn-secondary">
+			<input type="submit" name="addWaistline" value="Υποβολή" class="btn btn-secondary" style="margin-top: 10px; margin-bottom: 10px">
 	<?php echo form_close(); ?>
 
 <div class="col-md-offset-10">

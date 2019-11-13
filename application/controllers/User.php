@@ -242,6 +242,8 @@ class User extends CI_Controller {
 			$this->load->view('user/user_note_view' , $data);
 			$this->load->view('footer', $data );
 
+		}else{
+			redirect('user/login','refresh');
 		}
 	}
 
@@ -262,6 +264,8 @@ class User extends CI_Controller {
 				$this->load->view('user/user_note_view', $data);
 				$this->load->view('footer', $data );
 			}
+		}else{
+			redirect('user/login','refresh');
 		}
 	}
 
@@ -289,8 +293,11 @@ class User extends CI_Controller {
 	}
 
 	public function messages(){
+
+		if (isset($_SESSION['username'])) {
+		$customer_name = $_SESSION['username'] ;
 		//get the user message form database
-		$this->user_model->get_messages();
+		//$this->user_model->get_messages($customer_name);
 
 		//$message_to_delete = $this->db->input('post');
 		$id = $this->input->post('message_to_delete');
@@ -301,11 +308,24 @@ class User extends CI_Controller {
 
 		//echo $message_to_delete;
 		// delete the messages
+		$data['messages'] = $this->user_model->get_messages($customer_name);
+			if (isset($data['messages'])) {
+			
+				$this->load->view('header');
+				$this->load->view('user/message_user_view' , $data);
+				$this->load->view('footer', $data );
+			}else{
+				$data = null;
+				$this->load->view('header');
+				$this->load->view('user/message_user_view' , $data);
+				$this->load->view('footer', $data );
+			}
+		
 
-		$data['messages'] = $this->user_model->get_messages();
-		$this->load->view('header');
-		$this->load->view('user/message_user_view' , $data);
-		$this->load->view('footer', $data );
+		}else{
+
+		redirect('user/login','refresh');
+	 	}
 	}
 	
 	/**
