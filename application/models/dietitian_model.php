@@ -204,9 +204,9 @@ class Dietitian_model extends CI_Model
 		return $query->result();
 	}
 	//vazei o diaitologos ston pinaka pass_identit to kodiko pou epithimei 
-	public function insert_new_register_password($password){
+	public function insert_new_register_password($password, $user_email){
 		
-		$this->db->query("INSERT INTO pass_identit(password_id ) values('$password' )");
+		$this->db->query("INSERT INTO pass_identit(password_id, user_email) values('$password', '$user_email' )");
 			
 	}
 

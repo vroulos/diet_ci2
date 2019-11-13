@@ -3,9 +3,9 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="page-header">
-				<h1>Thank you for registering your new account!</h1>
+				<h1>Ευχαριστούμε για την εγγραφή!</h1>
 			</div>
-			<p>You have successfully register. Please check your email inbox to confirm your email address.</p>
+			<p>Τώρα μπορείς να συνδεθείς με το όνομα και τον κωδικό σου</p>
 		</div>
 	</div><!-- .row -->
 </div><!-- .container -->

@@ -17,7 +17,7 @@
 		<?php endif; ?>
 		<div class="col-md-12">
 			<div class="page-header">
-				<h1>Σύνδεση</h1>
+				<h1 style="font-family: sans-serif;">Σύνδεση</h1>
 			</div>
 			<?= form_open() ?>
 				<div class="form-group">
@@ -29,7 +29,7 @@
 					<input type="password" class="form-control" id="password" name="password" placeholder="Ο Κωδικός σου">
 				</div>
 				<div class="form-group">
-					<input type="submit" class="btn btn-default" value="Σύνδεση">
+					<input type="submit" class="btn btn-default" value="Σύνδεση" style="margin-top: 10px">
 				</div>
 			</form>
 		</div>

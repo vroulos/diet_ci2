@@ -137,6 +137,8 @@ class User extends CI_Controller {
 			$this->load->view('header');
 			$this->load->view('user/add_weight_view' , $data);
 			$this->load->view('footer', $data );
+		} else {
+			redirect('user/login','refresh');
 		}
 	}
 	//prosthetei kai emfanizei to pososto lipous
@@ -328,7 +330,9 @@ class User extends CI_Controller {
 		$this->form_validation->set_rules('password_confirm', 'Confirm Password', 'trim|required|min_length[6]|matches[password]');
 		$this->form_validation->set_rules('password_identity', 'Recognition Password', 'trim|required|min_length[4]|callback_check_pass_recognition');
 
-
+		if (empty($_POST['send_pass_to_user'])) {
+			echo "you password is on the way";
+		}
 		
 		if ($this->form_validation->run() === false) {
 			
@@ -370,6 +374,75 @@ class User extends CI_Controller {
 		}
 		
 	}
+
+	//get the password from email and then send it to user
+	public function get_unique_password_to_email(){
+
+		$data = null;
+
+		//take the email from user input
+		$email = $this->input->post('email');
+		echo "striaaaif";
+		//validate the email
+		// $this->form_validation->set_rules('email','EMAIL','trim|required|valid_email|is_unique[pass_identit.user_email]');
+		$this->form_validation->set_rules('email','EMAIL','trim|required|valid_email');
+
+		//if the validation is false the print the errors
+		if ($this->form_validation->run() == FALSE) {
+			echo validation_errors();
+							// send error to the view
+			
+				
+		} else {
+			echo "lets go   ";
+			echo $email;
+			$new_user_password = $this->user_model->get_user_unique_password($email);
+			if (!isset($new_user_password)) {
+				echo "the email has not sended";
+			}else
+			{
+				$this->sendMail($email,$new_user_password);
+
+			}
+		} 
+	
+
+	}
+
+	//send the email to the user. Here i am sending him the registration password
+	public function sendMail($email, $new_user_password)
+	{
+		$config = Array(
+		'protocol' => 'smtp',
+		'smtp_host' => 'ssl://smtp.googlemail.com',
+		'smtp_port' => 465,
+		'smtp_user' => 'youremail@gmail.com', // change it to yours
+		'smtp_pass' => 'yourpassword', // change it to yours
+		'mailtype' => 'html',
+		'charset' => 'iso-8859-1',
+		'wordwrap' => TRUE
+		);
+
+		//the message that is sent
+		$message = 'You are receiving a password . With that you can register in any device you want. Here is this : '.$new_user_password;
+		$this->load->library('email', $config);
+		$this->email->set_newline("\r\n");
+  		$this->email->from('youremail@gmail.com'); // change it to yours
+ 		$this->email->to('waharak487@resmail24.com');// change it to yours
+ 		$this->email->subject('Your registration password');
+ 		$this->email->message($message);
+ 		//check if the email is sent
+ 	 if($this->email->send())
+  		{
+  			echo 'Email sent.';
+  		}
+  		else
+  		{
+  			show_error($this->email->print_debugger());
+  		}		
+
+}
+
 	//elegxei an yparxei o kodikos gia tin tautopoiisi tou pelati
 	public function check_pass_recognition($pass){
 		$exist = $this->user_model->check_recognition_pass($pass);

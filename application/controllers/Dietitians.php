@@ -220,6 +220,9 @@ class Dietitians extends CI_controller
 			$this->load->view('dietitian/headerd');
 			$this->load->view('dietitian/customer_progress_view' , $data);
 			$this->load->view('footer');
+		}else{
+			//redirect to login page
+			redirect('dietitians/logind','refresh');
 		}
 	}
 // o diaitologos vlepi to trexon programa tou pelati
@@ -287,6 +290,9 @@ class Dietitians extends CI_controller
 				$this->load->view('footer', $data );
 			}
 
+		}else{
+			//redirect to login page
+			redirect('dietitians/logind','refresh');
 		}
 	}
 
@@ -297,12 +303,14 @@ class Dietitians extends CI_controller
 			if($_SERVER['REQUEST_METHOD'] == "POST" AND isset($_POST['submit_register_password'])){
 
 				$register_password = $this->input->post('register_password');
+				$user_email = $this->input->post('user_email');
 
 				$this->form_validation->set_rules('register_password' , 'κωδικός ταυτοποίησης' , 'trim|required|min_length[6]|callback_check_password');
+				$this->form_validation->set_rules('user_email', 'email', 'trim|required|valid_email');
 
 				if($this->form_validation->run() ){
 					
-					$this->dietitian_model->insert_new_register_password($register_password);
+					$this->dietitian_model->insert_new_register_password($register_password, $user_email);
 				}
 				
 
@@ -315,6 +323,9 @@ class Dietitians extends CI_controller
 			$this->load->view('dietitian/headerd');
 			$this->load->view('dietitian/create_customer_identity_view' , $data);
 			$this->load->view('footer', $data );
+		}else{
+			//redirect to login page
+			redirect('dietitians/logind','refresh');
 		}
 	}
 
@@ -327,6 +338,9 @@ class Dietitians extends CI_controller
 			$this->load->view('dietitian/headerd');
 			$this->load->view('dietitian/my_meals_view', $data);
 			$this->load->view('footer');
+		}else{
+			//redirect to login page
+			redirect('dietitians/logind','refresh');
 		}
 	}
 
@@ -345,6 +359,9 @@ class Dietitians extends CI_controller
 			}else{
 				echo "why is not set?";
 			}
+		}else{
+			//redirect to login page
+			redirect('dietitians/logind','refresh');
 		}		
 	}
 

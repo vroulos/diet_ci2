@@ -55,7 +55,11 @@ body {
   margin-left: 200px;
 }
 
-#insertNewUserPassword{
-  width: 200px;
+.formOnCustomerIdentity{
+  margin-left: 0px;
 }
 
+.form-group{
+  max-width: 230px;
+  margin: auto;
+}

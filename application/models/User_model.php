@@ -280,4 +280,16 @@ class User_model extends CI_Model {
 		//$this->db->query("UPDATE pass_identit SET user_id = '1' where username = '$username' ");
 	}
 
+	public function get_user_unique_password($email){
+		 //$query = $this->db->query("SELECT password_id FROM pass_identit WHERE user_email = '$email'");
+
+		$this->db->select('password_id');
+		$this->db->from('pass_identit');
+		$this->db->where('user_email' , $email);
+		
+		return $this->db->get()->row('password_id');
+
+
+	}
+
 }
