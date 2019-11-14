@@ -165,7 +165,6 @@ class User_model extends CI_Model {
 	public function add_weight_model($weight){
 		if (isset($_SESSION['username'])){
 		$cust = $_SESSION['username'];
-		echo 'the weight in model is ' . $weight;
 		// $this->db->query("insert INTO personal_data(customer, date) values('$cust', 'CURRENT_TIMESTAMP()')");
 		$this->db->query("insert INTO personal_data(customer, date, weight ) values('$cust', NOW(), '$weight') ");
 	}else{

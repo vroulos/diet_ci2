@@ -135,7 +135,7 @@ class User extends CI_Controller {
 				}
 			}
 			$this->load->view('header');
-			$this->load->view('user/add_weight_view' , $data);
+			$this->load->view('user/add_personal_data_view' , $data);
 			$this->load->view('footer', $data );
 		} else {
 			redirect('user/login','refresh');
@@ -172,7 +172,7 @@ class User extends CI_Controller {
 				
 			}
 			$this->load->view('header', $data);
-			$this->load->view('user/add_percent_fat', $data);
+			$this->load->view('user/add_personal_data_view', $data);
 			$this->load->view('footer', $data );
 		}else{
 			redirect('user/login','refresh');
@@ -205,7 +205,7 @@ class User extends CI_Controller {
 				}
 			}
 			$this->load->view('header', $data);
-			$this->load->view('user/waistline_view', $data);
+			$this->load->view('user/add_personal_data_view', $data);
 			$this->load->view('footer', $data );
 		}else{
 			redirect('user/login','refresh');

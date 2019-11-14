@@ -71,9 +71,10 @@
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 								<a class="dropdown-item" href="<?php echo base_url('user/add_weight') ?>">προσθήκη βάρους</a>
 								<a class="dropdown-item" href="<?php echo base_url('user/add_percent_fat') ?>">ποσοστό λίπους</a>
+								<a class="dropdown-item" href="<?php echo base_url('user/add_waistline'); ?>">περιφέρεια μέσης</a>
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="<?php echo base_url('user/add_user_note'); ?>">προσωπικές σημειώσεις</a>
-								<a class="dropdown-item" href="<?php echo base_url('user/add_waistline'); ?>">περιφέρεια μέσης</a>
+								<a class="dropdown-item" href="<?=base_url('user/messages')?>">μηνύματα</a>
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="<?php echo base_url('upload/'); ?>">Ανέβασμα Φωτογραφίας</a>
 								<a class="dropdown-item" href="<?php echo base_url('upload/display_images'); ?>">Οι φωτογραφίες μου</a>
@@ -82,7 +83,6 @@
 							</div>
 						</li>
 
-						<li><a class="nav-link" href="<?=base_url('user/messages')?>">μηνύματα</a></li>
 						<li><a class="nav-link" href="<?=base_url('user/view_program')?>">πρόγραμμα διατροφής</a></li>
 						<li><a class="nav-link" href="<?= base_url('logout') ?>">Αποσύνδεση</a></li>
 
