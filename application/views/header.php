@@ -69,9 +69,7 @@
 								προσωπικά δεδομένα
 							</a>
 							<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item" href="<?php echo base_url('user/add_weight') ?>">προσθήκη βάρους</a>
-								<a class="dropdown-item" href="<?php echo base_url('user/add_percent_fat') ?>">ποσοστό λίπους</a>
-								<a class="dropdown-item" href="<?php echo base_url('user/add_waistline'); ?>">περιφέρεια μέσης</a>
+								<a class="dropdown-item" href="<?php echo base_url('user/add_weight') ?>">προσθήκη προσωπικών δεδομένων<br> και εμφάνισή τους</a>
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="<?php echo base_url('user/add_user_note'); ?>">προσωπικές σημειώσεις</a>
 								<a class="dropdown-item" href="<?=base_url('user/messages')?>">μηνύματα</a>
