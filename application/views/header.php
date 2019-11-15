@@ -12,7 +12,6 @@
 <!-- Add additional services that you want to use -->
 <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-messaging.js"></script>
 
-
 <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase.js"></script>
 <script>
   // Initialize Firebase
@@ -26,8 +25,6 @@
   };
   firebase.initializeApp(config);
 </script>
-
-
 
 <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
 
@@ -76,15 +73,12 @@
 								<div class="dropdown-divider"></div>
 								<a class="dropdown-item" href="<?php echo base_url('upload/'); ?>">Ανέβασμα Φωτογραφίας</a>
 								<a class="dropdown-item" href="<?php echo base_url('upload/display_images'); ?>">Οι φωτογραφίες μου</a>
-								<a class="dropdown-item" href="<?php echo base_url('upload/delete_image'); ?>">Διαγραφή φωτογραφίας</a>
 								
 							</div>
 						</li>
 
 						<li><a class="nav-link" href="<?=base_url('user/view_program')?>">πρόγραμμα διατροφής</a></li>
 						<li><a class="nav-link" href="<?= base_url('logout') ?>">Αποσύνδεση</a></li>
-
-						
 					
 					</ul>
 					<form class="form-inline my-2 my-lg-0">
@@ -98,9 +92,6 @@
 					<?php endif; ?>
 				</div>
 			</nav>
-			
-
-
 
 			<main id="site-content" role="main">
 

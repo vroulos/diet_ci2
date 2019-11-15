@@ -1,4 +1,4 @@
-
+<div style="margin-left: 100px">
 <p class="font-weight-bold" style="margin-top: 70px" >Επέλεξε μία φωτογραφία και μετά ανέβασέ την</p>
 
 <?php echo $error; //display the errors if the file doesnt uploaded?>
@@ -12,6 +12,7 @@
 <input type="submit" value="upload" class="btn btn-dark" />
 
 </form>
+</div>
 
 
 </body>

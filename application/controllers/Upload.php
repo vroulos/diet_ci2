@@ -9,7 +9,7 @@ class Upload extends CI_Controller {
         $this->load->library('session');
                 $this->load->helper('directory'); //load directory helper
 
-            }
+    }
 
             public function index(){
                 if (isset($_SESSION['username'])){
@@ -20,12 +20,10 @@ class Upload extends CI_Controller {
                 }else{
                     redirect('user/login','refresh');
                 }
-
         }
 
         public function do_upload()
         {
-
             $user_id = $_SESSION['user_id'];
                 // Define path where file will be uploaded to
                 //   User ID is set as directory name
@@ -49,22 +47,25 @@ class Upload extends CI_Controller {
                 {
                     $error = array('error' => $this->upload->display_errors());
 
-                    $this->load->view('header');
-                    $this->load->view('upload/upload_form', $error);
-                    $this->load->view('footer');
+                    if ($error == null) {
+                        $this->display_images();
+                    }else{
+                        $this->load->view('header');
+                        $this->load->view('upload/display_images', $error);
+                        $this->load->view('footer');
+                        echo "this is when userfile do not uploaded";
+                    }             
                 }
                 else
                 {
                     $data = array('upload_data' => $this->upload->data());
 
-
-
                     $this->load->view('header');
                     $this->load->view('upload/upload_success', $data);
                     $this->load->view('footer');
+                    echo "when all is ok";
                 }       
             }
-
         }
 
         public function display_images(){
@@ -78,7 +79,6 @@ class Upload extends CI_Controller {
                         $data = array('map' =>$map );
                         $data['dir'] = $dir;
 
-
                         $this->load->view('header');
                         $this->load->view('upload/display_images', $data);
                         $this->load->view('footer');
@@ -86,35 +86,44 @@ class Upload extends CI_Controller {
                     }else{
                         redirect('user/login','refresh');
                     }
-
                 }
 
                 public function display_single_image(){
-                    if (isset($_SESSION['username'])) {
-                        
+                    if (isset($_SESSION['username'])) { 
                     }
                 }
 
-
                 public function delete_image(){
-                    echo '<script>console.log("is inside delete_image")</script>';
+                    //echo '<script>console.log("is inside delete_image")</script>';
                     if (isset($_SESSION['username'])){
-                        echo '<script>console.log("Your stuff here")</script>';
-                        $data = null;
-                        $user_id = $_SESSION['user_id'];
-                        $file = $_POST['path'];
 
-                       if ($_POST['action'] == "remove_file") {
-                            echo "strag";
-                           if (file_exists($file)) {
-                               unlink($file );
-                               echo "file is deleted";
+                        $path = $this->input->post('path');
+                        $formPath = $this->input->post('k');
+                        echo $formPath;
+                        //echo $path;
+                        //echo '<script>console.log("Your stuff here")</script>';
+                        //$data = null;
+                       // $user_id = $_SESSION['user_id'];
+                        if (isset($path)) {
+                            echo $path;
+                             //$file = $_POST['path'];
+
+                            if ($_POST['action'] == "remove_file") {
+                                //echo "strag";
+                                if (file_exists($path)) {
+                                    unlink($path);
+                                    echo "<br>";
+                                     echo "file is deleted";
                                
-                           }
-                       }
+                                }else{
+                                    echo "file does not exists";
+                                }
+                            } 
+                        }
+                        else{
+                            echo "this is error";
+                        }
                        
-                        
-                        
                         // if ( !file_exists( $file ) && !is_dir( $file ) ) {
                         //     echo "the file do not exists";
                         //         //mkdir( $dir );     
@@ -125,10 +134,6 @@ class Upload extends CI_Controller {
                         //         echo "file deleted";
                         //     }
 
-                            $this->load->view('header');
-                            //$this->load->view('upload/display_images', $data);
-                            $this->load->view('footer');
-                        
 
                     }else{
                         redirect('user/display_images','refresh');
