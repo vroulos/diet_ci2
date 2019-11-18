@@ -50,45 +50,45 @@ class User extends CI_Controller {
 			//check if query returns
 			if ($affected_rows > 0){
 				
-			$datakia = array(
-				'monday_morning' => $data->row(0)->monday_break,
-				'monday_launch' => $data->row(1)->monday_lau ,
-				'monday_dinner' => $data->row(2)->monday_din,
+				$datakia = array(
+					'monday_morning' => $data->row(0)->monday_break,
+					'monday_launch' => $data->row(1)->monday_lau ,
+					'monday_dinner' => $data->row(2)->monday_din,
 
-						  'tuesday_morning' =>$data->row(3)->tuesday_break,
-						  'tuesday_launch' =>$data->row(4)->tuesday_lau,
-						  'tuesday_dinner' =>$data->row(5)->tuesday_din,
+					'tuesday_morning' =>$data->row(3)->tuesday_break,
+					'tuesday_launch' =>$data->row(4)->tuesday_lau,
+					'tuesday_dinner' =>$data->row(5)->tuesday_din,
 
-						  'wendsday_morning' =>$data->row(6)->wendsday_break,
-						  'wendsday_launch' =>$data->row(7)->wendsday_lau,
-						  'wendsday_dinner' =>$data->row(8)->wendsday_din,
+					'wendsday_morning' =>$data->row(6)->wendsday_break,
+					'wendsday_launch' =>$data->row(7)->wendsday_lau,
+					'wendsday_dinner' =>$data->row(8)->wendsday_din,
 
-						  'thursday_morning' =>$data->row(9)->thursday_break,
-						  'thursday_launch' =>$data->row(10)->thursday_lau,
-						  'thursday_dinner' =>$data->row(11)->thursday_din,
+					'thursday_morning' =>$data->row(9)->thursday_break,
+					'thursday_launch' =>$data->row(10)->thursday_lau,
+					'thursday_dinner' =>$data->row(11)->thursday_din,
 
-						  'friday_morning' =>$data->row(12)->friday_break,
-						  'friday_launch' =>$data->row(13)->friday_lau,
-						  'friday_dinner' =>$data->row(14)->friday_din,
+					'friday_morning' =>$data->row(12)->friday_break,
+					'friday_launch' =>$data->row(13)->friday_lau,
+					'friday_dinner' =>$data->row(14)->friday_din,
 
-						  'saturday_morning' =>$data->row(15)->saturday_break,
-						  'saturday_launch' =>$data->row(16)->saturday_lau,
-						  'saturday_dinner' =>$data->row(17)->saturday_din,
+					'saturday_morning' =>$data->row(15)->saturday_break,
+					'saturday_launch' =>$data->row(16)->saturday_lau,
+					'saturday_dinner' =>$data->row(17)->saturday_din,
 
-						  'sunday_morning' =>$data->row(18)->sunday_break,
-						  'sunday_launch' =>$data->row(19)->sunday_lau,
-						  'sunday_dinner' =>$data->row(20)->sunday_din
+					'sunday_morning' =>$data->row(18)->sunday_break,
+					'sunday_launch' =>$data->row(19)->sunday_lau,
+					'sunday_dinner' =>$data->row(20)->sunday_din
 
-			 );
+				);
 		//num_rows return the number of lines in the query
-			$datakia['rows'] = $data->num_rows();
-		
-			
+				$datakia['rows'] = $data->num_rows();
 
 
-			$this->load->view('header');
-			$this->load->view('user/nutricion_program_view' , $datakia);
-			$this->load->view('footer', $data );
+
+
+				$this->load->view('header');
+				$this->load->view('user/nutricion_program_view' , $datakia);
+				$this->load->view('footer', $data );
 			}else{
 				$this->load->view('header');
 				$this->load->view('footer', $data );
@@ -150,7 +150,7 @@ class User extends CI_Controller {
 			if(isset($_POST['fatHistory'])){
 				
 
-					$data['fatPercentageHistory'] = $this->user_model->get_fat_history();
+				$data['fatPercentageHistory'] = $this->user_model->get_fat_history();
 			}
 			elseif ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['addFat'])){
 				echo 'add fat is ok';
@@ -181,7 +181,7 @@ class User extends CI_Controller {
 
 	//prosthetei tin perifereia mesis 
 	public function add_waistline(){
-			$data = NULL;
+		$data = NULL;
 		if(isset($_SESSION['username'])){
 			
 			if(isset($_POST['waistlineHistory'])){
@@ -191,12 +191,12 @@ class User extends CI_Controller {
 			}
 			elseif ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['addWaistline'])){
 				$this->form_validation->set_rules('waistline', 'Waistline', 'trim|required|min_length[2]|max_length[3]',
-					 array('required'      => 'You have not provided a valid %s.',
+					array('required'      => 'You have not provided a valid %s.',
 						'min_length'    => 'The %s you have provided is too low.',
 						'max_length'    => 'I don\'t think you are THAT fatty.' 
 					)
-					);
-			
+				);
+
 				if ($this->form_validation->run()) {
 					$waistline = $this->input->post('waistline');
 
@@ -210,7 +210,7 @@ class User extends CI_Controller {
 		}else{
 			redirect('user/login','refresh');
 		}
-	
+
 	}
 
 	// display and add the user notes
@@ -295,22 +295,22 @@ class User extends CI_Controller {
 	public function messages(){
 
 		if (isset($_SESSION['username'])) {
-		$customer_name = $_SESSION['username'] ;
+			$customer_name = $_SESSION['username'] ;
 		//get the user message form database
 		//$this->user_model->get_messages($customer_name);
 
 		//$message_to_delete = $this->db->input('post');
-		$id = $this->input->post('message_to_delete');
-		if(isset($id)){
-			$this->user_model->delete_message($id);
-		}
-		
+			$id = $this->input->post('message_to_delete');
+			if(isset($id)){
+				$this->user_model->delete_message($id);
+			}
+
 
 		//echo $message_to_delete;
 		// delete the messages
-		$data['messages'] = $this->user_model->get_messages($customer_name);
+			$data['messages'] = $this->user_model->get_messages($customer_name);
 			if (isset($data['messages'])) {
-			
+
 				$this->load->view('header');
 				$this->load->view('user/message_user_view' , $data);
 				$this->load->view('footer', $data );
@@ -320,12 +320,12 @@ class User extends CI_Controller {
 				$this->load->view('user/message_user_view' , $data);
 				$this->load->view('footer', $data );
 			}
-		
+
 
 		}else{
 
-		redirect('user/login','refresh');
-	 	}
+			redirect('user/login','refresh');
+		}
 	}
 	
 	/**
@@ -348,7 +348,8 @@ class User extends CI_Controller {
 		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|is_unique[users.email]');
 		$this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[6]');
 		$this->form_validation->set_rules('password_confirm', 'Confirm Password', 'trim|required|min_length[6]|matches[password]');
-		$this->form_validation->set_rules('password_identity', 'Recognition Password', 'trim|required|min_length[4]|callback_check_pass_recognition');
+		//here i am using a callback function to check the secret user key
+		$this->form_validation->set_rules('password_identity', 'Recognition Password', 'trim|required|min_length[4]|callback_check_pass_recognition['.$this->input->post('email').']');
 
 		if (empty($_POST['send_pass_to_user'])) {
 			echo "you password is on the way";
@@ -412,7 +413,7 @@ class User extends CI_Controller {
 			echo validation_errors();
 							// send error to the view
 			
-				
+
 		} else {
 			echo "lets go   ";
 			echo $email;
@@ -425,22 +426,20 @@ class User extends CI_Controller {
 
 			}
 		} 
-	
-
 	}
 
 	//send the email to the user. Here i am sending him the registration password
 	public function sendMail($email, $new_user_password)
 	{
 		$config = Array(
-		'protocol' => 'smtp',
-		'smtp_host' => 'ssl://smtp.googlemail.com',
-		'smtp_port' => 465,
-		'smtp_user' => 'youremail@gmail.com', // change it to yours
-		'smtp_pass' => 'yourpassword', // change it to yours
-		'mailtype' => 'html',
-		'charset' => 'iso-8859-1',
-		'wordwrap' => TRUE
+			'protocol' => 'smtp',
+			'smtp_host' => 'ssl://smtp.googlemail.com',
+			'smtp_port' => 465,
+			'smtp_user' => 'vroulos.michail@gmail.com', // change it to yours
+			'smtp_pass' => 'yourpassword', // change it to yours
+			'mailtype' => 'html',
+			'charset' => 'iso-8859-1',
+			'wordwrap' => TRUE
 		);
 
 		//the message that is sent
@@ -452,28 +451,28 @@ class User extends CI_Controller {
  		$this->email->subject('Your registration password');
  		$this->email->message($message);
  		//check if the email is sent
- 	 if($this->email->send())
-  		{
-  			echo 'Email sent.';
-  		}
-  		else
-  		{
-  			show_error($this->email->print_debugger());
-  		}		
+ 		if($this->email->send())
+ 		{
+ 			echo 'Email sent.';
+ 		}
+ 		else
+ 		{
+ 			show_error($this->email->print_debugger());
+ 		}		
 
-}
+ 	}
 
 	//elegxei an yparxei o kodikos gia tin tautopoiisi tou pelati
-	public function check_pass_recognition($pass){
-		$exist = $this->user_model->check_recognition_pass($pass);
-		echo $exist;
-		if($exist > 0 and $exist < 2){
-			return true;
-		}else{
-			$this->form_validation->set_message('check_pass_recognition' , 'The password does not exist. Try again');
-			return false;
-		}
-	}
+ 	public function check_pass_recognition($pass, $user_email){
+ 		$exist = $this->user_model->check_recognition_pass($pass, $user_email);
+ 		echo $exist;
+ 		if($exist > 0 && $exist < 2){
+ 			return true;
+ 		}else{
+ 			$this->form_validation->set_message('check_pass_recognition' , 'The password does not exist. Try again');
+ 			return false;
+ 		}
+ 	}
 
 	/**
 	 * login function.

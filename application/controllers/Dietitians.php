@@ -306,7 +306,8 @@ class Dietitians extends CI_controller
 				$user_email = $this->input->post('user_email');
 
 				$this->form_validation->set_rules('register_password' , 'κωδικός ταυτοποίησης' , 'trim|required|min_length[6]|callback_check_password');
-				$this->form_validation->set_rules('user_email', 'email', 'trim|required|valid_email');
+				//i also use callback function to check if the email already exists in database
+				$this->form_validation->set_rules('user_email', 'email', 'trim|required|valid_email|callback_check_if_user_email_exists');
 
 				if($this->form_validation->run() ){
 					
@@ -326,6 +327,15 @@ class Dietitians extends CI_controller
 		}else{
 			//redirect to login page
 			redirect('dietitians/logind','refresh');
+		}
+	}
+
+	public function check_if_user_email_exists($user_email){
+		if ($this->dietitian_model->if_user_email_exists($user_email)) {
+			return true;
+		}else{
+			$this->form_validation->set_message('check_if_user_email_exists' , 'The email already exists. Use different!');
+			return false;
 		}
 	}
 

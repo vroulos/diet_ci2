@@ -1,20 +1,21 @@
 
-<h3>πρόσθεσε το εβδομαδιαίο γεύμα στον <?php if (isset($_SESSION['customer_name'])){
-	echo $_SESSION['customer_name'];
-} ?> </h3>
+<div >
+  <div style="margin: 40px">
+  <h3>πρόσθεσε το εβδομαδιαίο γεύμα στον <?php if (isset($_SESSION['customer_name'])){
+	 echo $_SESSION['customer_name'];
+  } ?> </h3>
 
-<h1></h1>
 
-<?php if (isset($foods)){ ?>
-<div class="dropdown show">
-  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  <?php if (isset($foods)){ ?>
+  <div class="dropdown show" style="margin-bottom: 10px; margin-top: 10px">
+    <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
     Γεύματα
-  </a>
-  <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-  <?php foreach ($foods as $row) { ?>
-  	<a class="dropdown-item" href="#"><?php echo $row->foodname ?></a>
-  <?php  } ?>
-  </div>
+    </a>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <?php foreach ($foods as $row) { ?>
+  	    <a class="dropdown-item" href="#"><?php echo $row->foodname ?></a>
+        <?php  } ?>
+      </div>
 </div>
 <?php } ?>
 
@@ -174,5 +175,7 @@
 <?php if(isset($_POST['program_submit'])){ ?>
 <div class="alert alert-danger" role="alert">
   <?php echo validation_errors() ?>
+</div>
+</div>
 </div>
 <?php } ?>

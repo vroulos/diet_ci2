@@ -1,8 +1,10 @@
-<footer class="footer bg-dark">
+</body>
+<footer class="footer bg-dark" style="float: left">
       <div class="container">
         <span class="text-muted">Διπλωματική εργασία</span>
       </div>
     </footer>
+
 
 
 
@@ -19,5 +21,5 @@
   window.history.replaceState( null, null, window.location.href );
 }
 </script>
-</body>
+
 </html>
