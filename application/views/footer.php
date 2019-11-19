@@ -1,12 +1,9 @@
 </body>
 <footer class="footer bg-dark" style="float: left">
-      <div class="container">
-        <span class="text-muted">Διπλωματική εργασία</span>
-      </div>
-    </footer>
-
-
-
+  <div class="container">
+    <span class="text-muted">Διπλωματική εργασία</span>
+  </div>
+</footer>
 
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="<?php echo base_url('assets/jQuery/jQuery-3.4.1.js'); ?>"></script>

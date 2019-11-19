@@ -41,5 +41,5 @@
     </tr>
     <?php } ?>
    </tbody>
-   </div>
+</div>
 

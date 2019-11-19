@@ -195,7 +195,7 @@ class Dietitian_model extends CI_Model
 	}
 
 		public function get_register_passwords(){
-		$query = $this->db->query("SELECT * FROM pass_identit");
+		$query = $this->db->query("SELECT * FROM user_secret_key");
 
 		$affected_rows = $this->db->affected_rows();
 		
@@ -203,29 +203,27 @@ class Dietitian_model extends CI_Model
 
 		return $query->result();
 	}
-	//vazei o diaitologos ston pinaka pass_identit to kodiko pou epithimei . An valei to idio email tote kanei update ton kodiko
+	//vazei o diaitologos ston pinaka user_secret_key to kodiko pou epithimei . An valei to idio email tote kanei update ton kodiko
 	public function insert_new_register_password($password, $user_email){
 		
-		$query = $this->db->query("INSERT INTO pass_identit(password_id, user_email) values('$password', '$user_email' ) ON DUPLICATE KEY UPDATE password_id = '$password'");
+		$query = $this->db->query("INSERT INTO user_secret_key(password_id, user_email) values('$password', '$user_email' ) ON DUPLICATE KEY UPDATE password_id = '$password'");
 			
 	}
 
 	public function if_user_email_exists($email){
 		$query = $this->db->query("SELECT * FROM users WHERE email = '$email'");
-		if ($query) {
-			return false;
-		}else{
+		if ($this->db->affected_rows() > 0) {
 			return TRUE;
+		}else{
+			return false;
 		}
 	}
 
 	public function check_password_id($password){
 
 		//select all password to see if already exist below
-		$query = $this->db->query("SELECT * FROM pass_identit where password_id = '$password' ");
-
+		$query = $this->db->query("SELECT * FROM user_secret_key where password_id = '$password' ");
 		$affected_rows = $this->db->affected_rows();
-		echo $affected_rows;
 		
 		//if the password is already in the database we do not insert it
 		if ($affected_rows > 0) {

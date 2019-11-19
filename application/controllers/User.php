@@ -34,9 +34,10 @@ class User extends CI_Controller {
 		$this->load->view('header');
 		$this->load->view('user/login/login_success', $data);
 		$this->load->view('footer');
-
 		
 	}
+
+
 	//the user sees his program
 	public function view_program(){
 		$datakia = NULL;
@@ -83,9 +84,6 @@ class User extends CI_Controller {
 		//num_rows return the number of lines in the query
 				$datakia['rows'] = $data->num_rows();
 
-
-
-
 				$this->load->view('header');
 				$this->load->view('user/nutricion_program_view' , $datakia);
 				$this->load->view('footer', $data );
@@ -97,8 +95,6 @@ class User extends CI_Controller {
 		}else{
 			redirect('user/login','refresh');
 		}
-
-		//$this->user_model->get_foods();
 	}
 	// o pelatis prosthetei to varos tou
 	public function add_weight(){
@@ -148,7 +144,6 @@ class User extends CI_Controller {
 		if (isset($_SESSION['username'])){
 			//an patithei to koumpi istoriko varous
 			if(isset($_POST['fatHistory'])){
-				
 
 				$data['fatPercentageHistory'] = $this->user_model->get_fat_history();
 			}
@@ -168,8 +163,7 @@ class User extends CI_Controller {
 					$fat = $this->input->post('fat');
 					$this->user_model->add_fat($fat);
 
-				} 
-				
+				} 			
 			}
 			$this->load->view('header', $data);
 			$this->load->view('user/add_personal_data_view', $data);
@@ -185,9 +179,7 @@ class User extends CI_Controller {
 		if(isset($_SESSION['username'])){
 			
 			if(isset($_POST['waistlineHistory'])){
-
-				$data['waistlineValues'] = $this->user_model->get_waistline();
-				
+				$data['waistlineValues'] = $this->user_model->get_waistline();			
 			}
 			elseif ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['addWaistline'])){
 				$this->form_validation->set_rules('waistline', 'Waistline', 'trim|required|min_length[2]|max_length[3]',
@@ -201,7 +193,6 @@ class User extends CI_Controller {
 					$waistline = $this->input->post('waistline');
 
 					$this->user_model->add_waistline($waistline);
-
 				}
 			}
 			$this->load->view('header', $data);
@@ -257,7 +248,6 @@ class User extends CI_Controller {
 
 				$this->user_model->delete_note($note_for_delete);
 
-
 				$data['notes'] = $this->user_model->get_notes();
 
 				$this->load->view('header', $data);
@@ -273,13 +263,11 @@ class User extends CI_Controller {
 	public function delete_note1(){
 		if (isset($_SESSION['username'])){
 
-
 			$note_for_delete = $this->input->post('id');
 
 			if(isset($note_for_delete)){
 
 				$this->user_model->delete_note($note_for_delete);
-
 
 				$data['notes'] = $this->user_model->get_notes();
 
@@ -296,15 +284,11 @@ class User extends CI_Controller {
 
 		if (isset($_SESSION['username'])) {
 			$customer_name = $_SESSION['username'] ;
-		//get the user message form database
-		//$this->user_model->get_messages($customer_name);
-
-		//$message_to_delete = $this->db->input('post');
+	
 			$id = $this->input->post('message_to_delete');
 			if(isset($id)){
 				$this->user_model->delete_message($id);
 			}
-
 
 		//echo $message_to_delete;
 		// delete the messages
@@ -320,7 +304,6 @@ class User extends CI_Controller {
 				$this->load->view('user/message_user_view' , $data);
 				$this->load->view('footer', $data );
 			}
-
 
 		}else{
 
@@ -352,7 +335,7 @@ class User extends CI_Controller {
 		$this->form_validation->set_rules('password_identity', 'Recognition Password', 'trim|required|min_length[4]|callback_check_pass_recognition['.$this->input->post('email').']');
 
 		if (empty($_POST['send_pass_to_user'])) {
-			echo "you password is on the way";
+			//echo "you password is on the way";
 		}
 		
 		if ($this->form_validation->run() === false) {
@@ -369,12 +352,10 @@ class User extends CI_Controller {
 			$email    = $this->input->post('email');
 			$password = $this->input->post('password');
 			$pass_id = $this->input->post('password_identity');
-
-
 			
 			if ($this->user_model->create_user($username, $email, $password)) {
 
-				$this->user_model->delete_pass_identit($username ,$pass_id );
+				$this->user_model->delete_secret_key($username ,$pass_id );
 				// user creation ok
 				$this->load->view('header');
 				$this->load->view('user/register/register_success', $data);
@@ -390,10 +371,8 @@ class User extends CI_Controller {
 				$this->load->view('user/register/register', $data);
 				$this->load->view('footer');
 				
-			}
-			
-		}
-		
+			}	
+		}		
 	}
 
 	//get the password from email and then send it to user
@@ -405,15 +384,13 @@ class User extends CI_Controller {
 		$email = $this->input->post('email');
 		echo "striaaaif";
 		//validate the email
-		// $this->form_validation->set_rules('email','EMAIL','trim|required|valid_email|is_unique[pass_identit.user_email]');
+		// $this->form_validation->set_rules('email','EMAIL','trim|required|valid_email|is_unique[user_secret_key.user_email]');
 		$this->form_validation->set_rules('email','EMAIL','trim|required|valid_email');
 
 		//if the validation is false the print the errors
 		if ($this->form_validation->run() == FALSE) {
-			echo validation_errors();
-							// send error to the view
-			
-
+			echo validation_errors();// send error to the view		
+							
 		} else {
 			echo "lets go   ";
 			echo $email;
@@ -427,6 +404,7 @@ class User extends CI_Controller {
 			}
 		} 
 	}
+
 
 	//send the email to the user. Here i am sending him the registration password
 	public function sendMail($email, $new_user_password)
@@ -513,8 +491,6 @@ class User extends CI_Controller {
 				$user_id = $this->user_model->get_user_id_from_username($username);
 				$user    = $this->user_model->get_user($user_id);
 
-				
-				
 				// set session user datas
 				$_SESSION['user_id']      = (int)$user->id;
 				$_SESSION['username']     = (string)$user->username;
@@ -542,11 +518,8 @@ class User extends CI_Controller {
 				$this->load->view('user/login/login', $data);
 				$this->load->view('footer');
 				
-			}
-			
-		}
-
-		
+			}		
+		}		
 	}
 
 
@@ -580,8 +553,6 @@ class User extends CI_Controller {
 			// redirect him to site root
 			redirect('User/login' , 'refresh');
 			
-		}
-		
-	}
-	
+		}		
+	}	
 }

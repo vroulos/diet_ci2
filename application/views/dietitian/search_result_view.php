@@ -8,7 +8,6 @@ if (isset($search_result)) {
 		echo "The email of  ". $value->dietitian_name . " is ".$value->dietitian_email."</br>";
 	}
 		
-	}
-
+}
 
  ?>

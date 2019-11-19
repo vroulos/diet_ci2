@@ -48,10 +48,7 @@ class Dietitians extends CI_controller
 				if ($this->form_validation->run() ) {
 
 					$data['success'] = $this->dietitian_model->add_food_model();
-
-
 				}
-
 			}
 			$this->load->view('dietitian/headerd' , $data);
 			$this->load->view('dietitian/login/insert_food_view' , $data );
@@ -64,19 +61,16 @@ class Dietitians extends CI_controller
 	}
 
 	
-
 	//epilogi pelati kai apothikeysi sto $customer_name ti session tou pelati
 	public function customer(){
 		if (isset($_SESSION['dietitian_name'])){
-				//the customer id
+			//the customer id
 			$customer_id = $this->input->get('id');
-		//get the customer using get_customer function 
+			//get the customer using get_customer function 
 			$dos = $this->dietitian_model->get_customer($customer_id);
-		// row() : This method returns a single result row. It returns the data as object
+			// row() : This method returns a single result row. It returns the data as object
 			$row = $dos->row();
-
 			$customer_name = $row->username;
-
 
 			$data = array('name' => $customer_name );
 			$data['foods'] = $this->dietitian_model->get_foods();
@@ -138,8 +132,7 @@ class Dietitians extends CI_controller
 			//$this->output->set_output(json_encode($data));
 		}else {
 			redirect('dietitians/logind','refresh');
-		}
-		
+		}		
 	}
 
 	public function choose_customer(){
@@ -154,7 +147,6 @@ class Dietitians extends CI_controller
 		}else{
 			redirect('dietitians/logind','refresh');
 		}
-
 	}
 
 	// inserts the customer's program to database
@@ -179,11 +171,9 @@ class Dietitians extends CI_controller
 				$this->load->view('dietitians/customer_view', $data );
 				$this->load->view('footer');
 			}	
-
 		}else{
 			redirect('dietitians/logind','refresh');
 		}
-
 	}
 
 	public function send_message(){
@@ -191,16 +181,14 @@ class Dietitians extends CI_controller
 		if(isset($_SESSION['customer_name']) && $_SESSION['dietitian_name']){
 			//if yes 
 			$this->form_validation->set_rules('send_message', 'Send_message', 'trim|required|min_length[5]|max_length[12000]');
-		// if form is not submited the displays the views
+			// if form is not submited the displays the views
 			if ($this->form_validation->run() == false){
 				$this->load->view('dietitian/headerd');
 				$this->load->view('dietitian/send_message_view');
 				$this->load->view('footer');
 
-		//if form submited send the message
+			//if form submited send the message
 			}else{
-		 //$message = $this->input->post('send_message');
-		// echo $message;
 				$this->dietitian_model->send_message_model();
 				$this->load->view('dietitian/headerd');
 				$this->load->view('dietitian/send_message_view');
@@ -225,7 +213,7 @@ class Dietitians extends CI_controller
 			redirect('dietitians/logind','refresh');
 		}
 	}
-// o diaitologos vlepi to trexon programa tou pelati
+	// o diaitologos vlepi to trexon programa tou pelati
 	public function customer_nutricion_program(){
 		$data = NULL;
 		$datakia = NULL;
@@ -234,12 +222,10 @@ class Dietitians extends CI_controller
 
 			//fortonw to user model gia an xrisimopoiiso ti sunartisi get_nutricion_program()
 			$this->load->model('user_model');
-
 			$name = $_SESSION['customer_name'];
 			$user_id = $_SESSION['customer_id'];
 			//save the current customer program and save it to $data
 			$data = $this->user_model->get_nutricion_program($name , $user_id);
-
 			//rows of the query
 			$affected_rows = $this->db->affected_rows();
 			//check if query returns
@@ -273,14 +259,9 @@ class Dietitians extends CI_controller
 					'sunday_morning' =>$data->row(18)->sunday_break,
 					'sunday_launch' =>$data->row(19)->sunday_lau,
 					'sunday_dinner' =>$data->row(20)->sunday_din
-
 				);
-		//num_rows return the number of lines in the query
+				//num_rows return the number of lines in the query
 				$datakia['rows'] = $data->num_rows();
-
-
-
-
 				$this->load->view('dietitian/headerd');
 			//i am using the nutricion program view second time
 				$this->load->view('user/nutricion_program_view' , $datakia);
@@ -296,12 +277,11 @@ class Dietitians extends CI_controller
 		}
 	}
 
-	public function create_customer_identity(){
+	public function create_customer_secret_key(){
 		$data = NULL;
 		if(isset($_SESSION['dietitian_name'])){
 
 			if($_SERVER['REQUEST_METHOD'] == "POST" AND isset($_POST['submit_register_password'])){
-
 				$register_password = $this->input->post('register_password');
 				$user_email = $this->input->post('user_email');
 
@@ -314,15 +294,13 @@ class Dietitians extends CI_controller
 					$this->dietitian_model->insert_new_register_password($register_password, $user_email);
 				}
 				
-
 			}
 
 
 			$data['password'] = $this->dietitian_model->get_register_passwords();
-			
 
 			$this->load->view('dietitian/headerd');
-			$this->load->view('dietitian/create_customer_identity_view' , $data);
+			$this->load->view('dietitian/create_customer_secret_key_view' , $data);
 			$this->load->view('footer', $data );
 		}else{
 			//redirect to login page
@@ -332,17 +310,17 @@ class Dietitians extends CI_controller
 
 	public function check_if_user_email_exists($user_email){
 		if ($this->dietitian_model->if_user_email_exists($user_email)) {
-			return true;
-		}else{
 			$this->form_validation->set_message('check_if_user_email_exists' , 'The email already exists. Use different!');
 			return false;
+		}else{
+			
+			return true;
 		}
 	}
 
 	public function my_meals(){
 		if (isset($_SESSION['dietitian_name'])) {
 			$data = null;
-
 			$data['my_meals'] = $this->dietitian_model->get_my_meals();
 
 			$this->load->view('dietitian/headerd');
@@ -419,14 +397,11 @@ class Dietitians extends CI_controller
 				$this->load->view('footer');
 			}
 
-			
-
 		}else{
 			//redirect to login page
 			redirect('dietitians/logind','refresh');
 		}
 	}
-
 
 	public function check_password($password){
 		$result = $this->dietitian_model->check_password_id($password);
@@ -438,7 +413,6 @@ class Dietitians extends CI_controller
 		}else{
 			return true;
 		}
-
 	}
 
 
@@ -468,23 +442,17 @@ class Dietitians extends CI_controller
 			// validation not ok, send validation errors to the view
 				$this->load->view('dietitian/headerd');
 				$this->load->view('dietitian/login/logind');
-				$this->load->view('footer');
-
-				
+				$this->load->view('footer');	
 			}
 			else {
-
-			// set variables from the form
+				// set variables from the form
 				$dusername = $this->input->post('dietname');
 				$dpassword = $this->input->post('password');
-
 
 				if ($this->dietitian_model->resolve_dietitian_login($dusername, $dpassword)) {
 
 					$duser_id = $this->dietitian_model->get_dietitian_id_from_username($dusername);
 					$duser    = $this->dietitian_model->get_dietitian($duser_id);
-
-
 					//
 					$newdata = array('dietitian_name' => $dusername );
 					//set the session variables
@@ -493,18 +461,16 @@ class Dietitians extends CI_controller
 				// user login ok
 					$this->load->view('dietitian/headerd');
 					$this->load->view('dietitian/login/logind_success');
-					$this->load->view('footer');
-					
+					$this->load->view('footer');	
 
 				}else{
 					redirect('dietitians/logind','refresh');
 				}
-
-
 			}
 		}
-
 	}
+
+
 // logout dietitian
 	public function logoutd(){
 		//collect all session data
@@ -518,10 +484,9 @@ class Dietitians extends CI_controller
 		foreach ($_SESSION as $key => $value) {
 			unset($_SESSION[$key]);
 		}
-			//redirect to login page
+		//redirect to login page
 		redirect('dietitians/logind','refresh');
 	}
-
 }
 
 

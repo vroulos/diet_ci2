@@ -264,7 +264,7 @@ class User_model extends CI_Model {
 
 	//check if the secret key is ok
 	public function check_recognition_pass($pass, $email){
-		$query = $this->db->query("SELECT * FROM pass_identit where (password_id = '$pass') and (user_email = '$email') " ); 
+		$query = $this->db->query("SELECT * FROM user_secret_key where (password_id = '$pass') and (user_email = '$email') " ); 
 		echo "the user email is : ". $email."<br>";
 		echo "the user password is : ". $pass."<br>";
 
@@ -273,18 +273,18 @@ class User_model extends CI_Model {
 		return $rec_pass_exist;
 	}
 	// otan o pelatis oloklirosei tin eggrafi diagrafetai o kodikos pistopoiisis
-	public function delete_pass_identit($username , $password_id){
+	public function delete_secret_key($username , $password_id){
 
-		$this->db->query("DELETE FROM pass_identit WHERE password_id = '$password_id'");
+		$this->db->query("DELETE FROM user_secret_key WHERE password_id = '$password_id'");
 
-		//$this->db->query("UPDATE pass_identit SET user_id = '1' where username = '$username' ");
+		//$this->db->query("UPDATE user_secret_key SET user_id = '1' where username = '$username' ");
 	}
 
 	public function get_user_unique_password($email){
-		 //$query = $this->db->query("SELECT password_id FROM pass_identit WHERE user_email = '$email'");
+		 //$query = $this->db->query("SELECT password_id FROM user_secret_key WHERE user_email = '$email'");
 
 		$this->db->select('password_id');
-		$this->db->from('pass_identit');
+		$this->db->from('user_secret_key');
 		$this->db->where('user_email' , $email);
 		
 		return $this->db->get()->row('password_id');

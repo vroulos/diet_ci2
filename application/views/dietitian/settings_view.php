@@ -1,24 +1,22 @@
 <?php 
 
-
 if (isset($dietitian_profile_info)) {
 	$name = $dietitian_profile_info->dietitian_name;
 	$email = $dietitian_profile_info->dietitian_email;
 	$age = $dietitian_profile_info->dietitian_age;
 	$mobile = $dietitian_profile_info->dietitian_mobile;
-
-
-
 	?>
 
-	<div id="col-1">
-		<p>Όνομα : <?php echo $name ?></p>
-		<p>email : <?php echo $email; ?></p>
-		<p>Ηλικία : <?php echo $age; ?></p>
-		<p>Τηλέφωνο : <?php echo $mobile; ?></p>
-	<?php }else {
-		echo "Οι πληροφορίες δεν είναι τώρα διαθέσιμες";
-	} ?>
+<div id="col-1">
+	<p>Όνομα : <?php echo $name ?></p>
+	<p>email : <?php echo $email; ?></p>
+	<p>Ηλικία : <?php echo $age; ?></p>
+	<p>Τηλέφωνο : <?php echo $mobile; ?></p>
+	<?php 
+	}else {
+	echo "Οι πληροφορίες δεν είναι τώρα διαθέσιμες";
+	} 
+	?>
 	<button type="button" class="btn btn-dark" onclick="document.getElementById('col-2').style.display = 'block'">Επεξεργασία</button>
 </div>
 
