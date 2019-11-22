@@ -23,24 +23,27 @@
     </tr>
   </thead>
   <tbody>
-  	<?php $th = true;
-  			$td = true;
-  			$i=0;
-  			$number = 0;
-  			$days = array("Δευτέρα", "Τρίτη","Τετάρτη", "Πέμπτη", "Παρασκευή","Σάββατο","Κυριακή");
+  	<?php  
+		$i=0;
+		$number = 0;
+		$days = array("Δευτέρα", "Τρίτη","Τετάρτη", "Πέμπτη", "Παρασκευή","Σάββατο","Κυριακή");
   	foreach ($program as $meal) {
 
   		if ($i == 0) {
   			echo "<tr>";
   			echo "<td>".$days[$number]."</td>";
   			$number++;
-  			
-  			
   		}
   		$i++;
+  		$comma = substr_count($meal->food, ",");
+  	
+  		if ($comma > 0) {
+  			$some_meals = str_replace(',','<br>', $meal->food);
+  			echo "<td>".$some_meals."</td><br>"; 			
+  		}else{
+  			echo "<td>".$meal->food."</td>";
+  		}
   		
-
-  		echo "<td>".$meal->food."</td>";
   		if ($i== 3) {
   			echo "</tr>";
   		

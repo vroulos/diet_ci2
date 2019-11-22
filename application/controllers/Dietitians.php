@@ -137,23 +137,15 @@ class Dietitians extends CI_controller
 
 	public function add_nutricion_program_v2(){
 		if (isset($_SESSION['dietitian_name'])) {
-
-					$data = null;
-				//fortonw to user model gia an xrisimopoiiso ti sunartisi get_nutricion_program()
+			$data = null;
+			//fortonw to user model gia an xrisimopoiiso ti sunartisi get_nutricion_program()
 			$this->load->model('user_model');
 			$name = $_SESSION['customer_name'];
 			$user_id = $_SESSION['customer_id'];
-			//save the current customer program and save it to $data
-			$data['program'] = $this->user_model->get_nutricion_program_v2($name , $user_id);
-			//rows of the query
-			
-			//if the query has the meals 
-			if ($data) {
-				
-			}
-			
 
+			//if the dietitian add a meal with pushing the button
 			if ($_SERVER['REQUEST_METHOD'] == 'POST' AND isset($_POST['submit_program'])){
+					
 				$day = $_POST['day_of_week'];
 				$mealtime = $_POST['mealtime_category'];
 				$meal = $_POST['food'];
@@ -161,10 +153,14 @@ class Dietitians extends CI_controller
 				$user_id = $_SESSION['customer_id'];
 				$duser_id = $_SESSION['dietitian_id'];
 
-				echo $day ." ".$mealtime." ". $meal;
-
+				
 				//add the meal to the the table nutricion_program_v2
-				$this->dietitian_model->add_meal($day, $mealtime, $meal, $user_id, $duser_id);	
+				$this->dietitian_model->add_meal($day, $mealtime, $meal, $user_id, $duser_id);
+
+				//save the current customer program and save it to $data
+				$data['program'] = $this->user_model->get_nutricion_program_v2($name , $user_id);
+
+
 				$this->load->view('dietitian/headerd');
 				$this->load->view('dietitian/add_nutricion_program_view_v2', $data);
 				$this->load->view('user/nutricion_program_view_v2', $data);
@@ -173,6 +169,9 @@ class Dietitians extends CI_controller
 				
 
 			}else{
+				//save the current customer program and save it to $data
+				$data['program'] = $this->user_model->get_nutricion_program_v2($name , $user_id);
+
 				$this->load->view('dietitian/headerd');
 				$this->load->view('dietitian/add_nutricion_program_view_v2', $data);
 				$this->load->view('user/nutricion_program_view_v2', $data);

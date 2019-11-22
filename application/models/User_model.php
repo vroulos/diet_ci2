@@ -148,7 +148,6 @@ class User_model extends CI_Model {
 		$query = $this->db->query("SELECT * FROM nutricion_program_v2 where user_id = '$user_id' ORDER BY FIELD(day, 'monday','tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'), FIELD(hour, 'breakfast', 'lunch', 'dinner')");
 
 		$affected_rows = $this->db->affected_rows();
-		echo $affected_rows;
 		if ($affected_rows > 0) {
 			return $query->result();
 		}else{

@@ -84,7 +84,7 @@ class Dietitian_model extends CI_Model
 
 
 	public function add_meal($day, $mealtime, $meal, $user_id , $dietitian_id){
-		$query = $this->db->query("INSERT INTO nutricion_program_v2(day, hour, food, dietitian_id, user_id ) values ('$day', '$mealtime', '$meal', '$dietitian_id', '$user_id')");
+		$query = $this->db->query("INSERT INTO nutricion_program_v2(day, hour, food, dietitian_id, user_id ) values ('$day', '$mealtime', '$meal', '$dietitian_id', '$user_id') ON DUPLICATE KEY UPDATE food = '$meal' ");
 	}
 
 	

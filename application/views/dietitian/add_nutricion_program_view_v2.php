@@ -28,5 +28,6 @@ echo form_open('dietitians/add_nutricion_program_v2'); ?>
 	<input type="text" name="food" class="form-control" placeholder="φαγητό" id="meal">
 </div>
 <?php echo form_submit('submit_program', 'Υποβολή', 'class = "btn btn-dark"'); ?>
-</div>
 
+</div>
+<p style="margin-left: 140px; margin-top: 20px">Εάν θες να βάλεις περισσότερες τροφές σε ένα γεύμα διαχώρισέ τες με κόμμα(,)</p>
