@@ -141,6 +141,22 @@ class User_model extends CI_Model {
 		return $query;
 	}
 
+		public function get_nutricion_program_v2($name, $user_id){
+		
+		
+		//select the row with user max user id . that row has the current nutricion program
+		$query = $this->db->query("SELECT * FROM nutricion_program_v2 where user_id = '$user_id' ORDER BY FIELD(day, 'monday','tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'), FIELD(hour, 'breakfast', 'lunch', 'dinner')");
+
+		$affected_rows = $this->db->affected_rows();
+		echo $affected_rows;
+		if ($affected_rows > 0) {
+			return $query->result();
+		}else{
+			return false;
+		}
+		
+	}
+
 	public function get_messages($customer_name){
 
 		$query = $this->db->query("SELECT * FROM messages where customer = '$customer_name' ORDER BY date_sent DESC");
