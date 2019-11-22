@@ -45,53 +45,13 @@ class User extends CI_Controller {
 
 			$name = $_SESSION['username'];
 			$user_id = $_SESSION['user_id'];
-			$data = $this->user_model->get_nutricion_program($name, $user_id );
-			//rows of the query
-			$affected_rows = $this->db->affected_rows();
-			//check if query returns
-			if ($affected_rows > 0){
-				
-				$datakia = array(
-					'monday_morning' => $data->row(0)->monday_break,
-					'monday_launch' => $data->row(1)->monday_lau ,
-					'monday_dinner' => $data->row(2)->monday_din,
-
-					'tuesday_morning' =>$data->row(3)->tuesday_break,
-					'tuesday_launch' =>$data->row(4)->tuesday_lau,
-					'tuesday_dinner' =>$data->row(5)->tuesday_din,
-
-					'wendsday_morning' =>$data->row(6)->wendsday_break,
-					'wendsday_launch' =>$data->row(7)->wendsday_lau,
-					'wendsday_dinner' =>$data->row(8)->wendsday_din,
-
-					'thursday_morning' =>$data->row(9)->thursday_break,
-					'thursday_launch' =>$data->row(10)->thursday_lau,
-					'thursday_dinner' =>$data->row(11)->thursday_din,
-
-					'friday_morning' =>$data->row(12)->friday_break,
-					'friday_launch' =>$data->row(13)->friday_lau,
-					'friday_dinner' =>$data->row(14)->friday_din,
-
-					'saturday_morning' =>$data->row(15)->saturday_break,
-					'saturday_launch' =>$data->row(16)->saturday_lau,
-					'saturday_dinner' =>$data->row(17)->saturday_din,
-
-					'sunday_morning' =>$data->row(18)->sunday_break,
-					'sunday_launch' =>$data->row(19)->sunday_lau,
-					'sunday_dinner' =>$data->row(20)->sunday_din
-
-				);
-		//num_rows return the number of lines in the query
-				$datakia['rows'] = $data->num_rows();
+			$data['program'] = $this->user_model->get_nutricion_program_v2($name , $user_id);
+			
 
 				$this->load->view('header');
-				$this->load->view('user/nutricion_program_view' , $datakia);
-				$this->load->view('footer', $data );
-			}else{
-				$this->load->view('header');
-				$this->load->view('footer', $data );
-			}
-
+				$this->load->view('user/nutricion_program_view_v2' , $data);
+				$this->load->view('footer');
+			
 		}else{
 			redirect('user/login','refresh');
 		}

@@ -85,56 +85,8 @@ class Dietitians extends CI_controller
 		}
 		
 	}
-	// prosthiki programmatos gia pelati
-	public function add_nutricion_program(){
-		$data = NULL;
-		if (isset($_SESSION['dietitian_name'])){
-			if($_SERVER['REQUEST_METHOD'] == "POST" AND isset($_POST['program_submit'])){
-				
-				$this->form_validation->set_rules('breakfast_monday', 'πρωινό Δευτέρας', 'trim|required|min_length[2]|max_length[22]');
-				$this->form_validation->set_rules('lunch_monday', 'Lunch_monday', 'trim|required|min_length[2]|max_length[22]');
-				$this->form_validation->set_rules('dinner_monday', 'Dinner_monday', 'trim|required|min_length[2]|max_length[22]');
-
-				$this->form_validation->set_rules('breakfast_tuesday', 'Breakfast_tuesday', 'trim|required|min_length[2]|max_length[22]');
-				$this->form_validation->set_rules('lunch_tuesday', 'fieldlabel', 'trim|required|min_length[2]|max_length[22]');
-				$this->form_validation->set_rules('dinner_tuesday', 'Dinner tuesday', 'trim|required|min_length[2]|max_length[22]');
-
-				$this->form_validation->set_rules('breakfast_wendsday', 'breakfast_wendsday', 'trim|required|min_length[2]|max_length[22]');
-				$this->form_validation->set_rules('lunch_wendsday', 'fieldlabel', 'trim|required|min_length[2]|max_length[22]');
-				$this->form_validation->set_rules('dinner_wendsday', 'Dinner wendsday', 'trim|required|min_length[2]|max_length[22]');
-
-				$this->form_validation->set_rules('breakfast_thursday', 'fieldlabel', 'trim|required|min_length[2]|max_length[22]');
-				$this->form_validation->set_rules('lunch_thursday', 'fieldlabel', 'trim|required|min_length[2]|max_length[22]');
-				$this->form_validation->set_rules('dinner_thursday', 'Dinner thursday', 'trim|required|min_length[2]|max_length[22]');
-
-				$this->form_validation->set_rules('breakfast_friday', 'fieldlabel', 'trim|required|min_length[2]|max_length[22]');
-				$this->form_validation->set_rules('lunch_friday', 'fieldlabel', 'trim|required|min_length[2]|max_length[22]');
-				$this->form_validation->set_rules('dinner_friday', 'Dinner friday', 'trim|required|min_length[2]|max_length[22]');
-
-				$this->form_validation->set_rules('breakfast_saturday', 'saturday break', 'trim|required|min_length[2]|max_length[22]');
-				$this->form_validation->set_rules('lunch_saturday', 'saturday launch', 'trim|required|min_length[2]|max_length[22]');
-				$this->form_validation->set_rules('dinner_saturday', 'Dinner saturday', 'trim|required|min_length[2]|max_length[22]');
-
-				$this->form_validation->set_rules('breakfast_sunday', 'su break', 'trim|required|min_length[2]|max_length[22]');
-				$this->form_validation->set_rules('lunch_sunday', '', 'trim|required|min_length[2]|max_length[22]');
-				$this->form_validation->set_rules('dinner_sunday', 'Dinner sunday', 'trim|required|min_length[2]|max_length[22]');
-
-				if($this->form_validation->run() ){
-					$this->dietitian_model->insert_program_model();
-				}
-			}
-			$data['foods'] = $this->dietitian_model->get_foods();
-
-			$this->load->view('dietitian/headerd', $data);
-			$this->load->view('dietitian/add_nutricion_program_view', $data );
-			$this->load->view('footer');
-
-			//$this->output->set_output(json_encode($data));
-		}else {
-			redirect('dietitians/logind','refresh');
-		}		
-	}
-
+	
+	//add and display the nutricion program
 	public function add_nutricion_program_v2(){
 		if (isset($_SESSION['dietitian_name'])) {
 			$data = null;
@@ -261,76 +213,8 @@ class Dietitians extends CI_controller
 			redirect('dietitians/logind','refresh');
 		}
 	}
-	// o diaitologos vlepi to trexon programa tou pelati
-	public function customer_nutricion_program(){
-		$data = NULL;
-		$datakia = NULL;
-		//check if dietitian has logged in
-		if(isset($_SESSION['dietitian_name'])){
+	
 
-			//fortonw to user model gia an xrisimopoiiso ti sunartisi get_nutricion_program()
-			$this->load->model('user_model');
-			$name = $_SESSION['customer_name'];
-			$user_id = $_SESSION['customer_id'];
-			//save the current customer program and save it to $data
-			$data = $this->user_model->get_nutricion_program($name , $user_id);
-			//rows of the query
-			$affected_rows = $this->db->affected_rows();
-			//check if query returns
-			if ($affected_rows > 0){
-				//pernaw sto array to programma
-				$datakia = array(
-					'monday_morning' => $data->row(0)->monday_break,
-					'monday_launch' => $data->row(1)->monday_lau ,
-					'monday_dinner' => $data->row(2)->monday_din,
-
-					'tuesday_morning' =>$data->row(3)->tuesday_break,
-					'tuesday_launch' =>$data->row(4)->tuesday_lau,
-					'tuesday_dinner' =>$data->row(5)->tuesday_din,
-
-					'wendsday_morning' =>$data->row(6)->wendsday_break,
-					'wendsday_launch' =>$data->row(7)->wendsday_lau,
-					'wendsday_dinner' =>$data->row(8)->wendsday_din,
-
-					'thursday_morning' =>$data->row(9)->thursday_break,
-					'thursday_launch' =>$data->row(10)->thursday_lau,
-					'thursday_dinner' =>$data->row(11)->thursday_din,
-
-					'friday_morning' =>$data->row(12)->friday_break,
-					'friday_launch' =>$data->row(13)->friday_lau,
-					'friday_dinner' =>$data->row(14)->friday_din,
-
-					'saturday_morning' =>$data->row(15)->saturday_break,
-					'saturday_launch' =>$data->row(16)->saturday_lau,
-					'saturday_dinner' =>$data->row(17)->saturday_din,
-
-					'sunday_morning' =>$data->row(18)->sunday_break,
-					'sunday_launch' =>$data->row(19)->sunday_lau,
-					'sunday_dinner' =>$data->row(20)->sunday_din
-				);
-				//num_rows return the number of lines in the query
-				$datakia['rows'] = $data->num_rows();
-				$this->load->view('dietitian/headerd');
-			//i am using the nutricion program view second time
-				$this->load->view('user/nutricion_program_view' , $datakia);
-				$this->load->view('footer', $data );
-			}else{
-				$this->load->view('header');
-				$this->load->view('footer', $data );
-			}
-
-		}else{
-			//redirect to login page
-			redirect('dietitians/logind','refresh');
-		}
-	}
-
-	public function create_nutricion_program_v2(){
-		if ($_SESSION['dietitian_name']) {
-
-			
-		}
-	}
 
 	public function create_customer_secret_key(){
 		$data = NULL;
