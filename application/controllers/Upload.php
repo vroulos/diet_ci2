@@ -62,7 +62,6 @@ class Upload extends CI_Controller {
                 $this->load->view('header');
                 $this->load->view('upload/upload_success', $data);
                 $this->load->view('footer');
-                echo "when all is ok";
             }       
         }
     }

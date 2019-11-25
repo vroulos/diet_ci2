@@ -2,6 +2,7 @@
 <div class="col-md-2">
 	<div class="row1">
 		<?php echo form_error('weight', '<div class="error">', '</div>'); ?>
+		<p id="message"></p>
 	</div>
 </div>
 <div>

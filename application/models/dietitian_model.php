@@ -84,6 +84,8 @@ class Dietitian_model extends CI_Model
 
 
 	public function add_meal($day, $mealtime, $meal, $user_id , $dietitian_id){
+
+		echo "gdsfgfdg ys==user_id: ".$user_id ."   dietitian_id ".$dietitian_id;
 		$query = $this->db->query("INSERT INTO nutricion_program_v2(day, hour, food, dietitian_id, user_id ) values ('$day', '$mealtime', '$meal', '$dietitian_id', '$user_id') ON DUPLICATE KEY UPDATE food = '$meal' ");
 	}
 
@@ -160,19 +162,29 @@ class Dietitian_model extends CI_Model
 		$row_affected = $this->db->affected_rows();
 
 		
-}
+	}
 
 	public function send_message_model(){
 		$message = $this->input->post('send_message');
 		$customer = $_SESSION['customer_name'];
 
-		$this->db->query("INSERT INTO messages(customer , message) values('$customer', '$message')");
+		 $this->db->query("INSERT INTO messages(customer , message) values('$customer', '$message')");
+
+		return ($this->db->affected_rows() > 0) ? TRUE : false;
 	}
+
+
 	//fernei olo to istoriko varous
 	public function get_weight_history(){
 		$user = $_SESSION['customer_name'];
 		$query = $this->db->query("SELECT * FROM personal_data where customer = '$user' ");
-		return $query->result();
+		
+		if ($this->db->affected_rows() > 0) {
+			return $query->result();
+		}else {
+			return false;
+		}
+		
 	}
 
 	public function get_dietitian_info($dietitian){
@@ -237,6 +249,31 @@ class Dietitian_model extends CI_Model
 		}else{
 			return false;
 		}		
+	}
+
+	//deactivated the customer 
+	public function deactivate_customer($id){
+		$query = $this->db->query("UPDATE users SET is_deactivated = 1 WHERE id = '$id' ");
+
+		$result = $this->db->affected_rows();
+		echo "affected rows ".$result;
+
+		if ($query) {
+			return TRUE;
+		}else{
+			return false;
+		}
+
+	}
+
+	public function activate_customer($id){
+		$query = $this->db->query("UPDATE users SET is_deactivated = 0 WHERE id = '$id' ");
+
+		if ($query) {
+			return TRUE;
+		}else{
+			return false;
+		}
 	}
 }
 

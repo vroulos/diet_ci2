@@ -81,9 +81,38 @@ class Dietitians extends CI_controller
 			$this->load->view('dietitian/initial_view', $data );
 			$this->load->view('footer');
 		}else{
-			redirect('dietitians/logind','refresh');
+			//redirect('dietitians/logind','refresh');
 		}
 		
+	}
+
+	public function deactivate_customer(){
+		if (isset($_SESSION['dietitian_name'])) {
+			//the customer id
+			$customer_id = $this->input->get('id');
+
+			$result = $this->dietitian_model->deactivate_customer($customer_id);
+			if ($result) {
+				redirect('Dietitians/choose_customer','refresh');
+			}
+
+		}
+	}
+
+	//activates the user
+	public function activate_customer(){
+		if (isset($_SESSION['dietitian_name'])) {
+
+			//the customer id
+			$customer_id = $this->input->get('id');
+			echo $customer_id;
+
+			$result = $this->dietitian_model->activate_customer($customer_id);
+			if ($result) {
+				redirect('Dietitians/choose_customer','refresh');
+			}
+
+		}
 	}
 	
 	//add and display the nutricion program
@@ -105,7 +134,6 @@ class Dietitians extends CI_controller
 				$user_id = $_SESSION['customer_id'];
 				$duser_id = $_SESSION['dietitian_id'];
 
-				
 				//add the meal to the the table nutricion_program_v2
 				$this->dietitian_model->add_meal($day, $mealtime, $meal, $user_id, $duser_id);
 
@@ -179,8 +207,11 @@ class Dietitians extends CI_controller
 	public function send_message(){
 		//check if dietitian has choose a customer to proccess
 		if(isset($_SESSION['customer_name']) && $_SESSION['dietitian_name']){
+
 			//if yes 
 			$this->form_validation->set_rules('send_message', 'Send_message', 'trim|required|min_length[5]|max_length[12000]');
+
+		
 			// if form is not submited the displays the views
 			if ($this->form_validation->run() == false){
 				$this->load->view('dietitian/headerd');
@@ -189,7 +220,14 @@ class Dietitians extends CI_controller
 
 			//if form submited send the message
 			}else{
-				$this->dietitian_model->send_message_model();
+				$result = $this->dietitian_model->send_message_model();
+
+				if($result){
+					$this->session->set_flashdata('success', 'Το μήνυμα στάλθηκε');
+				}else{
+					$this->session->set_flashdata('error', 'Αποτυχία αποστολής');
+				}
+
 				$this->load->view('dietitian/headerd');
 				$this->load->view('dietitian/send_message_view');
 				$this->load->view('footer');
