@@ -56,6 +56,44 @@ class User extends CI_Controller {
 			redirect('user/login','refresh');
 		}
 	}
+
+	public function my_meals(){
+		if (isset($_SESSION['username'])) {
+
+			$data = null;
+			$this->load->model('dietitian_model');
+			$data['my_meals'] = $this->dietitian_model->get_my_meals();
+
+			
+			$this->load->view('header');
+			$this->load->view('dietitian/my_meals_view' , $data);
+			$this->load->view('footer');
+		}else{
+			redirect('user/login','refresh');
+		}
+	}
+
+	public function search_food(){
+		if (isset($_SESSION['username'])) {
+
+			$data = null;
+			$search_input = $this->input->get('user_search_input');
+			if (isset($search_input)) {
+				
+				$data['my_meals'] = $this->user_model->search_food($search_input);
+
+
+				$this->load->view('header');
+				$this->load->view('dietitian/my_meals_view', $data);
+				$this->load->view('footer');
+
+			}
+		}else{
+			redirect('user/login','refresh');
+		}
+	}
+
+
 	// o pelatis prosthetei to varos tou
 	public function add_weight(){
 		//check if the user has logged in
@@ -97,6 +135,8 @@ class User extends CI_Controller {
 			redirect('user/login','refresh');
 		}
 	}
+
+
 	//prosthetei kai emfanizei to pososto lipous
 	public function add_percent_fat(){
 		$data = NULL;
@@ -245,10 +285,23 @@ class User extends CI_Controller {
 		if (isset($_SESSION['username'])) {
 			$customer_name = $_SESSION['username'] ;
 	
-			$id = $this->input->post('message_to_delete');
-			if(isset($id)){
+			$id = $this->input->post('message_id');
+			$delete_message = $this->input->post('message_to_delete');
+			$answer = $this->input->post('answer');
+
+			$data['answers'] = $this->user_model->get_answers($customer_name);
+			
+
+			if (isset($answer)) {
+				$this->user_model->send_answer_to_dietitian($answer, $id);
+				
+			}
+			//if the message_to_delete pressed then i delete the message
+			else if(isset($delete_message)){
 				$this->user_model->delete_message($id);
 			}
+
+			
 
 		//echo $message_to_delete;
 		// delete the messages
@@ -461,8 +514,6 @@ class User extends CI_Controller {
 					$_SESSION['logged_in']    = (bool)true;
 					$_SESSION['is_confirmed'] = (bool)$user->is_confirmed;
 					$_SESSION['is_admin']     = (bool)$user->is_admin;
-
-					echo 'i session einai'. $_SESSION['username'] ;
 					
 					// user login ok
 					$this->load->view('header');

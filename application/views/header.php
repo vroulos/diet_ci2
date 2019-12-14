@@ -63,7 +63,7 @@
 				</li>
 				<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						προσωπικά δεδομένα
+						Προσωπικά δεδομένα
 					</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 						<a class="dropdown-item" href="<?php echo base_url('user/add_weight') ?>">προσθήκη προσωπικών δεδομένων<br> και εμφάνισή τους</a>
@@ -77,14 +77,16 @@
 					</div>
 				</li>
 
-				<li><a class="nav-link" href="<?=base_url('user/view_program')?>">πρόγραμμα διατροφής</a>
+				<li><a class="nav-link" href="<?=base_url('user/view_program')?>">Πρόγραμμα διατροφής</a>
+				</li>
+				<li><a class="nav-link" href="<?=base_url('user/my_meals')?>">Γεύματα</a>
 				</li>
 				<li><a class="nav-link" href="<?= base_url('logout') ?>">Αποσύνδεση</a>
 				</li>
 			
 			</ul>
-			<form class="form-inline my-2 my-lg-0">
-				<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+			<form class="form-inline my-2 my-lg-0" action="<?php echo base_url('user/search_food') ?>">
+				<input class="form-control mr-sm-2" name="user_search_input" type="search" placeholder="Search" aria-label="Search">
 				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 			</form>
 			<?php else : ?>

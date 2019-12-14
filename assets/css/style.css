@@ -96,3 +96,23 @@ img:hover {
     position: relative;
 
   }
+
+  #user_answer{
+    display: block;
+    background-color: #428bca;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    display: inline-flex;
+    float: right;
+  
+}
+
+   #dietitian_answer{
+    display: block;
+    background-color: grey;
+    margin-bottom: 15px;
+    margin-top: 15px;
+    display: inline-flex;
+    float: left;
+
+  }

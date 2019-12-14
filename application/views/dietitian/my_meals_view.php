@@ -32,7 +32,15 @@
       <td><?php echo $value->food_type."</td>";
        $x++; ?>
        <td><?php echo $value->calories_per_100;?></td>
-  	 
+       <?php 
+       if (isset($_SESSION['dietitian_name'])) {
+        echo form_open('dietitians/my_meals');
+        echo '<input type = "hidden" name = "meal" value ="'.$value->id.'" >';
+        echo '<td><input type="submit" value="Διαγραφή" class="btn btn-dark" ></td>';
+         form_close();
+       }
+        ?>
+
      </td>
     </tr>
     <tr>

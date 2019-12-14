@@ -156,9 +156,37 @@ class User_model extends CI_Model {
 		
 	}
 
+
+	public function search_food($food){
+		$query = $this->db->query("SELECT * FROM food 
+			WHERE (foodname LIKE '%$food%')
+			 or (food_type LIKE '%$food%') ");
+
+		if ($query) {
+			return $query->result();
+		}
+	}
+
 	public function get_messages($customer_name){
 
 		$query = $this->db->query("SELECT * FROM messages where customer = '$customer_name' ORDER BY date_sent DESC");
+
+		$affected_rows = $this->db->affected_rows();
+		
+		if ($affected_rows) {
+			return $query->result();
+		}else{
+			return null;
+		}
+		
+
+	}
+
+	public function get_answers($customer_name){
+		$query = $this->db->query("SELECT user_answers.answer, user_answers.message_id, user_answers.who_send_it 
+			FROM user_answers 
+			INNER JOIN messages 
+			ON user_answers.message_id = messages.id");
 
 		$affected_rows = $this->db->affected_rows();
 
@@ -167,8 +195,6 @@ class User_model extends CI_Model {
 		}else{
 			return null;
 		}
-		
-
 	}
 
 	public function delete_message($id){
@@ -188,6 +214,17 @@ class User_model extends CI_Model {
 		// header("location: index");
 		// exit;
 	}
+
+
+	public function send_answer_to_dietitian($answer, $message_id){
+		$query = $this->db->query("INSERT INTO user_answers(answer , message_id ) values ('$answer', '$message_id')");
+	}
+
+
+	public function reanswer_to_user($reanswer, $message_id){
+		$query = $this->db->query("INSERT INTO user_answers(answer , message_id , who_send_it) values ('$reanswer', '$message_id', 'dietitian')");
+	}
+
 
 	public function get_weight(){
 		if (isset($_SESSION['username'])){

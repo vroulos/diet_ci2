@@ -83,11 +83,20 @@ class Dietitian_model extends CI_Model
 	}
 
 
+	//delete a specific food from database
+	public function delete_food($meal_id){
+
+		$query = $this->db->query("DELETE FROM food WHERE id = '$meal_id' ");
+		echo $meal_id;
+	}
+
+
 	public function add_meal($day, $mealtime, $meal, $user_id , $dietitian_id){
 
-		echo "gdsfgfdg ys==user_id: ".$user_id ."   dietitian_id ".$dietitian_id;
 		$query = $this->db->query("INSERT INTO nutricion_program_v2(day, hour, food, dietitian_id, user_id ) values ('$day', '$mealtime', '$meal', '$dietitian_id', '$user_id') ON DUPLICATE KEY UPDATE food = '$meal' ");
 	}
+
+
 
 	
 	public function get_customers(){
@@ -117,6 +126,14 @@ class Dietitian_model extends CI_Model
 		$query = $this->db->query("SELECT `dietitian_id`, `dietitian_name`, `dietitian_email`, `dietitian_password`, `dietitian_age`, `dietitian_mobile` FROM `dietitian` WHERE dietitian_name =  '$name' ");
 		if ($query) {
 		
+			return $query->result();
+		}
+	}
+
+	public function search_customer($input){
+		$query = $this->db->query("SELECT * FROM users WHERE username = '$input' ");
+
+		if ($query) {
 			return $query->result();
 		}
 	}

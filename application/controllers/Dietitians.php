@@ -208,14 +208,37 @@ class Dietitians extends CI_controller
 		//check if dietitian has choose a customer to proccess
 		if(isset($_SESSION['customer_name']) && $_SESSION['dietitian_name']){
 
-			//if yes 
+			//get the reanswer of dietitian to the user
+			$response = $this->input->post('reanswer');
+			//the message id of the comversation
+			$message_id = $this->input->post('message_id');
+			
+
+			$username = $_SESSION['customer_name'];
+			$this->load->model('user_model');
+
+			//get the messages from database and store them in the $data
+			$data['messages'] = $this->user_model->get_messages($username);
+			$data['answers'] = $this->user_model->get_answers($username);
+
+			
+
+			//if the dietitian reanswer to user 
+			if (isset($response)) {
+				$reanswer = $this->user_model->reanswer_to_user($response, $message_id);
+
+				$this->load->view('dietitian/headerd');
+				$this->load->view('dietitian/send_message_view', $data);
+				$this->load->view('footer');
+			}else{
+				//if yes 
 			$this->form_validation->set_rules('send_message', 'Send_message', 'trim|required|min_length[5]|max_length[12000]');
 
 		
 			// if form is not submited the displays the views
 			if ($this->form_validation->run() == false){
 				$this->load->view('dietitian/headerd');
-				$this->load->view('dietitian/send_message_view');
+				$this->load->view('dietitian/send_message_view', $data);
 				$this->load->view('footer');
 
 			//if form submited send the message
@@ -229,9 +252,11 @@ class Dietitians extends CI_controller
 				}
 
 				$this->load->view('dietitian/headerd');
-				$this->load->view('dietitian/send_message_view');
+				$this->load->view('dietitian/send_message_view', $data);
 				$this->load->view('footer');
 			}
+			}
+			
 		}else{
 			redirect('dietitians/logind','refresh');
 		}
@@ -303,6 +328,14 @@ class Dietitians extends CI_controller
 			$data = null;
 			$data['my_meals'] = $this->dietitian_model->get_my_meals();
 
+			$meal_id = $this->input->post('meal');
+			if (isset($meal_id)) {
+				$this->dietitian_model->delete_food($meal_id);
+				echo 'the id is '.$meal_id;
+				echo 'is running';
+			}
+
+
 			$this->load->view('dietitian/headerd');
 			$this->load->view('dietitian/my_meals_view', $data);
 			$this->load->view('footer');
@@ -320,9 +353,11 @@ class Dietitians extends CI_controller
 			if (isset($to_search)) {
 
 				$data['search_result'] = $this->dietitian_model->search_anything($to_search);
+				$data['users'] = $this->dietitian_model->search_customer($to_search);
+
 
 				$this->load->view('dietitian/headerd');
-				$this->load->view('dietitian/search_result_view' , $data);
+				$this->load->view('dietitian/choose_customer_view' , $data);
 				$this->load->view('footer');
 			}else{
 				echo "why is not set?";
