@@ -141,14 +141,15 @@ class User_model extends CI_Model {
 		return $query;
 	}
 
-		public function get_nutricion_program_v2($name, $user_id){
+		public function get_nutricion_program_v2($week, $name, $user_id){
 		
 		
 		//select the row with user max user id . that row has the current nutricion program
-		$query = $this->db->query("SELECT day, hour, food FROM nutricion_program_v2 where user_id = '$user_id' ORDER BY FIELD(day, 'monday','tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'), FIELD(hour, 'breakfast', 'lunch', 'dinner')");
+		$query = $this->db->query("SELECT week, day, hour, food, date FROM nutricion_program_v2 where user_id = '$user_id' and week = '$week' ORDER BY FIELD(day, 'monday','tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'), FIELD(hour, 'breakfast', 'lunch', 'dinner')");
 
 		$affected_rows = $this->db->affected_rows();
 		if ($affected_rows > 0) {
+			//returns the query result as an array of objects, or an empty array on failure
 			return $query->result();
 		}else{
 			return false;

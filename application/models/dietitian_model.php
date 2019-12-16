@@ -91,9 +91,41 @@ class Dietitian_model extends CI_Model
 	}
 
 
-	public function add_meal($day, $mealtime, $meal, $user_id , $dietitian_id){
+	public function get_weeks($userId){
+		$query = $this->db->query("SELECT * FROM nutricion_program_v2 WHERE user_id = '$userId' GROUP BY week LIMIT 10 ");
 
-		$query = $this->db->query("INSERT INTO nutricion_program_v2(day, hour, food, dietitian_id, user_id ) values ('$day', '$mealtime', '$meal', '$dietitian_id', '$user_id') ON DUPLICATE KEY UPDATE food = '$meal' ");
+		if ($query) {
+			return $query->result();
+		}
+	}
+
+
+	public function add_meal($week, $day, $mealtime, $meal, $user_id , $dietitian_id){
+
+		echo "-------(the week on dietitian model is) : ".$week;
+		$query = $this->db->query("INSERT INTO nutricion_program_v2(week,day, hour, food, dietitian_id, user_id ) values ('$week','$day', '$mealtime', '$meal', '$dietitian_id', '$user_id') ON DUPLICATE KEY UPDATE food = '$meal' ");
+
+		if ($this->db->affected_rows() > 0) {
+			echo "yes ! added to db";
+		}
+	}
+
+	public function add_new_week($newWeek, $userId, $dietitian_id, $newdate){
+
+		$query = $this->db->query("INSERT INTO nutricion_program_v2(week, day, hour, food, dietitian_id, user_id, date) values ($newWeek,'monday', 'breakfast', 'fdsa', '$dietitian_id', '$userId', '$newdate' )");
+	}
+
+
+
+	public function get_current_date(){
+		$query = $this->db->query("SELECT week, date from nutricion_program_v2 order by week desc LIMIT 1 ");
+
+		if ($this->db->affected_rows() > 0 ) {
+			echo ' lelele do metro ::  '.$query->row()->date."     -------   ";
+			return $query->row();
+		}else{
+			echo "noooooooooooooooo        ;;;;";
+		}
 	}
 
 
