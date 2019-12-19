@@ -3,12 +3,20 @@
 <div class="container" style="margin: 90px">
 	<?php if (isset($_SESSION['customer_name'])) {
 		echo "<p>Πρόγραμμα διατροφής για τον πελάτη ". $_SESSION['customer_name'];
-		//var_dump($program);
-		foreach ($program as $value) {
+		
+	
+		if (isset($program) and !empty($program)) {
+			foreach ($program as $value) {
 			$date = $value->date;
-			$datePlusOneWeek = date('Y-m-d',strtotime("+5 days"));
+			$date_object=date_create($date);
+			$date_object_formated = date_format($date_object,"Y-m-d");
+
+			date_add($date_object,date_interval_create_from_date_string("7 days"));
+			$my_date_plus_one_week =  date_format($date_object,"Y-m-d");
 		}
-		echo ".      Ημερομηνία από : ".substr($date, 0, 10)." έως : ". $datePlusOneWeek;
+		echo ".      Ημερομηνία από : ".$date_object_formated." έως : ". $my_date_plus_one_week;
+		}
+		
 	} ?>
 	<div class="table-responsive">
 		

@@ -125,17 +125,19 @@ class Dietitians extends CI_controller
 			$name = $_SESSION['customer_name'];
 			$user_id = $_SESSION['customer_id'];
 			$data['weeks'] = $this->dietitian_model->get_weeks($user_id);
+			$week = $this->session->userdata('week');
+
+			$data['program'] = $this->user_model->get_nutricion_program_v2($week, $name , $user_id);
 
 
 			//if the dietitian add a meal with pushing the button
 			if ($_SERVER['REQUEST_METHOD'] == 'POST' AND isset($_POST['submit_program']) ){
 
-				echo "<pre>";
-				print_r($this->session->all_userdata());
-				echo "</pre>";
-				
-				$week = $_POST['week'];	
-				
+				if (!empty($this->input->post('week'))) {
+					$week = $_POST['week'];
+				}else{
+					$this->session->set_userdata('week', 1);
+				}
 				
 				$this->session->set_userdata('week', $week);
 				
@@ -166,48 +168,58 @@ class Dietitians extends CI_controller
 					echo "the button add new week is pressed!!  ";
 				$user_id = $_SESSION['customer_id'];
 				$result = $this->dietitian_model->get_current_date();
-				$current_date = $result->date;
-				echo "current date : " .$current_date;
+				if ($result) {
+					$current_date = $result->date;
+					$current_date_obj = date_create($current_date);
+					$date_plus_one_week_obj = date_add($current_date_obj,date_interval_create_from_date_string("7 days"));
+					$date_plus_one_week = $date_plus_one_week_obj->format('Y-m-d H:i:s');
+
+
+
+					echo "current date : " .$current_date;
 				
 				
 
-				$current_week = $result->week;
-				//$new_date = strtotime('+7 days', $current_date);
-				//$new_date1 = date('Y-m-d H:i:s',strtotime($current_date. '+1 days'));
-				
-				$new_date1 = date('Y-m-d H:i:s', strtotime($current_date, '+55 day'));
-				
-				$new_week = $current_week+1;
-				echo "  new date : ". $new_date1 ."   ";
-
-				echo "  new week is ".$new_week;
-
-				if (!$new_date1 instanceof Date) {
+					$current_week = $result->week;
 					
+					$new_date1 = $current_date;
+					$new_week = $current_week+1;
+					echo "  new date : ". $new_date1 ."   ";
+
+					echo "  new week is ".$new_week;
+
+					
+						
+					
+					$this->dietitian_model->add_new_week($new_week, $user_id, $_SESSION['dietitian_name'], $date_plus_one_week);
+					$data['weeks'] = $this->dietitian_model->get_weeks($user_id);
+					$data['program'] = $this->user_model->get_nutricion_program_v2($week, $name , $user_id);
+			
+				}
 				
-				$this->dietitian_model->add_new_week($new_week, $user_id, $_SESSION['dietitian_name'], $new_date1);
-			}else{
-				echo "no     nooooooooooooooooooooo !!!!1  ";
-				var_dump($new_date1);
-				
-			}
 				//var_dump($current_date);
 
 				$this->load->view('dietitian/headerd');
 				$this->load->view('dietitian/add_nutricion_program_view_v2', $data);
 				$this->load->view('user/nutricion_program_view_v2', $data);
 				$this->load->view('footer');
-			}else {
-					echo "<pre>";
-				print_r($this->session->all_userdata());
-				echo "</pre>";
+			}else if($_SERVER['REQUEST_METHOD'] == 'POST' AND isset($_POST['chooseWeek'])){
 
+				$week = $this->input->post('week');
+				$this->session->set_userdata('week', $week );
+				$data['program'] = $this->user_model->get_nutricion_program_v2($week, $name , $user_id);
+
+				$this->load->view('dietitian/headerd');
+				$this->load->view('dietitian/add_nutricion_program_view_v2', $data);
+				$this->load->view('user/nutricion_program_view_v2', $data);
+				$this->load->view('footer');
+			}else {
+				
 				
 				$week = $this->session->week;
 				
-					//save the current customer program and save it to $data
+					//get the current customer program and save it to $data
 				$data['program'] = $this->user_model->get_nutricion_program_v2($week, $name , $user_id);
-				
 				
 
 				$this->load->view('dietitian/headerd');
@@ -391,9 +403,7 @@ class Dietitians extends CI_controller
 			$meal_id = $this->input->post('meal');
 			if (isset($meal_id)) {
 				$this->dietitian_model->delete_food($meal_id);
-				echo 'the id is '.$meal_id;
-				echo 'is running';
-			}
+				
 
 
 			$this->load->view('dietitian/headerd');
@@ -404,7 +414,7 @@ class Dietitians extends CI_controller
 			redirect('dietitians/logind','refresh');
 		}
 	}
-
+}
 	//search for dietitians and display nane and email if exists
 	public function search(){
 

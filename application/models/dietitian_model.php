@@ -92,7 +92,7 @@ class Dietitian_model extends CI_Model
 
 
 	public function get_weeks($userId){
-		$query = $this->db->query("SELECT * FROM nutricion_program_v2 WHERE user_id = '$userId' GROUP BY week LIMIT 10 ");
+		$query = $this->db->query("SELECT * FROM nutricion_program_v2 WHERE user_id = '$userId' GROUP BY week ");
 
 		if ($query) {
 			return $query->result();
@@ -124,7 +124,7 @@ class Dietitian_model extends CI_Model
 			echo ' lelele do metro ::  '.$query->row()->date."     -------   ";
 			return $query->row();
 		}else{
-			echo "noooooooooooooooo        ;;;;";
+			return false;
 		}
 	}
 

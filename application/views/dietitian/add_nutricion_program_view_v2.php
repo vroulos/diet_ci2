@@ -11,17 +11,22 @@ echo form_open('dietitians/add_nutricion_program_v2'); ?>
 		<?php 
 		$selected = $_SESSION['week'];
 		if (isset($weeks)) {
+			echo 'the $weeks is running!!** ** **';
 			
 			foreach ($weeks as $week) {
 				if ($selected == $week->week) {
 					echo '<option selected = "'.$selected.'" value ="'.$week->week.'" >'.$week->week.'</option> ';
 				}else{
 					echo '<option  value ="'.$week->week.'" >'.$week->week.'</option> ';
+					echo "the else weeke is runnign ** ** *** ";
+
 				}
 				
 				
 			}
 			
+		}else {
+			echo '<option selected = "1" value="1">1</option>';
 		}
 		
 		 ?>
@@ -52,7 +57,9 @@ echo form_open('dietitians/add_nutricion_program_v2'); ?>
 	<label for="item">Γεύμα</label>
 	<input type="text" name="food" class="form-control" placeholder="φαγητό" id="meal">
 </div>
+
 <button type="submit" name="addNewWeek" value="nothing" style="margin-top: 20px; margin-bottom: 20px;" class="btn btn-dark" >Προσθήκη Εβδομάδας</button>
+<button type="submit" name="chooseWeek" value="nothingSpecial" style="margin-top: 20px; margin-bottom: 20px;" class="btn btn-info" >Επιλογή Εβδομάδας</button>
 <?php echo form_submit('submit_program', 'Υποβολή',  'class = "btn btn-dark"'); ?>
 
 
