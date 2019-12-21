@@ -116,6 +116,49 @@ class Dietitian_model extends CI_Model
 		$query = $this->db->query("INSERT INTO nutricion_program_v2(week, day, hour, food, dietitian_id, user_id, date) values ('$newWeek','monday', 'breakfast', '$meal', '$dietitian_id', '$userId', '$newdate' )");
 	}
 
+	public function add_template($templateName, $day, $mealtime, $meal, $duser_id){
+
+		$query = $this->db->query("INSERT INTO templates (day, hour, dietitian_id, food, template_name) values ('$day', '$mealtime', '$duser_id', '$meal', '$templateName') ");
+
+		if ($this->db->affected_rows() > 0 ) {
+			echo "hh00000";
+			return true;
+
+		}else{
+			echo "false";
+			return false;
+		}
+	}
+
+
+	public function get_templates($dietitian_id){
+
+		$query = $this->db->query("SELECT template_name FROM templates GROUP BY template_name");
+		
+		if ($this->db->affected_rows() > 0 ) {
+			echo "h00000+++++";
+			return $query->result();
+
+		}else{
+			echo "false ++++++";
+			return false;
+		}
+	}
+
+	public function add_meal_to_template($templateName, $day, $mealtime, $meal, $duser_id){
+
+		$query = $this->db->query("INSERT INTO templates (day, hour, dietitian_id, food, template_name) values ('$day', '$mealtime', '$duser_id', '$meal', '$templateName') ON DUPLICATE KEY UPDATE food = '$meal' ");
+
+			if ($this->db->affected_rows() > 0 ) {
+			echo "hh00000";
+			return true;
+
+		}else{
+			echo "false";
+			return false;
+		}
+	}
+
 
 
 	public function get_current_date(){
