@@ -141,6 +141,13 @@ class User_model extends CI_Model {
 		return $query;
 	}
 
+	//return the current date . After the controller loads the proper nutricion program
+	public function get_current_week(){
+		$query = $this->db->query("SELECT week FROM nutricion_program_v2 WHERE date BETWEEN CURDATE() AND CURDATE() + 7 ");
+
+		return $query->row()->week;
+	}
+
 		public function get_nutricion_program_v2($week, $name, $user_id){
 		
 		

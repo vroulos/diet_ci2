@@ -24,7 +24,7 @@
   </thead>
   <tbody>
   	<?php
-  	$x = 1;
+  	$x = 0;
   	 foreach ($my_meals as $value) {  ?>
     <tr>
       <th scope="row"><?php echo $x; ?></th>
@@ -34,13 +34,13 @@
        <td><?php echo $value->calories_per_100;?></td>
        <?php 
        if (isset($_SESSION['dietitian_name'])) {
-        echo form_open('dietitians/my_meals');
-        echo '<input type = "hidden" name = "meal" value ="'.$value->id.'" >';
-        echo '<td><input type="submit" value="Διαγραφή" class="btn btn-dark" ></td>';
-         form_close();
+          echo form_open('dietitians/my_meals');
+          echo '<input type = "hidden" name = "meal_id" value ="'.$value->id.'" >';
+          //echo $value->id;
+          echo '<td><input type="submit" value="Διαγραφή" class="btn btn-dark" ></td>';
+          echo form_close();
        }
         ?>
-
      </td>
     </tr>
     <tr>

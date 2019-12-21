@@ -86,8 +86,9 @@ class Dietitian_model extends CI_Model
 	//delete a specific food from database
 	public function delete_food($meal_id){
 
-		$query = $this->db->query("DELETE FROM food WHERE id = '$meal_id' ");
 		echo $meal_id;
+		$query = $this->db->query("DELETE FROM food WHERE id = '$meal_id' ");
+		
 	}
 
 
@@ -110,9 +111,9 @@ class Dietitian_model extends CI_Model
 		}
 	}
 
-	public function add_new_week($newWeek, $userId, $dietitian_id, $newdate){
+	public function add_new_week($newWeek, $userId, $dietitian_id, $newdate, $meal){
 
-		$query = $this->db->query("INSERT INTO nutricion_program_v2(week, day, hour, food, dietitian_id, user_id, date) values ($newWeek,'monday', 'breakfast', 'fdsa', '$dietitian_id', '$userId', '$newdate' )");
+		$query = $this->db->query("INSERT INTO nutricion_program_v2(week, day, hour, food, dietitian_id, user_id, date) values ('$newWeek','monday', 'breakfast', '$meal', '$dietitian_id', '$userId', '$newdate' )");
 	}
 
 
@@ -163,7 +164,7 @@ class Dietitian_model extends CI_Model
 	}
 
 	public function search_customer($input){
-		$query = $this->db->query("SELECT * FROM users WHERE username = '$input' ");
+		$query = $this->db->query("SELECT * FROM users WHERE (username LIKE '%$input%') ");
 
 		if ($query) {
 			return $query->result();

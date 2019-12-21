@@ -45,12 +45,12 @@ class User extends CI_Controller {
 
 			$name = $_SESSION['username'];
 			$user_id = $_SESSION['user_id'];
-			$data['program'] = $this->user_model->get_nutricion_program_v2($name , $user_id);
+			$week = $this->user_model->get_current_week();
+			$data['program'] = $this->user_model->get_nutricion_program_v2($week, $name , $user_id);
 			
-
-				$this->load->view('header');
-				$this->load->view('user/nutricion_program_view_v2' , $data);
-				$this->load->view('footer');
+			$this->load->view('header');
+			$this->load->view('user/nutricion_program_view_v2' , $data);
+			$this->load->view('footer');
 			
 		}else{
 			redirect('user/login','refresh');

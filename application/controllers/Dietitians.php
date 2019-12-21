@@ -165,7 +165,7 @@ class Dietitians extends CI_controller
 			//add new week to the customer nutricion program
 			}else if($_SERVER['REQUEST_METHOD'] == 'POST' AND isset($_POST['addNewWeek'])){
 					
-					echo "the button add new week is pressed!!  ";
+					
 				$user_id = $_SESSION['customer_id'];
 				$result = $this->dietitian_model->get_current_date();
 				if ($result) {
@@ -173,31 +173,15 @@ class Dietitians extends CI_controller
 					$current_date_obj = date_create($current_date);
 					$date_plus_one_week_obj = date_add($current_date_obj,date_interval_create_from_date_string("7 days"));
 					$date_plus_one_week = $date_plus_one_week_obj->format('Y-m-d H:i:s');
-
-
-
-					echo "current date : " .$current_date;
 				
-				
-
 					$current_week = $result->week;
-					
-					$new_date1 = $current_date;
-					$new_week = $current_week+1;
-					echo "  new date : ". $new_date1 ."   ";
-
-					echo "  new week is ".$new_week;
-
-					
-						
-					
-					$this->dietitian_model->add_new_week($new_week, $user_id, $_SESSION['dietitian_name'], $date_plus_one_week);
+					$new_week = $current_week+1;						
+					$meal = 'γάλα με δημητριακά';
+					$this->dietitian_model->add_new_week($new_week, $user_id, $_SESSION['dietitian_name'], $date_plus_one_week, $meal);
 					$data['weeks'] = $this->dietitian_model->get_weeks($user_id);
 					$data['program'] = $this->user_model->get_nutricion_program_v2($week, $name , $user_id);
-			
 				}
 				
-				//var_dump($current_date);
 
 				$this->load->view('dietitian/headerd');
 				$this->load->view('dietitian/add_nutricion_program_view_v2', $data);
@@ -400,21 +384,27 @@ class Dietitians extends CI_controller
 			$data = null;
 			$data['my_meals'] = $this->dietitian_model->get_my_meals();
 
-			$meal_id = $this->input->post('meal');
-			if (isset($meal_id)) {
+			$meal_id = $this->input->post('meal_id');
+			if ($_SERVER['REQUEST_METHOD'] == "POST" AND isset($meal_id)) {
 				$this->dietitian_model->delete_food($meal_id);
 				
+				
+				$this->load->view('dietitian/headerd');
+				$this->load->view('dietitian/my_meals_view', $data);
+				$this->load->view('footer');
+			}else{
+				$this->load->view('dietitian/headerd');
+				$this->load->view('dietitian/my_meals_view', $data);
+				$this->load->view('footer');
+			}
 
-
-			$this->load->view('dietitian/headerd');
-			$this->load->view('dietitian/my_meals_view', $data);
-			$this->load->view('footer');
 		}else{
 			//redirect to login page
 			redirect('dietitians/logind','refresh');
 		}
-	}
 }
+
+
 	//search for dietitians and display nane and email if exists
 	public function search(){
 
