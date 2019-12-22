@@ -114,18 +114,18 @@ class Dietitian_model extends CI_Model
 	public function add_new_week($newWeek, $userId, $dietitian_id, $newdate, $meal){
 
 		$query = $this->db->query("INSERT INTO nutricion_program_v2(week, day, hour, food, dietitian_id, user_id, date) values ('$newWeek','monday', 'breakfast', '$meal', '$dietitian_id', '$userId', '$newdate' )");
+
+
 	}
 
 	public function add_template($templateName, $day, $mealtime, $meal, $duser_id){
 
-		$query = $this->db->query("INSERT INTO templates (day, hour, dietitian_id, food, template_name) values ('$day', '$mealtime', '$duser_id', '$meal', '$templateName') ");
+		$query = $this->db->query("INSERT INTO templates (day, hour, dietitian_id, food, template_name) values ('$day', '$mealtime', '$duser_id', '$meal', '$templateName') ON DUPLICATE KEY UPDATE food = '$meal' ");
 
 		if ($this->db->affected_rows() > 0 ) {
-			echo "hh00000";
 			return true;
 
 		}else{
-			echo "false";
 			return false;
 		}
 	}
@@ -136,11 +136,24 @@ class Dietitian_model extends CI_Model
 		$query = $this->db->query("SELECT template_name FROM templates GROUP BY template_name");
 		
 		if ($this->db->affected_rows() > 0 ) {
-			echo "h00000+++++";
 			return $query->result();
 
 		}else{
-			echo "false ++++++";
+			return false;
+		}
+	}
+
+
+	public function get_current_template($templateName){
+
+		//select the row with user max user id . that row has the current nutricion program
+		$query = $this->db->query("SELECT day, hour, food FROM templates where template_name = '$templateName'  ORDER BY FIELD(day, 'monday','tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'), FIELD(hour, 'breakfast', 'lunch', 'dinner')");
+
+			$affected_rows = $this->db->affected_rows();
+		if ($affected_rows > 0) {
+			//returns the query result as an array of objects, or an empty array on failure
+			return $query->result();
+		}else{
 			return false;
 		}
 	}
@@ -150,11 +163,9 @@ class Dietitian_model extends CI_Model
 		$query = $this->db->query("INSERT INTO templates (day, hour, dietitian_id, food, template_name) values ('$day', '$mealtime', '$duser_id', '$meal', '$templateName') ON DUPLICATE KEY UPDATE food = '$meal' ");
 
 			if ($this->db->affected_rows() > 0 ) {
-			echo "hh00000";
 			return true;
 
 		}else{
-			echo "false";
 			return false;
 		}
 	}

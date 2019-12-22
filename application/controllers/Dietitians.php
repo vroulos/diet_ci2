@@ -176,7 +176,7 @@ class Dietitians extends CI_controller
 				
 					$current_week = $result->week;
 					$new_week = $current_week+1;						
-					$meal = 'γάλα με δημητριακά';
+					$meal = '';
 					$this->dietitian_model->add_new_week($new_week, $user_id, $_SESSION['dietitian_name'], $date_plus_one_week, $meal);
 					$data['weeks'] = $this->dietitian_model->get_weeks($user_id);
 					$data['program'] = $this->user_model->get_nutricion_program_v2($week, $name , $user_id);
@@ -228,37 +228,59 @@ class Dietitians extends CI_controller
 
 			if ($_SERVER['REQUEST_METHOD'] == "POST" AND isset($_POST['submit_program'])) {
 
-				$templateName = $_SESSION['choosenTemplate'];
-				$day = $_POST['day_of_week'];
-				$mealtime = $_POST['mealtime_category'];
-				$meal = $_POST['food'];
+				if (isset($_SESSION['choosenTemplate'])) {
+					$templateName = $_SESSION['choosenTemplate'];
+					$day = $_POST['day_of_week'];
+					$mealtime = $_POST['mealtime_category'];
+					$meal = $_POST['food'];
 
-				$this->dietitian_model->add_meal_to_template($templateName, $day, $mealtime, $meal, $duser_id);
+					$this->dietitian_model->add_meal_to_template($templateName, $day, $mealtime, $meal, $duser_id);
+
+					$data['template'] = $this->dietitian_model->get_current_template($templateName);
+
+				
+				}
+				
+				
 				
 			}else if($_SERVER['REQUEST_METHOD'] == "POST" AND isset($_POST['addTemplate'])){
 
-				$templateName = $_POST['template_name'];
-				$day = $_POST['day_of_week'];
-				$mealtime = $_POST['mealtime_category'];
-				$meal = $_POST['food'];
-				$duser_id = $_SESSION['dietitian_id'];
+			
+					$templateName = $_POST['template_name'];
+					$day = $_POST['day_of_week'];
+					$mealtime = $_POST['mealtime_category'];
+					$meal = $_POST['food'];
+					$duser_id = $_SESSION['dietitian_id'];
 
 
-				 $this->dietitian_model->add_template($templateName, $day, $mealtime, $meal, $duser_id);
+					 $this->dietitian_model->add_template($templateName, $day, $mealtime, $meal, $duser_id);
+					 $data['templates'] = $this->dietitian_model->get_templates($duser_id);
 
+					
+			
+				
 
 			}else if($_SERVER['REQUEST_METHOD'] == "POST" AND isset($_POST['chooseTemplate'])){
 
 				$choosenTemplate = $this->input->post('add_template');
 
 				$this->session->set_userdata('choosenTemplate', $choosenTemplate );
-				
-
+							
 			}
+				if (isset($_SESSION['choosenTemplate'])) {
+						$templateName = $_SESSION['choosenTemplate'];
 
-			$this->load->view('dietitian/headerd', $data);
-			$this->load->view('dietitian/add_template_view', $data );
-			$this->load->view('footer');
+					$data['template'] = $this->dietitian_model->get_current_template($templateName);
+
+					$this->load->view('dietitian/headerd', $data);
+					$this->load->view('dietitian/add_template_view', $data );
+					$this->load->view('dietitian/template_view', $data);
+					$this->load->view('footer');
+			}
+			
+
+		}else{
+			redirect('dietitians/logind','refresh');
 		}
 	}
 

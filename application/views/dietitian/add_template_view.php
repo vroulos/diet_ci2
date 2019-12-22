@@ -61,7 +61,6 @@ echo form_open('dietitians/add_template'); ?>
 						}else{
 							echo '<option  value ="'.$template->template_name.'" >'.$template->template_name.'</option> ';
 							echo "the else weeke is runnign ** ** *** ";
-
 						}											
 					}
 					
@@ -73,6 +72,14 @@ echo form_open('dietitians/add_template'); ?>
 			</select>
 
 			<button type="submit" name="chooseTemplate" value="nothing" style="margin-top: 20px; margin-bottom: 20px;" class="btn btn-info" >Επιλογή Προτύπου</button>
+			<?php 
+				if (!isset($_SESSION['choosenTemplate'])) {
+					echo '<div class="alert alert-danger" role="alert">';
+					echo 'Επέλεξε πρότυπο!';
+					echo '</div>';
+				}
+			 ?>
+			
 	</div>
 
 	
@@ -80,4 +87,5 @@ echo form_open('dietitians/add_template'); ?>
 </div>
 </div>
 <?php echo form_close(); ?>
+
 

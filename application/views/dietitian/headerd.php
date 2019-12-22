@@ -80,8 +80,17 @@
 
 					</div>
 				</li>
+				<?php } ?>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						διαιτολόγος
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<a class="dropdown-item" href="<?= base_url('dietitians/add_template')  ?>">Προσθήκη και επιλογή <br>προτύπου</a>
+				</li>
 				
-			<?php } ?>
+				
+			
 			<!-- if the dietitian has logged in -->
 			<?php if (isset($_SESSION['dietitian_name'])) { ?>
 				<li class="nav-item">
