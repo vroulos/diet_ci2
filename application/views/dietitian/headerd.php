@@ -72,7 +72,6 @@
 						<a class="dropdown-item" href="<?= base_url('dietitians/insert_food') ?>">Προσθήκη γεύματος</a>
 						<a class="dropdown-item" href="<?= base_url('dietitians/send_message')  ?>">Αποστολή μυνήματος</a>
 						<a class="dropdown-item" href="<?= base_url('dietitians/add_nutricion_program_v2')  ?>">Προσθήκη και προβολή <br>προγράμματος</a>
-						<a class="dropdown-item" href="<?= base_url('dietitians/add_template')  ?>">Προσθήκη και επιλογή <br>προτύπου</a>
 						<div class="dropdown-divider"></div>
 						<a class="dropdown-item" href="<?php echo base_url('dietitians/customer_progress') ?>">Πρόοδος πελάτη</a>
 						<div class="dropdown-divider"></div>

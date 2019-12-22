@@ -1,4 +1,4 @@
-<div class="container" style="margin: 90px">
+<div class="container" style="margin-top: 90px">
 	<?php if (isset($_SESSION['customer_name'])) {
 		echo "<p>Πρότυπο : ". $_SESSION['choosenTemplate'];
 		
@@ -39,6 +39,7 @@
 		$meal_hour = array('breakfast', 'lunch', 'dinner');
 		$day_of_week = array ('monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday');
 		if ($template) {
+
 			foreach ($day_of_week as $day) {
 				echo "<tr>";
 				echo "<td>".$day."</td>";

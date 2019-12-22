@@ -103,11 +103,10 @@ class Dietitian_model extends CI_Model
 
 	public function add_meal($week, $day, $mealtime, $meal, $user_id , $dietitian_id){
 
-		echo "-------(the week on dietitian model is) : ".$week;
 		$query = $this->db->query("INSERT INTO nutricion_program_v2(week,day, hour, food, dietitian_id, user_id ) values ('$week','$day', '$mealtime', '$meal', '$dietitian_id', '$user_id') ON DUPLICATE KEY UPDATE food = '$meal' ");
 
 		if ($this->db->affected_rows() > 0) {
-			echo "yes ! added to db";
+			
 		}
 	}
 

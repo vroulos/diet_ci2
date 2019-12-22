@@ -116,3 +116,13 @@ img:hover {
     float: left;
 
   }
+
+  .form-group{
+    width: 220px;
+  }
+
+
+ @media all and (max-width: 360px){
+    .row{
+        margin-left: -100px;
+     }

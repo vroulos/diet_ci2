@@ -126,6 +126,8 @@ class Dietitians extends CI_controller
 			$user_id = $_SESSION['customer_id'];
 			$data['weeks'] = $this->dietitian_model->get_weeks($user_id);
 			$week = $this->session->userdata('week');
+			$duser_id = $_SESSION['dietitian_id'];
+			$data['templates'] = $this->dietitian_model->get_templates($duser_id);
 
 			$data['program'] = $this->user_model->get_nutricion_program_v2($week, $name , $user_id);
 
@@ -187,7 +189,38 @@ class Dietitians extends CI_controller
 				$this->load->view('dietitian/add_nutricion_program_view_v2', $data);
 				$this->load->view('user/nutricion_program_view_v2', $data);
 				$this->load->view('footer');
-			}else if($_SERVER['REQUEST_METHOD'] == 'POST' AND isset($_POST['chooseWeek'])){
+
+			}else if($_SERVER['REQUEST_METHOD'] == 'POST' AND isset($_POST['submitTemplate'])){
+
+				$this->session->set_userdata('week', $week);
+				$templateName = $this->session->userdata('choosenTemplate');
+				$template = $this->dietitian_model->get_current_template($templateName);
+				//$week = $this->session->userdata('week');
+
+
+
+				foreach ($template as $value) {
+					$meal = $value->food;
+					$day = $value->day;
+					$mealtime = $value->hour;
+
+
+					$this->dietitian_model->add_meal($week, $day, $mealtime, $meal, $user_id, $duser_id);
+					
+				}
+
+				$data['program'] = $this->user_model->get_nutricion_program_v2($week, $name , $user_id);
+				
+				$this->load->view('dietitian/headerd');
+				$this->load->view('dietitian/add_nutricion_program_view_v2', $data);
+				$this->load->view('user/nutricion_program_view_v2', $data);
+				$this->load->view('footer');
+				//$this->dietitian_model->load_template();
+
+
+
+			}
+			else if($_SERVER['REQUEST_METHOD'] == 'POST' AND isset($_POST['chooseWeek'])){
 
 				$week = $this->input->post('week');
 				$this->session->set_userdata('week', $week );
@@ -276,7 +309,13 @@ class Dietitians extends CI_controller
 					$this->load->view('dietitian/add_template_view', $data );
 					$this->load->view('dietitian/template_view', $data);
 					$this->load->view('footer');
-			}
+				}else{
+
+					$this->load->view('dietitian/headerd', $data);
+					$this->load->view('dietitian/add_template_view', $data );
+					
+					$this->load->view('footer');
+				}
 			
 
 		}else{
