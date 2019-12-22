@@ -26,6 +26,7 @@
 			<tr>    
 				<th scope="col">Ημέρα</th>
 				<th scope="col">Πρωινό</th>
+				<th scope="col">Δεκατιανό</th>
 				<th scope="col">Μεσημεριανό</th>
 				<th scope="col">Βραδινό</th>
 			</tr>
@@ -37,7 +38,7 @@
 		$days = array("Δευτέρα", "Τρίτη","Τετάρτη", "Πέμπτη", "Παρασκευή","Σάββατο","Κυριακή");
   	//in this loop i am displaying the nutricion program of the choosen user
 
-		$meal_hour = array('breakfast', 'lunch', 'dinner');
+		$meal_hour = array('breakfast','brunch', 'lunch', 'dinner');
 		$day_of_week = array ('monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday');
 		if ($program) {
 			foreach ($day_of_week as $day) {

@@ -20,6 +20,7 @@ echo form_open('dietitians/add_template'); ?>
 		    <label for="meal">Ώρα γεύματος</label>
 		    <select class="form-control" id="mealtime" name="mealtime_category">
 		      <option value="breakfast">Πρωινό</option>
+		      <option value="brunch">Δεκατιανό</option>
 		      <option value="lunch">Μεσημεριανό</option>
 		      <option value="dinner">Βραδινό</option>
 		    </select>

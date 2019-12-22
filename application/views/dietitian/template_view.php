@@ -25,6 +25,7 @@
 			<tr>    
 				<th scope="col">Ημέρα</th>
 				<th scope="col">Πρωινό</th>
+				<th scope="col">Δεκατιανό</th>
 				<th scope="col">Μεσημεριανό</th>
 				<th scope="col">Βραδινό</th>
 			</tr>
@@ -36,13 +37,14 @@
 		$days = array("Δευτέρα", "Τρίτη","Τετάρτη", "Πέμπτη", "Παρασκευή","Σάββατο","Κυριακή");
   	//in this loop i am displaying the nutricion program of the choosen user
 
-		$meal_hour = array('breakfast', 'lunch', 'dinner');
-		$day_of_week = array ('monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday');
+		$meal_hour = array('breakfast','brunch', 'lunch', 'dinner');
+		$day_of_week = array ('monday'=>'Δευτέρα', 'tuesday'=>'Τρίτη', 'wednesday'=>'Τετάρτη', 'thursday'=>'Πέμπτη', 'friday'=>'Παρασκευή', 'saturday'=>'Σάββατο', 'sunday'=>'Κυριακή');
+		// $day_of_week = array ('monday'=>'Δευτέρα', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday');
 		if ($template) {
 
-			foreach ($day_of_week as $day) {
+			foreach ($day_of_week as $day=>$dayGreek) {
 				echo "<tr>";
-				echo "<td>".$day."</td>";
+				echo "<td>".$dayGreek."</td>";
 				foreach ($meal_hour as $hour) {
 			// koitaw an exei eggrafh gia afth thn mera kai thn wra gevmatos
 			// an exei eggrafh thn emfanizw, alliws aplws ektypwnw to keli
