@@ -15,7 +15,7 @@ echo form_open('dietitians/add_template'); ?>
 				<option value="sunday">Κυριακή</option>
 			</select>
 		</div>
-
+		
 		  <div class="form-group" style=" width: 200px ">
 		    <label for="meal">Ώρα γεύματος</label>
 		    <select class="form-control" id="mealtime" name="mealtime_category">

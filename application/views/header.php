@@ -13,6 +13,8 @@
 <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-messaging.js"></script>
 
 <script src="https://www.gstatic.com/firebasejs/5.7.1/firebase.js"></script>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/octicons/8.5.0/build.css">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script>
   // Initialize Firebase
   var config = {

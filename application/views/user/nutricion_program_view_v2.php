@@ -1,5 +1,67 @@
 <?php //use \Datetime; ?>
 
+<script>
+$(document).ready(function() {
+	//for (var i = 0; i < 28; i++) {
+		// $("[id*='mealInProgram']").mouseenter(function(){
+  // 		$("[id*='feedback']").show(); 
+		// });
+		// $('#meal,#mealInProgram').mouseleave(function(){
+  // 		$('#feedback').hide();
+		// });
+	//}
+	// for (var i = 0; i < 28; i++) {
+	// 	$('#meal,#mealInProgram' +i).mouseenter(function(){
+ //   		$('#feedback10').show();
+	// 	});
+	// 	$('#meal,#mealInProgram').mouseleave(function(){
+ //   		$('#feedback10').hide();
+	// 	});
+	// }
+	
+		$('#meal0,#feedback0', '#mealInProgram0').mouseenter(function(){
+   		$('#feedback0').show();
+		});
+		$('#meal0,#feedback0', '#mealInProgram0').click(function(event) {
+			$('#text0').show();
+		});
+		$('#feedback0').mouseleave(function(){
+   		$('#feedback0').delay(10000).fadeOut(3000);
+		});
+
+		$('#meal1,#mealInProgram1').mouseenter(function(){
+   		$('#feedback1').show();
+		});
+		$('#feedback1').mouseleave(function(){
+   		$('#feedback1').fadeOut('slow');
+		});
+
+		$('#meal2,#mealInProgram2').mouseenter(function(){
+   		$('#feedback2').show();
+		});
+		$('#feedback2').mouseleave(function(){
+   		$('#feedback2').fadeOut('slow');
+		});
+
+		$('#meal3,#mealInProgram3').mouseenter(function(){
+   		$('#feedback3').show();
+		});
+		$('#feedback3').mouseleave(function(){
+   		$('#feedback3').fadeOut('slow');
+		});
+
+		$('#meal5,#mealInProgram5').mouseenter(function(){
+   		$('#feedback5').show();
+		});
+		$('#feedback5').mouseleave(function(){
+   		$('#feedback5').fadeOut('slow');
+		});
+	
+	});
+	
+
+</script>
+
 <div class="container" style="margin: 90px">
 	<?php if (isset($_SESSION['customer_name'])) {
 		echo "<p>Πρόγραμμα διατροφής για τον πελάτη ". $_SESSION['customer_name'];
@@ -39,21 +101,40 @@
   	//in this loop i am displaying the nutricion program of the choosen user
 
 		$meal_hour = array('breakfast','brunch', 'lunch', 'dinner');
-		$day_of_week = array ('monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday');
+		$day_of_week = array ('monday'=>'Δευτέρα', 'tuesday'=>'Τρίτη', 'wednesday'=>'Τετάρτη', 'thursday'=>'Πέμπτη', 'friday'=>'Παρασκευή', 'saturday'=>'Σάββατο', 'sunday'=>'Κυριακή');
 		if ($program) {
-			foreach ($day_of_week as $day) {
+			foreach ($day_of_week as $day=>$dayGreek) {
 				echo "<tr>";
-				echo "<td>".$day."</td>";
+				echo "<td>".$dayGreek."</td>";
 				foreach ($meal_hour as $hour) {
 			// koitaw an exei eggrafh gia afth thn mera kai thn wra gevmatos
 			// an exei eggrafh thn emfanizw, alliws aplws ektypwnw to keli
 					echo "<td>";
 					foreach ($program as $rs) {
 						if ($rs->day == $day && $rs->hour == $hour) {
-							echo $rs->food;
+							echo form_open('dietitians/add_reaction');
+							echo '<div class= "row" id="mealInProgram'.$i.'">';
+								echo '<div id="meal'.$i.'">';
+									echo $rs->food;
+								echo '</div>';
+								echo '<div id = "feedback'.$i.'" style="display:none">';
+								echo '<button type="submit" id="completed-task" class="fabutton">'; 
+      								echo '<i  id = "heart" class="fa fa-heart-o" ></i>';	
+								echo '</button>';
+								
+								echo '<i id = "thumbd" class="fa fa-thumbs-down" ></i>';
+								echo '<i id = "text" class="fa fa-edit" ></i>';
+								  echo '<div id="text'.$i.'" style="display:none">';
+									echo '<input type ="text", class="form-control">';
+									echo '<input type ="text", class="form-control">';
+								  echo '</div>';
+								echo '</div>';
+							echo '</div>';
+							
 					// nea grammh se periprwsh poy exoume panw apo ena faghto
 					// gia ka8e wra gevmatos
 							echo "<br>";
+							$i++;
 						}
 					}
 					echo "</td>";
@@ -68,3 +149,4 @@
 </table>
 </div>
 </div>
+

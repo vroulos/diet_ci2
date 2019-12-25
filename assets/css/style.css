@@ -121,6 +121,18 @@ img:hover {
     width: 220px;
   }
 
+  .fa {
+    margin-left: 15px;
+  }
+
+#text{
+  max-width: 50px
+}
+.fabutton {
+  background: none;
+  padding: 0px;
+  border: none;
+}
 
  @media all and (max-width: 360px){
     .row{
