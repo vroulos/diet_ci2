@@ -19,6 +19,7 @@ class Dietitians extends CI_controller
 		$this->load->library('table');
 		$this->load->helper('email');
 		$this->load->helper('date');
+
 	}
 
 	public function initial(){
@@ -154,6 +155,8 @@ class Dietitians extends CI_controller
 				//add the meal to the the table nutricion_program_v2
 				$this->dietitian_model->add_meal($week, $day, $mealtime, $meal, $user_id, $duser_id);
 
+
+
 				//save the current customer program and save it to $data
 				$data['program'] = $this->user_model->get_nutricion_program_v2($week, $name , $user_id);
 
@@ -210,7 +213,7 @@ class Dietitians extends CI_controller
 				}
 
 				$data['program'] = $this->user_model->get_nutricion_program_v2($week, $name , $user_id);
-				
+
 				$this->load->view('dietitian/headerd');
 				$this->load->view('dietitian/add_nutricion_program_view_v2', $data);
 				$this->load->view('user/nutricion_program_view_v2', $data);
@@ -271,6 +274,7 @@ class Dietitians extends CI_controller
 
 					$data['template'] = $this->dietitian_model->get_current_template($templateName);
 
+
 				
 				}
 				
@@ -320,6 +324,23 @@ class Dietitians extends CI_controller
 
 		}else{
 			redirect('dietitians/logind','refresh');
+		}
+	}
+
+
+	public function food_feedback(){
+		if (isset($_SESSION['dietitian_name'])) {
+
+			$reaction = $this->input->post('reaction');
+			var_dump($reaction);
+			//echo $reaction;
+			$result = $this->dietitian_model->add_reaction($reaction);
+			// if ($result) {
+			// 	echo "this is a success";
+			// }else{
+			// 	echo 'no no nou';
+			// }
+			
 		}
 	}
 

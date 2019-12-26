@@ -161,7 +161,7 @@ class Dietitian_model extends CI_Model
 
 		$query = $this->db->query("INSERT INTO templates (day, hour, dietitian_id, food, template_name) values ('$day', '$mealtime', '$duser_id', '$meal', '$templateName') ON DUPLICATE KEY UPDATE food = '$meal' ");
 
-			if ($this->db->affected_rows() > 0 ) {
+		if ($this->db->affected_rows() > 0 ) {
 			return true;
 
 		}else{
@@ -180,6 +180,20 @@ class Dietitian_model extends CI_Model
 		}else{
 			return false;
 		}
+	}
+
+	public function add_reaction($reaction){
+		$meal_id = 6;
+		$query = $this->db->query("INSERT INTO feedback (reaction, meal_id) values ('like', '$meal_id') ");
+
+		if ($this->db->affected_rows() > 0) {
+			echo 'lolo';
+			return true;
+		}else{
+			echo 'loulou';
+			return false;
+		}
+
 	}
 
 

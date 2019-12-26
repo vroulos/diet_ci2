@@ -204,6 +204,29 @@ class User extends CI_Controller {
 
 	}
 
+
+	public function food_feedback(){
+		if (isset($_SESSION['dietitian_name'])) {
+
+			$reaction = $this->input->post('reaction');
+			$meal_id = $this->input->post('meal_id');
+			$textReaction = $this->input->post('textreaction');
+			var_dump($reaction);
+			if (isset($textReaction)) {
+				$result = $this->user_model->add_text_reaction($meal_id, $textReaction);
+			}else if (isset($reaction)) {
+				$result = $this->user_model->add_reaction($reaction, $meal_id);
+			}
+			
+			// if ($result) {
+			// 	echo "this is a success";
+			// }else{
+			// 	echo 'no no nou';
+			// }
+			
+		}
+	}
+
 	// display and add the user notes
 	public function add_user_note(){
 		$data = NULL;

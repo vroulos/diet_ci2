@@ -22,8 +22,8 @@ $(document).ready(function() {
 		$('#meal0,#feedback0', '#mealInProgram0').mouseenter(function(){
    		$('#feedback0').show();
 		});
-		$('#meal0,#feedback0', '#mealInProgram0').click(function(event) {
-			$('#text0').show();
+		$('#editText0').click(function(event) {
+			$('#inputT0').show();
 		});
 		$('#feedback0').mouseleave(function(){
    		$('#feedback0').delay(10000).fadeOut(3000);
@@ -56,6 +56,68 @@ $(document).ready(function() {
 		$('#feedback5').mouseleave(function(){
    		$('#feedback5').fadeOut('slow');
 		});
+
+		// ------------------------------------------------
+
+		$("#heart").click(function(event) {
+			var $value = $("#heart").attr("value");
+			$.ajax({
+				url: '<?php echo base_url('user/food_feedback') ?>',
+				type: 'POST',
+				
+				data: {
+					'reaction': 'like',
+					'meal_id' : $value
+				},
+				success: function(msg){
+					alert('wow ' + msg);
+				}
+
+			})
+			
+		});
+
+			$("#thumbsDown").click(function(event) {
+
+				var $value = $("#thumbsDown").attr("value");
+				alert($value);
+			$.ajax({
+				url: '<?php echo base_url('user/food_feedback') ?>',
+				type: 'POST',
+				
+				data: {
+					'reaction': 'dislike',
+					'meal_id' : $value
+				},
+				success: function(msg){
+					alert('wow ' + msg);
+				}
+
+			})
+			
+		});
+
+				$("#sendMessage").click(function(event) {
+
+				var $value = $("#thumbsDown").attr("value");
+				var $text = $("#inputValue").val();
+				alert($value);
+			$.ajax({
+				url: '<?php echo base_url('user/food_feedback') ?>',
+				type: 'POST',
+				
+				data: {
+					'textreaction': $text,
+					'meal_id' : $value
+				},
+				success: function(msg){
+					alert('wow ' + msg);
+				}
+
+			})
+			
+		});	
+		
 	
 	});
 	
@@ -112,23 +174,53 @@ $(document).ready(function() {
 					echo "<td>";
 					foreach ($program as $rs) {
 						if ($rs->day == $day && $rs->hour == $hour) {
-							echo form_open('dietitians/add_reaction');
+							
 							echo '<div class= "row" id="mealInProgram'.$i.'">';
 								echo '<div id="meal'.$i.'">';
 									echo $rs->food;
 								echo '</div>';
+								if (isset($_SESSION['username'])) {
 								echo '<div id = "feedback'.$i.'" style="display:none">';
-								echo '<button type="submit" id="completed-task" class="fabutton">'; 
-      								echo '<i  id = "heart" class="fa fa-heart-o" ></i>';	
-								echo '</button>';
+								//echo '<button type="submit" id="completed-task" class="fabutton">'; 
+      							
+      								echo '<i  id = "heart" value = "'.$rs->id.'" class="fa fa-heart-o" ></i>';	
+								//echo '</button>';
 								
-								echo '<i id = "thumbd" class="fa fa-thumbs-down" ></i>';
-								echo '<i id = "text" class="fa fa-edit" ></i>';
-								  echo '<div id="text'.$i.'" style="display:none">';
-									echo '<input type ="text", class="form-control">';
-									echo '<input type ="text", class="form-control">';
+								echo '<i id = "thumbsDown" value = "'.$rs->id.'" class="fa fa-thumbs-down" ></i>';
+								echo '<i id = "editText'.$i.'" class="fa fa-edit" ></i>';
+								  echo '<div id="inputT'.$i.'" style="display:none">';
+									//echo '<input type ="text'.$i.'", class="form-control">';
+
+								  	echo '<div class="input-group">';
+								 	 	echo '<input id="inputValue" class="form-control" type="text" placeholder="αξιολόγηση">';
+								 		echo ' <div class="input-group-append">';
+
+								  	 	echo '<span id = "sendMessage"class="input-group-text"><i class="fa fa-send fa-fw"></i></span>';
+								  	echo '</div>';
+								  echo '</div>' ;
 								  echo '</div>';
 								echo '</div>';
+								}
+
+								if (isset($_SESSION['dietitian_name'])) {
+									$this->load->model('user_model');
+									$meal_reaction = $this->user_model->check_reaction($rs->id);
+									if ($meal_reaction) {
+										if ($meal_reaction->reaction == 'like') {
+											echo '<i  id = "heartd" value = "'.$rs->id.'" class="fa fa-heart-o" ></i>';	
+										}else if($meal_reaction->reaction == 'dislike'){
+										
+											echo '<i  id = "disliked" value = "'.$rs->id.'" class="fa fa-thumbs-down" ></i>';	
+										}
+										if (!empty($meal_reaction->text)) {
+											echo '<div style = "padding: 0px;" class="alert alert-info" role="alert">';
+											echo $meal_reaction->text;
+											echo '</div>';
+										}
+									}
+								
+									
+								}
 							echo '</div>';
 							
 					// nea grammh se periprwsh poy exoume panw apo ena faghto

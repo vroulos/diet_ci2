@@ -8,6 +8,7 @@
 	<!-- Firebase App is always required and must be first -->
 <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-app.js"></script>
 
+
 <!-- Add additional services that you want to use -->
 <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-messaging.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">

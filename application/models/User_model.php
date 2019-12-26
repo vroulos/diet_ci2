@@ -143,16 +143,26 @@ class User_model extends CI_Model {
 
 	//return the current date . After the controller loads the proper nutricion program
 	public function get_current_week(){
-		$query = $this->db->query("SELECT week FROM nutricion_program_v2 WHERE date BETWEEN CURDATE() AND CURDATE() + 7 ");
+		// $query = $this->db->query("SELECT week FROM nutricion_program_v2 WHERE date BETWEEN CURDATE() AND CURDATE() + 7 ");
+		$query = $this->db->query("SELECT week, date FROM nutricion_program_v2 where date > CURDATE()");
 
-		return $query->row()->week;
+
+		if ($this->db->affected_rows() > 0) {
+			echo $query->row()->week;
+			echo $query->row()->date;			
+			return $query->row()->week;
+		}else{
+			echo 'noo nooeeee';
+			
+		}
+		
 	}
 
 		public function get_nutricion_program_v2($week, $name, $user_id){
 		
 		
 		//select the row with user max user id . that row has the current nutricion program
-		$query = $this->db->query("SELECT week, day, hour, food, date FROM nutricion_program_v2 where user_id = '$user_id' and week = '$week' ORDER BY FIELD(day, 'monday','tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'), FIELD(hour, 'breakfast', 'lunch', 'dinner')");
+		$query = $this->db->query("SELECT id, week, day, hour, food, date FROM nutricion_program_v2 where user_id = '$user_id' and week = '$week' ORDER BY FIELD(day, 'monday','tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'), FIELD(hour, 'breakfast', 'lunch', 'dinner')");
 
 		$affected_rows = $this->db->affected_rows();
 		if ($affected_rows > 0) {
@@ -162,6 +172,48 @@ class User_model extends CI_Model {
 			return false;
 		}
 		
+	}
+
+
+	public function add_reaction($reaction, $meal_id){
+		
+		$query = $this->db->query("INSERT INTO feedback (reaction, meal_id) values ('$reaction', '$meal_id') ON DUPLICATE KEY UPDATE reaction = '$reaction' ");
+
+		if ($this->db->affected_rows() > 0) {
+			echo 'lolo';
+			return true;
+		}else{
+			echo 'loulou';
+			return false;
+		}
+
+	}
+
+
+		public function add_text_reaction($meal_id, $textReaction){
+		
+		$query = $this->db->query("INSERT INTO feedback (meal_id, text) values ('$meal_id', '$textReaction') ON DUPLICATE KEY UPDATE text = '$textReaction' ");
+
+		if ($this->db->affected_rows() > 0) {
+			echo 'lolo';
+			return true;
+		}else{
+			echo 'loulou';
+			return false;
+		}
+
+	}
+
+
+	public function check_reaction($food_id){
+		$query = $this->db->query("SELECT * FROM feedback WHERE meal_id = '$food_id' ");
+
+		if ($this->db->affected_rows() > 0) {
+			
+			return $text = $query->row();
+		}else{
+			return false;
+		}
 	}
 
 
