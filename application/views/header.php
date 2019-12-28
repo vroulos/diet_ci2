@@ -9,6 +9,8 @@
  <!-- Firebase App is always required and must be first -->
 <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-app.js"></script>
 
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
 <!-- Add additional services that you want to use -->
 <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-messaging.js"></script>
 

@@ -19,48 +19,62 @@ $(document).ready(function() {
 	// 	});
 	// }
 	
-		$('#meal0,#feedback0', '#mealInProgram0').mouseenter(function(){
-   		$('#feedback0').show();
-		});
-		$('#editText0').click(function(event) {
-			$('#inputT0').show();
-		});
-		$('#feedback0').mouseleave(function(){
-   		$('#feedback0').delay(10000).fadeOut(3000);
-		});
 
-		$('#meal1,#mealInProgram1').mouseenter(function(){
-   		$('#feedback1').show();
-		});
-		$('#feedback1').mouseleave(function(){
-   		$('#feedback1').fadeOut('slow');
-		});
+	// -------------------------------------------------------------------------
+		// $('#meal0,#feedback0', '#mealInProgram0').mouseenter(function(){
+  //  		$('#feedback0').show();
+		// });
+		// $('#editText0').click(function(event) {
+		// 	$('#inputT0').show();
+		// });
+		// $('#feedback0').mouseleave(function(){
+  //  		$('#feedback0').delay(10000).fadeOut(3000);
+		// });
 
-		$('#meal2,#mealInProgram2').mouseenter(function(){
-   		$('#feedback2').show();
-		});
-		$('#feedback2').mouseleave(function(){
-   		$('#feedback2').fadeOut('slow');
-		});
 
-		$('#meal3,#mealInProgram3').mouseenter(function(){
-   		$('#feedback3').show();
-		});
-		$('#feedback3').mouseleave(function(){
-   		$('#feedback3').fadeOut('slow');
-		});
 
-		$('#meal5,#mealInProgram5').mouseenter(function(){
-   		$('#feedback5').show();
-		});
-		$('#feedback5').mouseleave(function(){
-   		$('#feedback5').fadeOut('slow');
-		});
+		// $('#meal1,#mealInProgram1').mouseenter(function(){
+  //  		$('#feedback1').show();
+		// });
+		// $('#feedback1').mouseleave(function(){
+  //  		$('#feedback1').fadeOut('slow');
+		// });
+
+		// $('#meal2,#mealInProgram2').mouseenter(function(){
+  //  		$('#feedback2').show();
+		// });
+		// $('#feedback2').mouseleave(function(){
+  //  		$('#feedback2').fadeOut('slow');
+		// });
+
+		// $('#meal3,#mealInProgram3').mouseenter(function(){
+  //  		$('#feedback3').show();
+		// });
+		// $('#feedback3').mouseleave(function(){
+  //  		$('#feedback3').fadeOut('slow');
+		// });
+
+		// $('#meal5,#mealInProgram5').mouseenter(function(){
+  //  		$('#feedback5').show();
+		// });
+		// $('#feedback5').mouseleave(function(){
+  //  		$('#feedback5').fadeOut('slow');
+		// });
 
 		// ------------------------------------------------
 
-		$("#heart").click(function(event) {
-			var $value = $("#heart").attr("value");
+		$("#mealInProgram, #meal").click(function(event) {
+			$(this).find(".feedback").show();
+		});
+		$(".feedback").find("#editText").click(function(event) {
+			alert("ldgfdsg");
+			$(this).next().show();
+		});
+
+
+		$(".feedback").find("#heart").click(function(event) {
+			var $value = $(this).parent().find("#heart").attr("value");
+			alert($value);
 			$.ajax({
 				url: '<?php echo base_url('user/food_feedback') ?>',
 				type: 'POST',
@@ -77,9 +91,9 @@ $(document).ready(function() {
 			
 		});
 
-			$("#thumbsDown").click(function(event) {
+			$(".feedback").find("#thumbsDown").click(function(event) {
 
-				var $value = $("#thumbsDown").attr("value");
+				var $value = $(this).parent().find("#thumbsDown").attr("value");
 				alert($value);
 			$.ajax({
 				url: '<?php echo base_url('user/food_feedback') ?>',
@@ -91,13 +105,14 @@ $(document).ready(function() {
 				},
 				success: function(msg){
 					alert('wow ' + msg);
+					$(this).parent().find("#inputT").show();
 				}
 
 			})
 			
 		});
 
-				$("#sendMessage").click(function(event) {
+				$(".feedback").find("#editText").click(function(event) {
 
 				var $value = $("#thumbsDown").attr("value");
 				var $text = $("#inputValue").val();
@@ -175,20 +190,20 @@ $(document).ready(function() {
 					foreach ($program as $rs) {
 						if ($rs->day == $day && $rs->hour == $hour) {
 							
-							echo '<div class= "row" id="mealInProgram'.$i.'">';
-								echo '<div id="meal'.$i.'">';
+							echo '<div class= "row" id="mealInProgram">';
+								echo '<div id="meal">';
 									echo $rs->food;
 								echo '</div>';
 								if (isset($_SESSION['username'])) {
-								echo '<div id = "feedback'.$i.'" style="display:none">';
+								echo '<div class = "feedback" id="'.$rs->id.'" style="display:none">';
 								//echo '<button type="submit" id="completed-task" class="fabutton">'; 
       							
-      								echo '<i  id = "heart" value = "'.$rs->id.'" class="fa fa-heart-o" ></i>';	
+      								echo '<i  id="heart" value="'.$rs->id.'" class="fa fa-heart-o" ></i>';	
 								//echo '</button>';
 								
 								echo '<i id = "thumbsDown" value = "'.$rs->id.'" class="fa fa-thumbs-down" ></i>';
-								echo '<i id = "editText'.$i.'" class="fa fa-edit" ></i>';
-								  echo '<div id="inputT'.$i.'" style="display:none">';
+								echo '<i id = "editText" class="fa fa-edit" ></i>';
+								  echo '<div class="inputT" id="'.$rs->id.'" style="display:none">';
 									//echo '<input type ="text'.$i.'", class="form-control">';
 
 								  	echo '<div class="input-group">';

@@ -5,6 +5,9 @@
 	<title>Διαιτολόγος</title>
 	<link rel="icon"  href="<?php echo base_url('assets/images/favicon.png'); ?>">
 
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />	
+
 	<!-- Firebase App is always required and must be first -->
 <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-app.js"></script>
 

@@ -45,7 +45,7 @@ h1{
 					</ul>
 </div>
 
-<div class="container">
+<div class="container-fluid">
 	<img src="<?= base_url('assets/images/nutricion.jpg')?>">
 	<img src="<?= base_url('assets/images/consistency.jpg')?>">
 	<img src="<?= base_url('assets/images/exercise.jpg')?>">

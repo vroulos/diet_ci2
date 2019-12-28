@@ -37,9 +37,9 @@ class Upload extends CI_Controller {
         if(isset($_SESSION['username'])){
             $config['upload_path']          = './uploads/images/'.$user_id;
             $config['allowed_types']        = 'gif|jpg|png';
-            $config['max_size']             = 5000;
-            $config['max_width']            = 4000;
-            $config['max_height']           = 4000;
+            $config['max_size']             = 10000;
+            $config['max_width']            = 14000;
+            $config['max_height']           = 14000;
 
             $this->load->library('upload', $config);
 

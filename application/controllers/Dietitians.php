@@ -65,6 +65,7 @@ class Dietitians extends CI_controller
 	
 	//epilogi pelati kai apothikeysi sto $customer_name ti session tou pelati
 	public function customer(){
+		var_dump($_SESSION['dietitian_name']);
 		if (isset($_SESSION['dietitian_name'])){
 			//the customer id
 			$customer_id = $this->input->get('id');
@@ -328,21 +329,7 @@ class Dietitians extends CI_controller
 	}
 
 
-	public function food_feedback(){
-		if (isset($_SESSION['dietitian_name'])) {
 
-			$reaction = $this->input->post('reaction');
-			var_dump($reaction);
-			//echo $reaction;
-			$result = $this->dietitian_model->add_reaction($reaction);
-			// if ($result) {
-			// 	echo "this is a success";
-			// }else{
-			// 	echo 'no no nou';
-			// }
-			
-		}
-	}
 
 
 	public function choose_customer(){

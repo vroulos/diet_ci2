@@ -9,7 +9,7 @@
     <link href="<?php echo base_url('assets/bootstrap/css/bootstrap.css'); ?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/css/style.css'); ?>" rel="stylesheet">
 
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   
   </head>
