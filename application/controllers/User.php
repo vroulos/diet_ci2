@@ -211,7 +211,6 @@ class User extends CI_Controller {
 			$reaction = $this->input->post('reaction');
 			$meal_id = $this->input->post('meal_id');
 			$textReaction = $this->input->post('textreaction');
-			var_dump($reaction);
 			if (isset($textReaction)) {
 				$result = $this->user_model->add_text_reaction($meal_id, $textReaction);
 			}else if (isset($reaction)) {

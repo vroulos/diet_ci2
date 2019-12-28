@@ -65,7 +65,6 @@ class Dietitians extends CI_controller
 	
 	//epilogi pelati kai apothikeysi sto $customer_name ti session tou pelati
 	public function customer(){
-		var_dump($_SESSION['dietitian_name']);
 		if (isset($_SESSION['dietitian_name'])){
 			//the customer id
 			$customer_id = $this->input->get('id');

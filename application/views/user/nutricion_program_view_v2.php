@@ -138,7 +138,7 @@ $(document).ready(function() {
 
 </script>
 
-<div class="container" style="margin: 90px">
+<div class="container" style="margin-top: 90px">
 	<?php if (isset($_SESSION['customer_name'])) {
 		echo "<p>Πρόγραμμα διατροφής για τον πελάτη ". $_SESSION['customer_name'];
 		

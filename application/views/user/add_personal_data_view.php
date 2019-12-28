@@ -1,6 +1,6 @@
 <!-- this div is for weight -->
-<div class="row">
-	<div class="col-md-1" style="margin-left: 100px">
+<div class="container-fluid">
+	<div class="col-md-1" >
 		<!-- this form adds the weitght and displays it -->
 		<?php echo form_open('User/add_weight'); ?>
 		<div class="form-group" >

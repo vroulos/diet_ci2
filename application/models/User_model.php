@@ -152,7 +152,7 @@ class User_model extends CI_Model {
 			echo $query->row()->date;			
 			return $query->row()->week;
 		}else{
-			echo 'noo nooeeee';
+			//echo 'noo nooeeee';
 			
 		}
 		

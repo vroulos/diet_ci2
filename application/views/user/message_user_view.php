@@ -8,7 +8,7 @@
 
   <div class="col-sm-6">
     <div class="card-group">
-      <div class="card " style="margin: 50px">
+      <div class="card " style="margin-bottom:  50px">
       <div class="card-body">
         <h5 class="card-title">Μήνυμα</h5>
         <p class="card-text"><?php echo $row->message; //echo $row->id ?></p>

@@ -32,14 +32,14 @@ $user_id = $_SESSION['user_id']; ?>
 
 					<img class="col-md-4 col-sm-4 col-xs-6" class="img-responsive" src="<?php echo base_url($dir.'/'.$k);?>" id = "<?php echo $i ?>">
 					
-					<button type="submit" class="btn btn-dark" value="'.$k'." name="<?php echo $k; ?>" id="<?php echo $i; ?>" >delete</button>				
+					<button type="submit"  class="btn btn-dark" value="'.$k'." name="<?php echo $k; ?>" id="<?php echo $i; ?>" >delete</button>				
 	<?php 
 			$i++;}
 			}?> 
 	
 </div>
 
-<div style=" margin-left: 100px">
+<div class="container-fluid" >
 <!-- here is the upload image  -->
 <p class="font-weight-bold" style="margin-top: 70px" >Επέλεξε μία φωτογραφία και μετά ανέβασέ την</p>
 
@@ -85,7 +85,7 @@ $user_id = $_SESSION['user_id']; ?>
 
 <script>
 
-	$("button").click(function(event) {
+	$(".btn").click(function(event) {
 		var image_name = $(this).attr('name');
 		console.log(image_name);
 		
@@ -95,7 +95,7 @@ $user_id = $_SESSION['user_id']; ?>
 	console.log(path);
 
 
-	if (confirm("Are you sure?")) {
+	if (confirm("Είσαι σίγουρος;")) {
 	 	$.ajax({
 	 		url: "<?php echo base_url();?>upload/delete_image",
 	 		type: 'post',	

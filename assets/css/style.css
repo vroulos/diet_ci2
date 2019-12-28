@@ -133,8 +133,33 @@ img:hover {
   padding: 0px;
   border: none;
 }
+.container-fluid{
+  margin-left: 100px;
+  margin-right: 100px;
+  margin-top: 30px
+}
 
-/* @media all and (max-width: 360px){
+ @media all and (max-width: 360px){
     .row{
-        margin-left: -100px;
-     }*/
+        margin-left: 0px;
+      }
+    #choose_customer_view{
+        margin-right: 5px;
+        margin-left: 5px;
+      }
+    #create_customer_secret_key{
+      margin-right: 5px;
+      margin-left: 5px;
+      }
+    .container-fluid{
+        margin-left: 1px;    
+      }
+      #sendMessageId{
+        width: 80vw; /*= 80% of viewport width*/
+        margin-left: 5px;
+      }
+    .container{
+      margin: 1px;
+    }  
+
+   }

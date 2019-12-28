@@ -1,6 +1,6 @@
 <?php 
 echo form_open('dietitians/add_template'); ?>
-<div class="container-fluid" style="margin-left: 100px; margin-top: 30px">
+<div class="container-fluid" >
   <div class="row">
 	<div class="col-sm-6 col-md-6 col-lg-4">
 		<div class="form-group" style="width: 200px ">

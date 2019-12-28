@@ -55,9 +55,6 @@
 					<li class="nav-item active">
 					<a class="nav-link" href="<?php echo base_url('mywebapp/first') ?>">Αρχική</a>
 				</li>
-				<li class="nav-item ">
-					<a class="nav-link" href="#">κάτι θα βάλω <span class="sr-only">(current)</span></a>
-				</li>
 			<?php } ?>
 
 				<?php if (isset($_SESSION['dietitian_name'])){ ?>

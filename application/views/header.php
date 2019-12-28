@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Πελάτης</title>
+    <link rel="icon"  href="<?php echo base_url('assets/images/favicon.png'); ?>">
 
  <!-- Firebase App is always required and must be first -->
 <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-app.js"></script>
@@ -103,7 +104,7 @@
 
 	<main id="site-content" role="main">
 
-		<?php if (isset($_SESSION)) : ?>
+<!-- 		<?php //if (isset($_SESSION)) : ?>
 			<div class="container">
 				<div class="row">
 					<div class="col-md-12">
@@ -112,6 +113,6 @@
 				?>
 			</div>
 		</div><!-- .row -->
-	</div><!-- .container -->
-<?php endif; ?>
+	<!-- </div> --><!-- .container -->
+<?php //endif; ?> 
 

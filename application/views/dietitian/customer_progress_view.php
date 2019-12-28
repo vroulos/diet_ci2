@@ -1,3 +1,5 @@
+<div class="container-fluid">
+	
 
 <div class="col-md-2">
 	<div class="row1">
@@ -5,9 +7,8 @@
 		<p id="message"></p>
 	</div>
 </div>
-<div>
-	<div id="chart_div" class="col-md-6">
-	</div>
+<div id="chart_div">
+	
 
 	<?php if(isset($weight_history)){ //if the $weight_history is set then run the chart ?>
 		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -35,4 +36,5 @@
 		</script>
 		<div id="curve_chart" style="width: 900px; height: 500px"></div>
 	<?php } //end if of isset ?>
+</div>
 </div>

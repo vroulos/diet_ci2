@@ -1,13 +1,14 @@
 
-<link rel="stylesheet" type="text/css" href="css/style.css">
+<!-- <link rel="stylesheet" type="text/css" href="css/style.css"> -->
+<div class="container-fluid"> 
 <?php echo form_open('dietitians/send_message'); ?>
 
- <div class="form-group" style="margin: 50px">
+ <div class="form-group" id="sendMessageId" style="width: 700px">
     <label for="exampleFormControlTextarea1">Μήνυμα</label>
-    <textarea class="form-control" name="send_message" id="exampleFormControlTextarea1" rows="3" style="width: 700px"></textarea>
+    <textarea class="form-control" name="send_message" id="sendMessageId" rows="3" ></textarea>
   </div>
   	<!-- <button type="submit" class="btn btn-primary">Αποστολή</button> -->
-  <?php echo form_submit('send', 'Αποστολή', "class = 'btn btn-dark' style = 'margin-left:50px' "); 
+  <?php echo form_submit('send', 'Αποστολή', "class = 'btn btn-dark' "); 
 
 $error = $this->session->flashdata('error');
 $success = $this->session->flashdata('success');
@@ -47,7 +48,7 @@ $success = $this->session->flashdata('success');
 					?>
 
   <div class="col-sm-6">
-    <div class="card" style="margin: 50px; text-decoration: underline;">
+    <div class="card" style="margin-bottom: 50px; text-decoration: underline;">
     	<div class="card-body">
         <h5 class="card-title">Μήνυμα</h5>
         <p class="card-text" ><?php echo $row->message; //echo $row->id ?></p>
@@ -94,4 +95,6 @@ $success = $this->session->flashdata('success');
 <?php }else{
   echo "Δεν έχεις στείλει ακόμη μήνυμα";
 } ?>
+
+</div>
 
