@@ -112,10 +112,10 @@ $(document).ready(function() {
 		});
 
 		$(".feedback").find("#sendMessage").click(function(event) {
-					alert('yeeeeeee   !!!');
-				var $value = $("#thumbsDown").attr("value");
-				var $text = $(this).find("#inputValue").attr("value");
-				alert($value);
+
+				var $value =  $(this).parent().find("#sendMessage").attr("value");
+				var $text = $(this).parentsUntil(".feedback").find("#inputValue").val();
+
 			$.ajax({
 				url: '<?php echo base_url('user/food_feedback') ?>',
 				type: 'POST',
@@ -126,7 +126,6 @@ $(document).ready(function() {
 				},
 				success: function(msg){
 					alert('wow ' + msg);
-					alert('meal_id  : '+ $value+'  textreaction  : '+$text);
 				}
 
 			})
@@ -208,9 +207,9 @@ $(document).ready(function() {
 
 								  	echo '<div id="inputGroup" class="input-group">';
 								 	 	echo '<input id="inputValue" class="form-control" type="text" placeholder="αξιολόγηση">';
-								 		echo ' <div class="input-group-append">';
+								 		echo ' <div id="'.$rs->id.'" class="input-group-append">';
 
-								  	 	echo '<span id = "sendMessage"class="input-group-text"><i  class="fa fa-send fa-fw"></i></span>';
+								  	 	echo '<span id = "sendMessage"class="input-group-text" value="'.$rs->id.'"><i  class="fa fa-send fa-fw"></i></span>';
 								  	echo '</div>';
 								  echo '</div>' ;
 								  echo '</div>';
