@@ -182,19 +182,19 @@ class Dietitian_model extends CI_Model
 		}
 	}
 
-	public function add_reaction($reaction){
-		$meal_id = 6;
-		$query = $this->db->query("INSERT INTO feedback (reaction, meal_id) values ('like', '$meal_id') ");
+	public function get_the_date_of_the_week($week){
+		$query = $this->db->query("SELECT week , date FROM nutricion_program_v2 WHERE week ='$week' ");
 
-		if ($this->db->affected_rows() > 0) {
-			echo 'lolo';
-			return true;
+		if ($this->db->affected_rows() > 0 ) {
+			echo ' lelele do metro ::  '.$query->row()->date."     -------   ";
+			return $query->row();
 		}else{
-			echo 'loulou';
 			return false;
 		}
 
 	}
+
+
 
 
 

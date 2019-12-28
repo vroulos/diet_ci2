@@ -11,13 +11,21 @@ echo form_open('dietitians/add_nutricion_program_v2'); ?>
 						<?php 
 						$selected = $_SESSION['week'];
 						if (isset($weeks)) {
-							echo 'the $weeks is running!!** ** **';
-							
 							foreach ($weeks as $week) {
+								//get the date of this week and add 7 days and display them
+								$date = $week->date;
+								$date_object=date_create($date);
+								$date_object_formated = date_format($date_object,"d/m");
+
+								date_add($date_object,date_interval_create_from_date_string("7 days"));
+								$my_date_plus_one_week =  date_format($date_object,"d/m/Y");
+
+
 								if ($selected == $week->week) {
-									echo '<option selected = "'.$selected.'" value ="'.$week->week.'" >'.$week->week.'</option> ';
+
+									echo '<option selected = "'.$selected.'" value ="'.$week->week.'" >'.$date_object_formated.' έως '.$my_date_plus_one_week.'</option> ';
 								}else{
-									echo '<option  value ="'.$week->week.'" >'.$week->week.'</option> ';
+									echo '<option  value ="'.$week->week.'" >'.$date_object_formated.' έως '.$my_date_plus_one_week.'</option> ';
 									echo "the else weeke is runnign ** ** *** ";
 
 								}

@@ -67,7 +67,6 @@ $(document).ready(function() {
 			$(this).find(".feedback").show();
 		});
 		$(".feedback").find("#editText").click(function(event) {
-			alert("ldgfdsg");
 			$(this).next().show();
 		});
 
@@ -91,10 +90,10 @@ $(document).ready(function() {
 			
 		});
 
-			$(".feedback").find("#thumbsDown").click(function(event) {
+		$(".feedback").find("#thumbsDown").click(function(event) {
 
-				var $value = $(this).parent().find("#thumbsDown").attr("value");
-				alert($value);
+			var $value = $(this).parent().find("#thumbsDown").attr("value");
+			alert($value);
 			$.ajax({
 				url: '<?php echo base_url('user/food_feedback') ?>',
 				type: 'POST',
@@ -112,10 +111,10 @@ $(document).ready(function() {
 			
 		});
 
-				$(".feedback").find("#editText").click(function(event) {
-
+		$(".feedback").find("#sendMessage").click(function(event) {
+					alert('yeeeeeee   !!!');
 				var $value = $("#thumbsDown").attr("value");
-				var $text = $("#inputValue").val();
+				var $text = $(this).find("#inputValue").attr("value");
 				alert($value);
 			$.ajax({
 				url: '<?php echo base_url('user/food_feedback') ?>',
@@ -127,6 +126,7 @@ $(document).ready(function() {
 				},
 				success: function(msg){
 					alert('wow ' + msg);
+					alert('meal_id  : '+ $value+'  textreaction  : '+$text);
 				}
 
 			})
@@ -206,11 +206,11 @@ $(document).ready(function() {
 								  echo '<div class="inputT" id="'.$rs->id.'" style="display:none">';
 									//echo '<input type ="text'.$i.'", class="form-control">';
 
-								  	echo '<div class="input-group">';
+								  	echo '<div id="inputGroup" class="input-group">';
 								 	 	echo '<input id="inputValue" class="form-control" type="text" placeholder="αξιολόγηση">';
 								 		echo ' <div class="input-group-append">';
 
-								  	 	echo '<span id = "sendMessage"class="input-group-text"><i class="fa fa-send fa-fw"></i></span>';
+								  	 	echo '<span id = "sendMessage"class="input-group-text"><i  class="fa fa-send fa-fw"></i></span>';
 								  	echo '</div>';
 								  echo '</div>' ;
 								  echo '</div>';
