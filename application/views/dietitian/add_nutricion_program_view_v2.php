@@ -104,6 +104,7 @@ echo form_open('dietitians/add_nutricion_program_v2'); ?>
 			</select>
 
 			<button type="submit" name="submitTemplate" value="nothing" style="margin-top: 20px; margin-bottom: 20px;" class="btn btn-warning" >Φόρτωμα Προτύπου</button>
+			<button type="submit" name="chooseTemplate" value="nothing" style="margin-top: 20px; margin-bottom: 20px;" class="btn btn-info" >Επιλογή Προτύπου</button>
 			</div>
 			</div>
 		</div>

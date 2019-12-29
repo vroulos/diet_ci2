@@ -172,7 +172,10 @@ class Dietitians extends CI_controller
 					
 					
 				$user_id = $_SESSION['customer_id'];
-				$result = $this->dietitian_model->get_current_date();
+				//check if exists at least one week
+				$week_exist = $this->dietitian_model->week_exist($user_id);
+
+				$result = $this->dietitian_model->get_current_date($user_id);
 				if ($result) {
 					$current_date = $result->date;
 					$current_date_obj = date_create($current_date);
@@ -185,6 +188,8 @@ class Dietitians extends CI_controller
 					$this->dietitian_model->add_new_week($new_week, $user_id, $_SESSION['dietitian_name'], $date_plus_one_week, $meal);
 					$data['weeks'] = $this->dietitian_model->get_weeks($user_id);
 					$data['program'] = $this->user_model->get_nutricion_program_v2($week, $name , $user_id);
+				}else{
+
 				}
 				
 
@@ -233,7 +238,21 @@ class Dietitians extends CI_controller
 				$this->load->view('dietitian/add_nutricion_program_view_v2', $data);
 				$this->load->view('user/nutricion_program_view_v2', $data);
 				$this->load->view('footer');
-			}else {
+
+			}else if($_SERVER['REQUEST_METHOD'] == "POST" AND isset($_POST['chooseTemplate'])){
+
+				$choosenTemplate = $this->input->post('load_template');
+				echo $choosenTemplate;
+
+				$this->session->set_userdata('choosenTemplate', $choosenTemplate );
+
+				$this->load->view('dietitian/headerd');
+				$this->load->view('dietitian/add_nutricion_program_view_v2', $data);
+				$this->load->view('user/nutricion_program_view_v2', $data);
+				$this->load->view('footer');
+							
+			}
+			else {
 				
 				
 				$week = $this->session->week;

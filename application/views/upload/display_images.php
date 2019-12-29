@@ -55,7 +55,7 @@ $user_id = $_SESSION['user_id']; ?>
 
 <br /><br />
 
-<input type="submit" value="upload" class="btn btn-dark" />
+<input type="submit" id="uploadPhoto" value="upload" class="btn btn-dark" />
 
 </form>
 </div>
@@ -85,7 +85,7 @@ $user_id = $_SESSION['user_id']; ?>
 
 <script>
 
-	$(".btn").click(function(event) {
+	$(".images").find(".btn").click(function(event) {
 		var image_name = $(this).attr('name');
 		console.log(image_name);
 		

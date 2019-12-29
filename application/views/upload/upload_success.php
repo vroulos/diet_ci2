@@ -3,8 +3,10 @@
 	<title>Upload Form</title>
 </head>
 <body>
+<div class="container-fluid">
+	
 
-	<div class="alert alert-success" role="alert" style="width: 1000px; margin: 200px">
+	<div class="alert alert-success" role="alert" style="max-width: 1000px; ">
 		<h3 class="alert-heading">η Φωτογραφία ανέβηκε επιτυχώς!</h3>
 		<hr>
 		<ul>
@@ -20,6 +22,7 @@
 	}?>
 
 	</div>
+</div>	
 		
 </body>
 </html>

@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid" id ="my_meals_view">
   
 
       <style type="text/css">

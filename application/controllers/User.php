@@ -45,8 +45,46 @@ class User extends CI_Controller {
 
 			$name = $_SESSION['username'];
 			$user_id = $_SESSION['user_id'];
-			$week = $this->user_model->get_current_week();
+			$week = $this->user_model->get_current_week($user_id);
+			echo 'week is : '. $week;
+			$week = $this->session->userdata('week_that_user_see');
+
+			if (!isset($week)) {
+				$array = array(
+				'week_that_user_see' => $week
+				);
+
+				$this->session->set_userdata( $array );
+			}
+			
+			
+			
 			$data['program'] = $this->user_model->get_nutricion_program_v2($week, $name , $user_id);
+
+			if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['chooseNextWeek'])) {
+				$week = $this->session->userdata('week_that_user_see');
+				var_dump((int)$week);
+				$nextWeek = (int)$week +1;
+				echo 'week is : '.$nextWeek;
+				$this->session->set_userdata('week_that_user_see', $nextWeek);
+
+				$data['program'] = $this->user_model->get_nutricion_program_v2($nextWeek, $name , $user_id);
+			}
+
+			if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['choosePreviousWeek'])) {
+
+				$week = $this->session->userdata('week_that_user_see');
+				if ((int)$week > 0 ) {
+					var_dump((int)$week);
+					$previousWeek = (int)$week -1;
+					echo 'week is : '.$previousWeek;
+					$this->session->set_userdata('week_that_user_see', $previousWeek);
+					
+
+					$data['program'] = $this->user_model->get_nutricion_program_v2($previousWeek, $name , $user_id);
+				}
+				
+			}
 			
 			$this->load->view('header');
 			$this->load->view('user/nutricion_program_view_v2' , $data);

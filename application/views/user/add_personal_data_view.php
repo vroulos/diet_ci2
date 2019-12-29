@@ -58,9 +58,7 @@
 			<?php echo form_error('weight', '<div class="error">', '</div>'); ?>
 		</div>
 	</div>
-	<div>
-		<div id="chart_div" class="col-md-6">
-		</div>
+	<div >
 
 		<?php if(isset($weight_history)){ //if the $weight_history is set then run the chart ?>
 			<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -86,7 +84,7 @@
 					chart.draw(data, options);
 				}
 			</script>
-			<div id="curve_chart" style="width: 900px; height: 500px"></div>
+			<div id="curve_chart" style="max-width: 900px; max-height: 500px"></div>
 		<?php } //end if of isset ?>
 	</div>
 
@@ -94,29 +92,15 @@
 
 	<!-- this div is for fat percentage -->
 	<div class="row">
-		<div class="col-md-6">
+		<div >
 
 
 			<?php echo validation_errors(); //display validation errors ?>
 
-			<div class="col-md-6">
-		
-
-			</div>
 		</div>
 
 
-
-
-
-
-		<div class="col-md-2">
-
-		</div>
 		<div>
-			<div id="chart_div" class="col-md-6">
-			</div>
-
 			<?php if(isset($fatPercentageHistory)){ //if the $weight_history is set then run the chart ?>
 
 
@@ -143,22 +127,20 @@
 						chart.draw(data, options);
 					}
 				</script>
-				<div id="curve_chart" style="width: 900px; height: 500px"></div>
+				<div id="curve_chart" style="max-width: 900px; max-height: 500px"></div>
 			<?php } //end if of isset ?>
 		</div>
 	</div>
 
 
 	<div class="row">
-		<div class="col-md-1"></div>
-
-		<div class="col-md-2">
+		<div >
 			<div class="row1">
 				<?php echo validation_errors(); //display validation errors ?>
 			</div>
 		</div>
 		<div>
-			<div id="chart_div" class="col-md-6">
+			<div id="chart_div">
 			</div>
 
 			<?php if(isset($waistlineValues)){ //if the $weight_history is set then run the chart ?>
@@ -185,10 +167,9 @@
 						chart.draw(data, options);
 					}
 				</script>
-				<div id="curve_chart" style="width: 900px; height: 500px"></div>
+				<div id="curve_chart" style="max-width: 900px; max-height: 500px"></div>
 			<?php } //end if of isset ?>
 		</div>
 	</div>
 </div>
-</div>
-</div>
+

@@ -2,67 +2,8 @@
 
 <script>
 $(document).ready(function() {
-	//for (var i = 0; i < 28; i++) {
-		// $("[id*='mealInProgram']").mouseenter(function(){
-  // 		$("[id*='feedback']").show(); 
-		// });
-		// $('#meal,#mealInProgram').mouseleave(function(){
-  // 		$('#feedback').hide();
-		// });
-	//}
-	// for (var i = 0; i < 28; i++) {
-	// 	$('#meal,#mealInProgram' +i).mouseenter(function(){
- //   		$('#feedback10').show();
-	// 	});
-	// 	$('#meal,#mealInProgram').mouseleave(function(){
- //   		$('#feedback10').hide();
-	// 	});
-	// }
 	
-
-	// -------------------------------------------------------------------------
-		// $('#meal0,#feedback0', '#mealInProgram0').mouseenter(function(){
-  //  		$('#feedback0').show();
-		// });
-		// $('#editText0').click(function(event) {
-		// 	$('#inputT0').show();
-		// });
-		// $('#feedback0').mouseleave(function(){
-  //  		$('#feedback0').delay(10000).fadeOut(3000);
-		// });
-
-
-
-		// $('#meal1,#mealInProgram1').mouseenter(function(){
-  //  		$('#feedback1').show();
-		// });
-		// $('#feedback1').mouseleave(function(){
-  //  		$('#feedback1').fadeOut('slow');
-		// });
-
-		// $('#meal2,#mealInProgram2').mouseenter(function(){
-  //  		$('#feedback2').show();
-		// });
-		// $('#feedback2').mouseleave(function(){
-  //  		$('#feedback2').fadeOut('slow');
-		// });
-
-		// $('#meal3,#mealInProgram3').mouseenter(function(){
-  //  		$('#feedback3').show();
-		// });
-		// $('#feedback3').mouseleave(function(){
-  //  		$('#feedback3').fadeOut('slow');
-		// });
-
-		// $('#meal5,#mealInProgram5').mouseenter(function(){
-  //  		$('#feedback5').show();
-		// });
-		// $('#feedback5').mouseleave(function(){
-  //  		$('#feedback5').fadeOut('slow');
-		// });
-
-		// ------------------------------------------------
-
+		
 		$("#mealInProgram, #meal").click(function(event) {
 			$(this).find(".feedback").show();
 		});
@@ -139,23 +80,52 @@ $(document).ready(function() {
 </script>
 
 <div class="container" style="margin-top: 90px">
-	<?php if (isset($_SESSION['customer_name'])) {
-		echo "<p>Πρόγραμμα διατροφής για τον πελάτη ". $_SESSION['customer_name'];
+	<div class="row">
+		
+	
+		
+		<div style="margin: 10px">
+			
+		
+	<?php if (isset($_SESSION['customer_name']) or isset($_SESSION['username'])) {
+
+		if (isset($_SESSION['customer_name'])) {
+			echo "<p>Πρόγραμμα διατροφής για τον πελάτη ". $_SESSION['customer_name'].". ";
+		}
 		
 	
 		if (isset($program) and !empty($program)) {
 			foreach ($program as $value) {
 			$date = $value->date;
 			$date_object=date_create($date);
-			$date_object_formated = date_format($date_object,"Y-m-d");
+			$date_object_formated = date_format($date_object,"d-m-Y");
 
 			date_add($date_object,date_interval_create_from_date_string("7 days"));
-			$my_date_plus_one_week =  date_format($date_object,"Y-m-d");
+			$my_date_plus_one_week =  date_format($date_object,"d-m-Y");
 		}
-		echo ".      Ημερομηνία από : ".$date_object_formated." έως : ". $my_date_plus_one_week;
+		echo "      Ημερομηνία από : ".$date_object_formated." έως : ". $my_date_plus_one_week;
 		}
-		
-	} ?>
+		echo "</div>";
+	}
+
+	if (isset($_SESSION['username'])) { ?>
+	
+		<div class="row" id = "directonalButtons">
+			<?php echo form_open('user/view_program'); ?>
+			<button type="submit" name="choosePreviousWeek" id="previousWeek" class="btn btn-info">
+                    <i class="fa fa-chevron-left"></i> Προηγούμενη
+                </button>
+                <button type="submit" name="chooseNextWeek" id="nextWeek" class="btn btn-info">
+                     Επόμενη<i class="fa fa-chevron-right"></i>
+                </button>
+		</div>
+	
+	<?php 
+
+	form_close();  
+		}
+	 ?>
+	 </div>
 	<div class="table-responsive">
 		
 	

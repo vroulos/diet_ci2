@@ -171,12 +171,23 @@ class Dietitian_model extends CI_Model
 
 
 
-	public function get_current_date(){
-		$query = $this->db->query("SELECT week, date from nutricion_program_v2 order by week desc LIMIT 1 ");
+	public function get_current_date($user_id){
+		$query = $this->db->query("SELECT week, date from nutricion_program_v2 WHERE user_id = '$user_id' order by week desc LIMIT 1 ");
 
 		if ($this->db->affected_rows() > 0 ) {
 			echo ' lelele do metro ::  '.$query->row()->date."     -------   ";
 			return $query->row();
+		}else{
+			return false;
+		}
+	}
+
+	//check if the dietitian has create a week program for this user
+	public function week_exist($user_id){
+		$query = $this->db->query("SELECT week FROM nutricion_program_v2 WHERE user_id = '$user_id' ");
+
+		if ($this->db->affected_rows() > 0 ) {
+			return true;
 		}else{
 			return false;
 		}

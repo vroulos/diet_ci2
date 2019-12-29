@@ -46,6 +46,10 @@ body {
   box-sizing: border-box;
 }
 
+#my_meals_view{
+  margin-left: 0px;
+}
+
 #create_customer_secret_key{
   margin-right: 200px;
   margin-left: 200px;
@@ -135,9 +139,23 @@ img:hover {
 }
 .container-fluid{
   margin-left: 100px;
-  margin-right: 100px;
+ 
   margin-top: 30px
 }
+
+#directonalButtons{
+  
+  margin: 10px;
+  margin-right: 10px;
+}
+
+#nextWeek{
+  margin-left: 10px;
+  
+}
+
+#previousWeek{
+  }
 
  @media all and (max-width: 360px){
     .row{
@@ -152,7 +170,8 @@ img:hover {
       margin-left: 5px;
       }
     .container-fluid{
-        margin-left: 1px;    
+        margin-left: 0px; 
+        margin-right: 0px;   
       }
       #sendMessageId{
         width: 80vw; /*= 80% of viewport width*/

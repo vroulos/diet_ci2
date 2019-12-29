@@ -23,46 +23,49 @@ class Upload extends CI_Controller {
     }
 
     public function do_upload(){
+        if (isset($_SESSION['username'])){
 
-        $user_id = $_SESSION['user_id'];
-            // Define path where file will be uploaded to
-            //   User ID is set as directory name
-        $folderPath = "/uploads/$user_id";
-        $exist = is_dir('uploads/images/'.$user_id);
+            $user_id = $_SESSION['user_id'];
+                // Define path where file will be uploaded to
+                //   User ID is set as directory name
+            $folderPath = "/uploads/$user_id";
+            $exist = is_dir('uploads/images/'.$user_id);
 
-        if (!$exist) {
-            mkdir('./uploads/images/'.$user_id, 0777, true);
-        }
-
-        if(isset($_SESSION['username'])){
-            $config['upload_path']          = './uploads/images/'.$user_id;
-            $config['allowed_types']        = 'gif|jpg|png';
-            $config['max_size']             = 10000;
-            $config['max_width']            = 14000;
-            $config['max_height']           = 14000;
-
-            $this->load->library('upload', $config);
-
-            if ( ! $this->upload->do_upload('userfile'))
-            {
-                $error = array('error' => $this->upload->display_errors());
-                if ($error == null) {
-                    $this->display_images();
-                }else{
-                    $this->load->view('header');
-                    $this->load->view('upload/display_images', $error);
-                    $this->load->view('footer');
-                    echo "this is when userfile do not uploaded";
-                }             
+            if (!$exist) {
+                mkdir('./uploads/images/'.$user_id, 0777, true);
             }
-            else
-            {
-                $data = array('upload_data' => $this->upload->data());
 
-                $this->load->view('header');
-                $this->load->view('upload/upload_success', $data);
-                $this->load->view('footer');
-            }       
+            if(isset($_SESSION['username'])){
+                $config['upload_path']          = './uploads/images/'.$user_id;
+                $config['allowed_types']        = 'gif|jpg|png';
+                $config['max_size']             = 10000;
+                $config['max_width']            = 14000;
+                $config['max_height']           = 14000;
+
+                $this->load->library('upload', $config);
+
+                if ( ! $this->upload->do_upload('userfile')){
+
+                    $error = array('error' => $this->upload->display_errors());
+                    if ($error == null) {
+                        $this->display_images();
+                    }else{
+                        $this->load->view('header');
+                        $this->load->view('upload/display_images', $error);
+                        $this->load->view('footer');
+                    }             
+                }
+                else
+                {
+                    $data = array('upload_data' => $this->upload->data());
+
+                    $this->load->view('header');
+                    $this->load->view('upload/upload_success', $data);
+                    $this->load->view('footer');
+                }       
+        }
+        }else{
+            redirect('user/login','refresh');
         }
     }
 
