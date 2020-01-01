@@ -90,6 +90,7 @@ $(document).ready(function() {
 	<?php if (isset($_SESSION['customer_name']) or isset($_SESSION['username'])) {
 
 		if (isset($_SESSION['customer_name'])) {
+
 			echo "<p>Πρόγραμμα διατροφής για τον πελάτη ". $_SESSION['customer_name'].". ";
 		}
 		
@@ -108,8 +109,13 @@ $(document).ready(function() {
 		echo "</div>";
 	}
 
-	if (isset($_SESSION['username'])) { ?>
+	if (isset($_SESSION['username'])) { 
+		$user_id = $_SESSION['user_id'];
+		$thisDate = $this->user_model->get_current_date($user_id);
 	
+		?>
+
+
 		<div class="row" id = "directonalButtons">
 			<?php echo form_open('user/view_program'); ?>
 			<button type="submit" name="choosePreviousWeek" id="previousWeek" class="btn btn-info">

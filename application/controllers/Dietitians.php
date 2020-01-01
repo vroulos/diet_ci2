@@ -9,7 +9,7 @@ class Dietitians extends CI_controller
 	function __construct()
 	{	
 		parent::__construct();
-		$this->load->library(array('session'));
+		$this->load->library('session');
 		$this->load->helper(array('url'));
 		$this->load->model('dietitian_model');	
 		$this->load->library('session');
@@ -19,6 +19,7 @@ class Dietitians extends CI_controller
 		$this->load->library('table');
 		$this->load->helper('email');
 		$this->load->helper('date');
+
 
 	}
 
@@ -119,7 +120,7 @@ class Dietitians extends CI_controller
 	
 	//add and display the nutricion program
 	public function add_nutricion_program_v2(){
-		if (isset($_SESSION['dietitian_name'])) {
+		if (isset($_SESSION['dietitian_name']) AND isset($_SESSION['customer_name'])) {
 			$data = null;
 			//fortonw to user model gia an xrisimopoiiso ti sunartisi get_nutricion_program()
 			$this->load->model('user_model');
@@ -185,7 +186,7 @@ class Dietitians extends CI_controller
 					$current_week = $result->week;
 					$new_week = $current_week+1;						
 					$meal = '';
-					$this->dietitian_model->add_new_week($new_week, $user_id, $_SESSION['dietitian_name'], $date_plus_one_week, $meal);
+					$this->dietitian_model->add_new_week($new_week, $user_id, $duser_id, $date_plus_one_week, $meal);
 					$data['weeks'] = $this->dietitian_model->get_weeks($user_id);
 					$data['program'] = $this->user_model->get_nutricion_program_v2($week, $name , $user_id);
 				}else{
@@ -205,17 +206,27 @@ class Dietitians extends CI_controller
 				$template = $this->dietitian_model->get_current_template($templateName);
 				//$week = $this->session->userdata('week');
 
+				$result = $this->dietitian_model->get_current_date($user_id);
+				if ($result) {
+					$current_date = $result->date;
+					$current_date_obj = date_create($current_date);
+					$date_plus_one_week_obj = date_add($current_date_obj,date_interval_create_from_date_string("7 days"));
+					$date_plus_one_week = $date_plus_one_week_obj->format('Y-m-d H:i:s');
 
 
-				foreach ($template as $value) {
-					$meal = $value->food;
-					$day = $value->day;
-					$mealtime = $value->hour;
+					if (!isset($temlate)) {
+						foreach ($template as $value) {
+						$meal = $value->food;
+						$day = $value->day;
+						$mealtime = $value->hour;
 
 
-					$this->dietitian_model->add_meal($week, $day, $mealtime, $meal, $user_id, $duser_id);
-					
+						$this->dietitian_model->add_meal_from_template($week, $day, $mealtime, $meal, $user_id, $duser_id, $current_date);
+						
+					}
+				}	
 				}
+				
 
 				$data['program'] = $this->user_model->get_nutricion_program_v2($week, $name , $user_id);
 
@@ -255,11 +266,24 @@ class Dietitians extends CI_controller
 			else {
 				
 				
-				$week = $this->session->week;
+				$week = $this->session->userdata('week');
+				
+				if (!isset($week) or empty($week)) {
+
+				$week = $this->session->set_userdata('week', 0);
+				$day = 'monday';
+				$mealtime = 'breakfast';
+				$meal = '';	
+				$user_id = $_SESSION['customer_id'];
+				$duser_id = $_SESSION['dietitian_id'];
+
+				//add the meal to the the table nutricion_program_v2
+				$this->dietitian_model->add_meal($week, $day, $mealtime, $meal, $user_id, $duser_id);
+					
+				}
 				
 					//get the current customer program and save it to $data
 				$data['program'] = $this->user_model->get_nutricion_program_v2($week, $name , $user_id);
-				
 
 				$this->load->view('dietitian/headerd');
 				$this->load->view('dietitian/add_nutricion_program_view_v2', $data);
@@ -312,14 +336,9 @@ class Dietitians extends CI_controller
 					 $this->dietitian_model->add_template($templateName, $day, $mealtime, $meal, $duser_id);
 					 $data['templates'] = $this->dietitian_model->get_templates($duser_id);
 
-					
-			
-				
-
 			}else if($_SERVER['REQUEST_METHOD'] == "POST" AND isset($_POST['chooseTemplate'])){
 
 				$choosenTemplate = $this->input->post('add_template');
-
 				$this->session->set_userdata('choosenTemplate', $choosenTemplate );
 							
 			}
@@ -355,8 +374,6 @@ class Dietitians extends CI_controller
 
 			//fetch all customers and save them in $data table
 			$data['users'] = $this->dietitian_model->get_customers();
-			$week = 0;
-			$this->session->set_userdata('week', $week);
 
 			$this->load->view('dietitian/headerd' , $data);
 			$this->load->view('dietitian/choose_customer_view' , $data);

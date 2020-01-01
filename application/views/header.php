@@ -21,7 +21,7 @@
 <script>
   // Initialize Firebase
   var config = {
-    apiKey: "AIzaSyCMMDvFcKrcMduuwJx0gVUh5wVwSjRZEW4",
+    apiKey: "myApiKey",
     authDomain: "sendy-c324f.firebaseapp.com",
     databaseURL: "https://sendy-c324f.firebaseio.com",
     projectId: "sendy-c324f",

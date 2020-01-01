@@ -24,6 +24,7 @@
   <li class="list-group-item"><a href="<?php echo base_url('user/messages') ?>">Μηνύματα</a></li>
   <li class="list-group-item"><a href="<?php echo base_url('upload/') ?>">Ανέβασμα φωτογραφίας</a></li>
   <li class="list-group-item"><a href="<?php echo base_url('upload/display_images') ?>">Οι φωτογραφίες μου</a></li>
+  <li class="list-group-item"><a href="<?=base_url('user/view_program')?>">Πρόγραμμα διατροφής</a>
 </ul>
 </div>
 

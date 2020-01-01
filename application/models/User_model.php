@@ -64,7 +64,6 @@ class User_model extends CI_Model {
 		$this->db->where('username', $username);
 		$hash = $this->db->get()->row('password');
 		$nainai = $this->verify_password_hash($password, $hash);
-		//echo 'nainai : '. $nainai ; echo'   ' .$password;
 		return $nainai;
 		
 	}
@@ -144,13 +143,25 @@ class User_model extends CI_Model {
 	//return the current date . After the controller loads the proper nutricion program
 	public function get_current_week($user_id){
 		// $query = $this->db->query("SELECT week FROM nutricion_program_v2 WHERE date BETWEEN CURDATE() AND CURDATE() + 7 ");
-		$query = $this->db->query("SELECT week, date FROM nutricion_program_v2 where (date BETWEEN NOW() and NOW() + INTERVAL 6 DAY) and (user_id = $user_id)");
+		$query = $this->db->query("SELECT week, date FROM nutricion_program_v2 where (date BETWEEN NOW() and NOW() + INTERVAL 7 DAY) and (user_id = $user_id)");
 
 
-		if ($this->db->affected_rows() > 0) {
-			echo $query->row()->week;
-			echo $query->row()->date;			
+		if ($this->db->affected_rows() > 0) {			
 			return $query->row()->week;
+		}else{
+			return 122;
+			
+		}
+		
+	}
+
+		public function get_current_date($user_id){
+		// $query = $this->db->query("SELECT week FROM nutricion_program_v2 WHERE date BETWEEN CURDATE() AND CURDATE() + 7 ");
+		$query = $this->db->query("SELECT week, date FROM nutricion_program_v2 where (date BETWEEN NOW() and NOW() + INTERVAL 7 DAY) and (user_id = $user_id)");
+
+
+		if ($this->db->affected_rows() > 0) {		
+			return $query->row()->date;
 		}else{
 			return 122;
 			
@@ -180,10 +191,8 @@ class User_model extends CI_Model {
 		$query = $this->db->query("INSERT INTO feedback (reaction, meal_id) values ('$reaction', '$meal_id') ON DUPLICATE KEY UPDATE reaction = '$reaction' ");
 
 		if ($this->db->affected_rows() > 0) {
-			echo 'lolo';
 			return true;
 		}else{
-			echo 'loulou';
 			return false;
 		}
 
@@ -195,10 +204,8 @@ class User_model extends CI_Model {
 		$query = $this->db->query("INSERT INTO feedback (meal_id, text) values ('$meal_id', '$textReaction') ON DUPLICATE KEY UPDATE text = '$textReaction' ");
 
 		if ($this->db->affected_rows() > 0) {
-			echo 'lolo';
 			return true;
 		}else{
-			echo 'loulou';
 			return false;
 		}
 
@@ -214,6 +221,16 @@ class User_model extends CI_Model {
 		}else{
 			return false;
 		}
+	}
+
+	public function get_max_week($user_id){
+		$this->db->select_max('week');
+		$query = $this->db->get('nutricion_program_v2');
+		$this->db->where('user_id', $user_id);
+
+		return $query->row()->week;
+
+
 	}
 
 
@@ -292,18 +309,7 @@ class User_model extends CI_Model {
 
 			 $query = $this->db->query("SELECT weight FROM personal_data where customer = '$user' ORDER BY id DESC LIMIT 1");
 
-			//select id 
-			// $this->db->select_max('id');
-			
-			// //where customer = $user
-			//  $this->db->where('customer' , $user);
-
-			// //Returns the number of rows changed by the last executed query.
 			 $number_of_rows = $this->db->affected_rows();
-			// // from personal_data table
-			// $query = $this->db->get('personal_data');
-
-			//echo 'the number of sql query is ' .$number_of_rows;
 
 			return $query->result();
 		}
@@ -342,7 +348,6 @@ class User_model extends CI_Model {
 
 		$user = $_SESSION['username'];
 		$user_id = $_SESSION['user_id'];
-		echo $fat;
 
 		$query = $this->db->query("INSERT INTO fat_percentage (fat_percent, date, user_id ) values('$fat', NOW(), (SELECT id from users where id = '$user_id'))");
 

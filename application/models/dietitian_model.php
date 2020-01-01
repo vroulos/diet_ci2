@@ -97,6 +97,8 @@ class Dietitian_model extends CI_Model
 
 		if ($query) {
 			return $query->result();
+		}else{
+			return false;
 		}
 	}
 
@@ -107,6 +109,17 @@ class Dietitian_model extends CI_Model
 
 		if ($this->db->affected_rows() > 0) {
 			
+		}
+	}
+
+		public function add_meal_from_template($week, $day, $mealtime, $meal, $user_id , $dietitian_id, $date){
+	
+		$query = $this->db->query("INSERT INTO nutricion_program_v2(week,day, hour, food, dietitian_id, user_id ,date) values ('$week','$day', '$mealtime', '$meal', '$dietitian_id', '$user_id', '$date') ON DUPLICATE KEY UPDATE food = '$meal' ");
+
+		if ($this->db->affected_rows() > 0) {
+			return true;
+		}else {
+			return false;
 		}
 	}
 
@@ -175,7 +188,6 @@ class Dietitian_model extends CI_Model
 		$query = $this->db->query("SELECT week, date from nutricion_program_v2 WHERE user_id = '$user_id' order by week desc LIMIT 1 ");
 
 		if ($this->db->affected_rows() > 0 ) {
-			echo ' lelele do metro ::  '.$query->row()->date."     -------   ";
 			return $query->row();
 		}else{
 			return false;

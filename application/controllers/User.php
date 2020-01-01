@@ -40,50 +40,59 @@ class User extends CI_Controller {
 
 	//the user sees his program
 	public function view_program(){
-		$datakia = NULL;
+		$data = NULL;
 		if (isset($_SESSION['username'])){
 
 			$name = $_SESSION['username'];
 			$user_id = $_SESSION['user_id'];
-			$week = $this->user_model->get_current_week($user_id);
-			echo 'week is : '. $week;
+			
+			
 			$week = $this->session->userdata('week_that_user_see');
 
 			if (!isset($week)) {
+
+				$week = $this->user_model->get_current_week($user_id);
 				$array = array(
 				'week_that_user_see' => $week
 				);
 
 				$this->session->set_userdata( $array );
+			}else{
+				$week = $this->session->userdata('week_that_user_see');
 			}
-			
-			
-			
-			$data['program'] = $this->user_model->get_nutricion_program_v2($week, $name , $user_id);
 
 			if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['chooseNextWeek'])) {
 				$week = $this->session->userdata('week_that_user_see');
-				var_dump((int)$week);
-				$nextWeek = (int)$week +1;
-				echo 'week is : '.$nextWeek;
-				$this->session->set_userdata('week_that_user_see', $nextWeek);
+				(int)$max_week = $this->user_model->get_max_week($user_id);
+				if ($week < $max_week) {
+					$week = $this->session->userdata('week_that_user_see');
+					$nextWeek = (int)$week +1;
+					$this->session->set_userdata('week_that_user_see', $nextWeek);
+					$data['program'] = $this->user_model->get_nutricion_program_v2($nextWeek, $name , $user_id);
+				}else{
+					$data['program'] = $this->user_model->get_nutricion_program_v2($week, $name , $user_id);
+				}
 
-				$data['program'] = $this->user_model->get_nutricion_program_v2($nextWeek, $name , $user_id);
+				
 			}
 
-			if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['choosePreviousWeek'])) {
+			else if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['choosePreviousWeek'])) {
 
 				$week = $this->session->userdata('week_that_user_see');
 				if ((int)$week > 0 ) {
-					var_dump((int)$week);
 					$previousWeek = (int)$week -1;
-					echo 'week is : '.$previousWeek;
 					$this->session->set_userdata('week_that_user_see', $previousWeek);
-					
 
 					$data['program'] = $this->user_model->get_nutricion_program_v2($previousWeek, $name , $user_id);
+				}else{
+					//i not let the week to become less than zero
+					$week = 0;
+					$data['program'] = $this->user_model->get_nutricion_program_v2($week, $name , $user_id);
 				}
 				
+			}else{
+				$data['program'] = $this->user_model->get_nutricion_program_v2($week, $name , $user_id);
+
 			}
 			
 			$this->load->view('header');
@@ -186,7 +195,6 @@ class User extends CI_Controller {
 				$data['fatPercentageHistory'] = $this->user_model->get_fat_history();
 			}
 			elseif ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['addFat'])){
-				echo 'add fat is ok';
 				$this->form_validation->set_rules
 				('fat', 'Weight', 'trim|required|min_length[1]|max_length[3]',
 					array(
@@ -254,12 +262,6 @@ class User extends CI_Controller {
 			}else if (isset($reaction)) {
 				$result = $this->user_model->add_reaction($reaction, $meal_id);
 			}
-			
-			// if ($result) {
-			// 	echo "this is a success";
-			// }else{
-			// 	echo 'no no nou';
-			// }
 			
 		}
 	}
@@ -335,7 +337,7 @@ class User extends CI_Controller {
 				$this->load->view('user/user_note_view', $data);
 				$this->load->view('footer', $data );
 			}else{
-				echo "lalelloo nonono";
+				echo "note has deleted";
 			}
 		}
 	}
@@ -360,10 +362,6 @@ class User extends CI_Controller {
 			else if(isset($delete_message)){
 				$this->user_model->delete_message($id);
 			}
-
-			
-
-		//echo $message_to_delete;
 		// delete the messages
 			$data['messages'] = $this->user_model->get_messages($customer_name);
 			if (isset($data['messages'])) {
@@ -406,10 +404,6 @@ class User extends CI_Controller {
 		$this->form_validation->set_rules('password_confirm', 'Confirm Password', 'trim|required|min_length[6]|matches[password]');
 		//here i am using a callback function to check the secret user key
 		$this->form_validation->set_rules('password_identity', 'Recognition Password', 'trim|required|min_length[4]|callback_check_pass_recognition['.$this->input->post('email').']');
-
-		if (empty($_POST['send_pass_to_user'])) {
-			//echo "you password is on the way";
-		}
 		
 		if ($this->form_validation->run() === false) {
 			
@@ -455,9 +449,7 @@ class User extends CI_Controller {
 
 		//take the email from user input
 		$email = $this->input->post('email');
-		echo "striaaaif";
 		//validate the email
-		// $this->form_validation->set_rules('email','EMAIL','trim|required|valid_email|is_unique[user_secret_key.user_email]');
 		$this->form_validation->set_rules('email','EMAIL','trim|required|valid_email');
 
 		//if the validation is false the print the errors
@@ -465,8 +457,6 @@ class User extends CI_Controller {
 			echo validation_errors();// send error to the view		
 							
 		} else {
-			echo "lets go   ";
-			echo $email;
 			$new_user_password = $this->user_model->get_user_unique_password($email);
 			if (!isset($new_user_password)) {
 				echo "the email has not sended";
@@ -516,7 +506,6 @@ class User extends CI_Controller {
 	//elegxei an yparxei o kodikos gia tin tautopoiisi tou pelati
  	public function check_pass_recognition($pass, $user_email){
  		$exist = $this->user_model->check_recognition_pass($pass, $user_email);
- 		echo $exist;
  		if($exist > 0 && $exist < 2){
  			return true;
  		}else{
