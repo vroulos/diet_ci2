@@ -184,8 +184,8 @@ class Dietitian_model extends CI_Model
 
 
 
-	public function get_current_date($user_id){
-		$query = $this->db->query("SELECT week, date from nutricion_program_v2 WHERE user_id = '$user_id' order by week desc LIMIT 1 ");
+	public function get_current_date($user_id, $week){
+		$query = $this->db->query("SELECT  date from nutricion_program_v2 WHERE user_id = '$user_id' and week = '$week' order by week desc LIMIT 1 ");
 
 		if ($this->db->affected_rows() > 0 ) {
 			return $query->row();

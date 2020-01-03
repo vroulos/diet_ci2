@@ -79,14 +79,15 @@ class User extends CI_Controller {
 			else if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['choosePreviousWeek'])) {
 
 				$week = $this->session->userdata('week_that_user_see');
-				if ((int)$week > 0 ) {
+				if ((int)$week > 1 ) {
+					
 					$previousWeek = (int)$week -1;
 					$this->session->set_userdata('week_that_user_see', $previousWeek);
 
 					$data['program'] = $this->user_model->get_nutricion_program_v2($previousWeek, $name , $user_id);
 				}else{
 					//i not let the week to become less than zero
-					$week = 0;
+					$week = 1;
 					$data['program'] = $this->user_model->get_nutricion_program_v2($week, $name , $user_id);
 				}
 				
