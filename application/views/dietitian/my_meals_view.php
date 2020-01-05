@@ -14,7 +14,7 @@
       }
       </style>
 
-
+<div class="table-responsive"> 
 <table class="table">
     <thead>
       <tr>
@@ -51,6 +51,7 @@
       <?php } ?>
     </tbody>
   </table>   
+  </div>
 </div>
 </div>
 

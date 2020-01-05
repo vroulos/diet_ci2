@@ -7,7 +7,7 @@
 		<p id="message"></p>
 	</div>
 </div>
-<div id="chart_div">
+<div class="row" id="chart_div">
 	
 
 	<?php if(isset($weight_history)){ //if the $weight_history is set then run the chart ?>

@@ -37,6 +37,16 @@ body {
 
 }
 
+#card_group_messages{
+  width: 50%;
+}
+
+#card_send_message_dietitian{
+  margin-bottom: 50px; 
+  text-decoration: underline;
+  width: 50%;
+}
+
 .mystyle {
   width: 100%;
   padding: 25px;
@@ -178,6 +188,16 @@ img:hover {
       }
     .container{
       margin: 1px;
-    }  
+    }
+    #card_group_messages{
+      width: 100%;
+    }
+
+    #card_send_message_dietitian{
+      margin-bottom: 5px; 
+      text-decoration: underline;
+      width: 120%;
+
+    }
 
    }

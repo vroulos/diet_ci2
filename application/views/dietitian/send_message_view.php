@@ -47,8 +47,8 @@ $success = $this->session->flashdata('success');
 
 					?>
 
-  <div class="col-sm-6">
-    <div class="card" style="margin-bottom: 50px; text-decoration: underline;">
+ 
+    <div class="card" id="card_send_message_dietitian" >
     	<div class="card-body">
         <h5 class="card-title">Μήνυμα</h5>
         <p class="card-text" ><?php echo $row->message; //echo $row->id ?></p>
@@ -85,7 +85,7 @@ $success = $this->session->flashdata('success');
         
       </div>
     </div>
-  </div>
+  
   <?php 
 	} 
   ?>

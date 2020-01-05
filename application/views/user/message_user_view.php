@@ -6,8 +6,8 @@
 <div class="container-fluid">
 	<?php foreach ($messages as $row) { ?>
 
-  <div class="col-sm-6">
-    <div class="card-group">
+ 
+    <div class="card-group" id="card_group_messages">
       <div class="card " style="margin-bottom:  50px">
       <div class="card-body">
         <h5 class="card-title">Μήνυμα</h5>
@@ -46,7 +46,7 @@
       </div>
     </div>
   </div>
-    </div>
+ 
     
   <?php } ?>
 
