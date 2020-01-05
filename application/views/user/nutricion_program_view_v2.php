@@ -8,13 +8,12 @@ $(document).ready(function() {
 			$(this).find(".feedback").show();
 		});
 		$(".feedback").find("#editText").click(function(event) {
-			$(this).next().show();
+			$(this).next().toggle();
 		});
 
 
 		$(".feedback").find("#heart").click(function(event) {
 			var $value = $(this).parent().find("#heart").attr("value");
-			alert($value);
 			$.ajax({
 				url: '<?php echo base_url('user/food_feedback') ?>',
 				type: 'POST',
@@ -24,7 +23,10 @@ $(document).ready(function() {
 					'meal_id' : $value
 				},
 				success: function(msg){
-					alert('wow ' + msg);
+						$("#success-alert").show();
+					setTimeout(function() { 
+						$("#success-alert").hide(); 
+					}, 1000);
 				}
 
 			})
@@ -34,7 +36,6 @@ $(document).ready(function() {
 		$(".feedback").find("#thumbsDown").click(function(event) {
 
 			var $value = $(this).parent().find("#thumbsDown").attr("value");
-			alert($value);
 			$.ajax({
 				url: '<?php echo base_url('user/food_feedback') ?>',
 				type: 'POST',
@@ -44,8 +45,11 @@ $(document).ready(function() {
 					'meal_id' : $value
 				},
 				success: function(msg){
-					alert('wow ' + msg);
-					$(this).parent().find("#inputT").show();
+					//$(this).parent().find("#inputT").show();
+						$("#success-alert").show();
+					setTimeout(function() { 
+						$("#success-alert").hide(); 
+					}, 1000);
 				}
 
 			})
@@ -66,7 +70,10 @@ $(document).ready(function() {
 					'meal_id' : $value
 				},
 				success: function(msg){
-					alert('wow ' + msg);
+					$("#success-alert").show();
+					setTimeout(function() { 
+						$("#success-alert").hide(); 
+					}, 1000);
 				}
 
 			})
@@ -80,7 +87,10 @@ $(document).ready(function() {
 </script>
 
 <div class="container" style="margin-top: 90px">
+	<div class="alert alert-success" id="success-alert" style="display:none"> Η αξιολόγηση στάλθηκε επιτυχώς</div>
+	<div class="alert alert-success" id="success-feedback" style="display:none"> Η αξιολόγηση στάλθηκε επιτυχώς</div>
 	<div class="row">
+		<div class="alert alert-success" id="success-alert" style="display:none"> Success Message</div>
 		
 	
 		

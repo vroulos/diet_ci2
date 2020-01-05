@@ -185,7 +185,7 @@ class Dietitian_model extends CI_Model
 
 
 	public function get_current_date($user_id, $week){
-		$query = $this->db->query("SELECT  date from nutricion_program_v2 WHERE user_id = '$user_id' and week = '$week' order by week desc LIMIT 1 ");
+		$query = $this->db->query("SELECT  week, date from nutricion_program_v2 WHERE user_id = '$user_id' and week = '$week' order by week desc LIMIT 1 ");
 
 		if ($this->db->affected_rows() > 0 ) {
 			return $query->row();
@@ -193,6 +193,28 @@ class Dietitian_model extends CI_Model
 			return false;
 		}
 	}
+
+		public function get_latest_date($user_id){
+		$query = $this->db->query("SELECT  date from nutricion_program_v2 WHERE user_id = '$user_id'  order by week desc LIMIT 1 ");
+
+		if ($this->db->affected_rows() > 0 ) {
+			return $query->row();
+		}else{
+			return false;
+		}
+	}
+
+		public function get_latest_week($user_id){
+		$query = $this->db->query("SELECT  week from nutricion_program_v2 WHERE user_id = '$user_id' order by week desc LIMIT 1 ");
+
+		if ($this->db->affected_rows() > 0 ) {
+			return $query->row();
+		}else{
+			return false;
+		}
+	}
+
+
 
 	//check if the dietitian has create a week program for this user
 	public function week_exist($user_id){

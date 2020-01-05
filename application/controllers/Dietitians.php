@@ -128,12 +128,6 @@ class Dietitians extends CI_controller
 			$user_id = $_SESSION['customer_id'];
 			$data['weeks'] = $this->dietitian_model->get_weeks($user_id);
 			$week = $this->session->userdata('week');
-			// if (!isset($week)) {
-			// 	$this->session->set_userdata('week', 1);
-			// 	$week = $this->session->userdata('week');
-			// 	echo '$week on line 133 is : '.$week;
-			// }
-			// echo '$week on line 135 is : '.$week;
 			$duser_id = $_SESSION['dietitian_id'];
 			$data['templates'] = $this->dietitian_model->get_templates($duser_id);
 
@@ -182,15 +176,19 @@ class Dietitians extends CI_controller
 				//check if exists at least one week
 				$week_exist = $this->dietitian_model->week_exist($user_id);
 
-				$result = $this->dietitian_model->get_current_date($user_id);
+				$result = $this->dietitian_model->get_latest_date($user_id, $week);
 				if ($result) {
 					$current_date = $result->date;
 					$current_date_obj = date_create($current_date);
 					$date_plus_one_week_obj = date_add($current_date_obj,date_interval_create_from_date_string("7 days"));
 					$date_plus_one_week = $date_plus_one_week_obj->format('Y-m-d H:i:s');
-				
-					$current_week = $result->week;
-					$new_week = $current_week+1;						
+
+					//get the latest week from database 
+					$result_week = $this->dietitian_model->get_latest_week($user_id);
+
+					$current_week = $result_week->week;
+					//add the new week
+					$new_week = $current_week+1;					
 					$meal = '';
 					$this->dietitian_model->add_new_week($new_week, $user_id, $duser_id, $date_plus_one_week, $meal);
 					$data['weeks'] = $this->dietitian_model->get_weeks($user_id);
@@ -208,7 +206,6 @@ class Dietitians extends CI_controller
 			}else if($_SERVER['REQUEST_METHOD'] == 'POST' AND isset($_POST['submitTemplate'])){
 
 				$this->session->set_userdata('week', $week);
-				echo "--(week on line 211 is : ".$week.')--';
 				$templateName = $this->session->userdata('choosenTemplate');
 				$template = $this->dietitian_model->get_current_template($templateName);
 				//$week = $this->session->userdata('week');
@@ -227,7 +224,6 @@ class Dietitians extends CI_controller
 						$day = $value->day;
 						$mealtime = $value->hour;
 
-						echo '(date on 229 is : '. $current_date;
 						$this->dietitian_model->add_meal_from_template($week, $day, $mealtime, $meal, $user_id, $duser_id, $current_date);
 						
 					}

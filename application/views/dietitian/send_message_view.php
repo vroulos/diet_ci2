@@ -3,7 +3,7 @@
 <div class="container-fluid"> 
 <?php echo form_open('dietitians/send_message'); ?>
 
- <div class="form-group" id="sendMessageId" style="width: 700px">
+ <div class="form-group" id="sendMessageId" style="max-width: 700px">
     <label for="exampleFormControlTextarea1">Μήνυμα</label>
     <textarea class="form-control" name="send_message" id="sendMessageId" rows="3" ></textarea>
   </div>
