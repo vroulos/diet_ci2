@@ -225,12 +225,19 @@ class User_model extends CI_Model {
 	}
 
 	public function get_max_week($user_id){
+		
 		$this->db->select_max('week');
 		$query = $this->db->get('nutricion_program_v2');
 		$this->db->where('user_id', $user_id);
 
-		return $query->row()->week;
+		if ($this->db->affected_rows() > 0) {
+			
+			return $query->row()->week;
+		}else{
+			return false;
+		}
 
+		
 
 	}
 

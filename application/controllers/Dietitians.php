@@ -276,7 +276,6 @@ class Dietitians extends CI_controller
 
 				$this->session->set_userdata('week', 1);
 				$week = $this->session->userdata('week');
-				echo '($week at line 281 is : '.$week;
 				$day = 'monday';
 				$mealtime = 'breakfast';
 				$meal = '';	

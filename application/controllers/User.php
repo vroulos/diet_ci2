@@ -52,6 +52,7 @@ class User extends CI_Controller {
 			if (!isset($week)) {
 
 				$week = $this->user_model->get_current_week($user_id);
+
 				$array = array(
 				'week_that_user_see' => $week
 				);
@@ -64,8 +65,8 @@ class User extends CI_Controller {
 			if ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['chooseNextWeek'])) {
 				$week = $this->session->userdata('week_that_user_see');
 				(int)$max_week = $this->user_model->get_max_week($user_id);
+	
 				if ($week < $max_week) {
-					$week = $this->session->userdata('week_that_user_see');
 					$nextWeek = (int)$week +1;
 					$this->session->set_userdata('week_that_user_see', $nextWeek);
 					$data['program'] = $this->user_model->get_nutricion_program_v2($nextWeek, $name , $user_id);
