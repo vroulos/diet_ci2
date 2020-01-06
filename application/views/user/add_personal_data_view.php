@@ -52,13 +52,13 @@
 	</div>
 
 
-
-	<div class="col-md-2">
-		<div class="row1">
-			<?php echo form_error('weight', '<div class="error">', '</div>'); ?>
-		</div>
-	</div>
+<div>
 	<div >
+		
+			<?php echo form_error('weight', '<div class="error">', '</div>'); ?>
+		
+	</div>
+	
 
 		<?php if(isset($weight_history)){ //if the $weight_history is set then run the chart ?>
 			<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -84,14 +84,15 @@
 					chart.draw(data, options);
 				}
 			</script>
-			<div id="curve_chart" style="max-width: 900px; max-height: 500px"></div>
+			<div id="curve_chart" ></div>
 		<?php } //end if of isset ?>
 	</div>
 
 
 
+
 	<!-- this div is for fat percentage -->
-	<div class="row">
+	<div>
 		<div >
 
 
@@ -100,7 +101,7 @@
 		</div>
 
 
-		<div>
+	
 			<?php if(isset($fatPercentageHistory)){ //if the $weight_history is set then run the chart ?>
 
 
@@ -127,13 +128,13 @@
 						chart.draw(data, options);
 					}
 				</script>
-				<div id="curve_chart" style="max-width: 900px; max-height: 500px"></div>
+				<div id="curve_chart" ></div>
 			<?php } //end if of isset ?>
 		</div>
-	</div>
 
 
-	<div class="row">
+
+	
 		<div >
 			<div class="row1">
 				<?php echo validation_errors(); //display validation errors ?>
@@ -152,8 +153,12 @@
 					function drawChart() {
 						var data = google.visualization.arrayToDataTable([
 							['Χρονολογία', 'Περιφέρεια'],
-							<?php foreach ($waistlineValues as $row) { ?>
-								['<?php echo $row->date ?>',<?php echo $row->user_waistline ?>],
+							<?php foreach ($waistlineValues as $row) { 
+									$date =  $row->date;
+									$date_obj = date_create($date);
+									$date_formated = date_format($date_obj, "d/m/y");
+								?>
+								['<?php echo $date_formated ?>',<?php echo $row->averageW ?>],
 							<?php }  ?>
 							]);
 
@@ -167,7 +172,7 @@
 						chart.draw(data, options);
 					}
 				</script>
-				<div id="curve_chart" style="max-width: 900px; max-height: 500px"></div>
+				<div id="curve_chart" ></div>
 			<?php } //end if of isset ?>
 		</div>
 	</div>

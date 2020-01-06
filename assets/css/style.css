@@ -166,6 +166,11 @@ img:hover {
 #previousWeek{
   }
 
+  #curve_chart{
+    width: 900px;
+    height: 500px;
+  }
+
  @media all and (max-width: 360px){
     .row{
         margin-left: 0px;
@@ -199,5 +204,9 @@ img:hover {
       width: 120%;
 
     }
+     #curve_chart{
+    width: 100vw;
+    
+  }
 
    }

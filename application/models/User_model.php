@@ -225,7 +225,7 @@ class User_model extends CI_Model {
 	}
 
 	public function get_max_week($user_id){
-		
+
 		$this->db->select_max('week');
 		$query = $this->db->get('nutricion_program_v2');
 		$this->db->where('user_id', $user_id);
@@ -370,6 +370,7 @@ class User_model extends CI_Model {
 		return $query->result();
 	}
 
+	//add the user waistline to database
 	public function add_waistline($waistline){
 		$user_id = $_SESSION['user_id'];	
 	    
@@ -377,11 +378,12 @@ class User_model extends CI_Model {
 		$query = $this->db->query("INSERT INTO waistline (user_waistline, date, user_id) values('$waistline', NOW(), (SELECT id FROM users WHERE id = '$user_id')) ");
 	}
 
+	//get the average waistline of the user daily
 	public function get_waistline(){
 
 		$user_id = $_SESSION['user_id'];
 
-		$query = $this->db->query("SELECT * FROM waistline WHERE user_id = '$user_id'");
+		$query = $this->db->query("SELECT date, AVG(user_waistline) AS averageW FROM `waistline` WHERE user_id = '$user_id' GROUP BY DATE(date)");
 
 		return $query->result();
 	}
