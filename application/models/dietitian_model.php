@@ -91,6 +91,17 @@ class Dietitian_model extends CI_Model
 		
 	}
 
+	public function deleteTemplate($templateName){
+
+		$query = $this->db->query("DELETE FROM templates WHERE template_name = '$templateName' ");
+
+		if ($this->db->affected_rows() > 0 ) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+
 
 	public function get_weeks($userId){
 		$query = $this->db->query("SELECT * FROM nutricion_program_v2 WHERE user_id = '$userId' GROUP BY week ");

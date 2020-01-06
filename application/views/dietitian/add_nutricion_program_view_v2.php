@@ -105,6 +105,12 @@ echo form_open('dietitians/add_nutricion_program_v2'); ?>
 
 			<button type="submit" name="submitTemplate" value="nothing" style="margin-top: 20px; margin-bottom: 20px;" class="btn btn-warning" >Φόρτωμα Προτύπου</button>
 			<button type="submit" name="chooseTemplate" value="nothing" style="margin-top: 20px; margin-bottom: 20px;" class="btn btn-info" >Επιλογή Προτύπου</button>
+			<?php 
+			if (isset($message)) {
+				echo '<div id="infoMessage"> '.$message.'</div>';
+			}
+			 ?>
+			
 			</div>
 			</div>
 		</div>

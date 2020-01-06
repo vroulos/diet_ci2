@@ -71,9 +71,16 @@ echo form_open('dietitians/add_template'); ?>
 				
 				 ?>
 			</select>
-
-			<button type="submit" name="chooseTemplate" value="nothing" style="margin-top: 20px; margin-bottom: 20px;" class="btn btn-info" >Επιλογή Προτύπου</button>
+			
+				<button type="submit" name="chooseTemplate" value="nothing" style="margin-top: 20px; margin-bottom: 20px;" class="btn btn-info" >Επιλογή Προτύπου</button>
+			<button type="submit" name="deleteTemplate" value="delete" style=" margin-bottom: 20px;" class="btn btn-warning">Διαγραφή Προτύπου</button>
+			
 			<?php 
+				if (isset($message)) {
+					echo '<div class="alert alert-success" role="alert">';
+					echo $message;
+					echo '</div>';
+				}
 				if (!isset($_SESSION['choosenTemplate'])) {
 					echo '<div class="alert alert-danger" role="alert">';
 					echo 'Επέλεξε πρότυπο!';

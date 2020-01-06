@@ -218,7 +218,7 @@ class Dietitians extends CI_controller
 					$date_plus_one_week = $date_plus_one_week_obj->format('Y-m-d H:i:s');
 
 
-					if (!isset($temlate)) {
+					if (!isset($temlate) and !empty($template)) {
 						foreach ($template as $value) {
 						$meal = $value->food;
 						$day = $value->day;
@@ -227,7 +227,8 @@ class Dietitians extends CI_controller
 						$this->dietitian_model->add_meal_from_template($week, $day, $mealtime, $meal, $user_id, $duser_id, $current_date);
 						
 					}
-				}	
+				}else{
+					$data['message'] = 'Δεν έχει επιλέξει πρότυπο';				}	
 				}
 				
 
@@ -287,7 +288,11 @@ class Dietitians extends CI_controller
 					
 				}
 				$data['weeks'] = $this->dietitian_model->get_weeks($user_id);
-				
+				echo 'week is '.$week;
+				if (empty($week)) {
+					$week = 1;
+					$this->session->set_userdata('week', 1);
+				}
 					//get the current customer program and save it to $data
 				$data['program'] = $this->user_model->get_nutricion_program_v2($week, $name , $user_id);
 
@@ -305,11 +310,8 @@ class Dietitians extends CI_controller
 	public function add_template(){
 		if (isset($_SESSION['dietitian_name'])) {
 			$data = null;
-
-				$duser_id = $_SESSION['dietitian_id'];
-
+			$duser_id = $_SESSION['dietitian_id'];
 			$data['templates'] = $this->dietitian_model->get_templates($duser_id);
-			
 
 			if ($_SERVER['REQUEST_METHOD'] == "POST" AND isset($_POST['submit_program'])) {
 
@@ -343,6 +345,16 @@ class Dietitians extends CI_controller
 				$choosenTemplate = $this->input->post('add_template');
 				$this->session->set_userdata('choosenTemplate', $choosenTemplate );
 							
+			}else if ($_SERVER['REQUEST_METHOD'] == "POST" AND isset($_POST['deleteTemplate'])) {
+				$templateName = $this->session->userdata('choosenTemplate');
+				
+				$isDeleted = $this->dietitian_model->deleteTemplate($templateName);
+				if ($isDeleted) {
+					$data['message'] = 'Το πρότυπο διαγράφηκε'; 
+					$this->session->unset_userdata('choosenTemplate');
+				}
+				$data['templates'] = $this->dietitian_model->get_templates($duser_id);
+
 			}
 				if (isset($_SESSION['choosenTemplate'])) {
 						$templateName = $_SESSION['choosenTemplate'];
