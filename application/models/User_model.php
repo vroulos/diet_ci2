@@ -143,7 +143,7 @@ class User_model extends CI_Model {
 	//return the current date . After the controller loads the proper nutricion program
 	public function get_current_week($user_id){
 		// $query = $this->db->query("SELECT week FROM nutricion_program_v2 WHERE date BETWEEN CURDATE() AND CURDATE() + 7 ");
-		$query = $this->db->query("SELECT week, date FROM nutricion_program_v2 where (date BETWEEN NOW() - INTERVAL 1 DAY and NOW() + INTERVAL 7 DAY) and (user_id = $user_id)  order by week asc" );
+		$query = $this->db->query("SELECT week, date FROM nutricion_program_v2 where (DATE(date) <= DATE(now())) and (user_id = $user_id)  order by week desc limit 1" );
 
 
 		if ($this->db->affected_rows() > 0) {	
@@ -325,7 +325,8 @@ class User_model extends CI_Model {
 
 	public function get_weight_history(){
 		$user = $_SESSION['username'];
-		$query = $this->db->query("SELECT * FROM personal_data where customer = '$user' ");
+
+		$query = $this->db->query("SELECT AVG(weight) as weightAverage, DATE(date) as date FROM personal_data where customer = '$user' GROUP BY DATE(date)");
 		return $query->result();
 	}
 
@@ -365,7 +366,7 @@ class User_model extends CI_Model {
 		//save the user id from session variable to take the values only from user that is //logged in
 		$user_id = $_SESSION['user_id'];
 
-		$query = $this->db->query("SELECT * FROM fat_percentage WHERE user_id = '$user_id'");
+		$query = $this->db->query("SELECT DATE(date) as date, AVG(fat_percent) as averageFat  FROM fat_percentage WHERE user_id = '$user_id' GROUP BY DATE(date)");
 		
 		return $query->result();
 	}

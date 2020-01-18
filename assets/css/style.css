@@ -148,7 +148,7 @@ img:hover {
   border: none;
 }
 .container-fluid{
-  width: 90%;
+  width: 90vw;
   margin-top: 30px
 }
 
@@ -195,13 +195,13 @@ img:hover {
       margin: 1px;
     }
     #card_group_messages{
-      width: 100%;
+      width: 90vw;
     }
 
     #card_send_message_dietitian{
       margin-bottom: 5px; 
       text-decoration: underline;
-      width: 120%;
+      width: 90vw;
 
     }
      #curve_chart{

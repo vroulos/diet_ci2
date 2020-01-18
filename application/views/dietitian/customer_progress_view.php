@@ -20,7 +20,7 @@
 				var data = google.visualization.arrayToDataTable([
 					['Χρονολογία', 'Βάρος'],
 					<?php foreach ($weight_history as $row) { ?>
-						['<?php echo $row->date ?>',<?php echo $row->weight ?>],
+						['<?php echo $row->date ?>',<?php echo $row->weightAverage ?>],
 					<?php }  ?>
 					]);
 

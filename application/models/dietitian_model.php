@@ -350,7 +350,7 @@ class Dietitian_model extends CI_Model
 	//fernei olo to istoriko varous
 	public function get_weight_history(){
 		$user = $_SESSION['customer_name'];
-		$query = $this->db->query("SELECT * FROM personal_data where customer = '$user' ");
+		$query = $this->db->query("SELECT AVG(weight) as weightAverage, DATE(date) as date FROM personal_data where customer = '$user' GROUP BY DATE(date) ");
 		
 		if ($this->db->affected_rows() > 0) {
 			return $query->result();

@@ -70,7 +70,7 @@
 					var data = google.visualization.arrayToDataTable([
 						['Χρονολογία', 'Βάρος'],
 						<?php foreach ($weight_history as $row) { ?>
-							['<?php echo $row->date ?>',<?php echo $row->weight ?>],
+							['<?php echo $row->date ?>',<?php echo $row->weightAverage ?>],
 						<?php }  ?>
 						]);
 
@@ -114,7 +114,7 @@
 						var data = google.visualization.arrayToDataTable([
 							['Χρονολογία', 'Ποστοστό λίπους'],
 							<?php foreach ($fatPercentageHistory as $row) { ?>
-								['<?php echo $row->date ?>',<?php echo $row->fat_percent ?>],
+								['<?php echo $row->date ?>',<?php echo $row->averageFat ?>],
 							<?php }  ?>
 							]);
 

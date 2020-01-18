@@ -152,7 +152,7 @@ class User extends CI_Controller {
 			//an patiso to koumpi me onoma weightHistory tha emfanisei to istoriko varous
 			if (isset($_POST['weightHistory']))
 			{
-				//apothikeuo to istoriko varous 
+				//pairnw to istoriko varous 
 				$data['weight_history'] = $this->user_model->get_weight_history();
 
 			}
@@ -177,6 +177,7 @@ class User extends CI_Controller {
 					$data['weight'] = $this->user_model->get_weight();
 				}
 			}
+			$data['weight_history'] = $this->user_model->get_weight_history();
 			$this->load->view('header');
 			$this->load->view('user/add_personal_data_view' , $data);
 			$this->load->view('footer', $data );
@@ -213,6 +214,7 @@ class User extends CI_Controller {
 
 				} 			
 			}
+			$data['fatPercentageHistory'] = $this->user_model->get_fat_history();
 			$this->load->view('header', $data);
 			$this->load->view('user/add_personal_data_view', $data);
 			$this->load->view('footer', $data );
@@ -243,6 +245,8 @@ class User extends CI_Controller {
 					$this->user_model->add_waistline($waistline);
 				}
 			}
+			$data['waistlineValues'] = $this->user_model->get_waistline();	
+
 			$this->load->view('header', $data);
 			$this->load->view('user/add_personal_data_view', $data);
 			$this->load->view('footer', $data );
@@ -254,7 +258,7 @@ class User extends CI_Controller {
 
 
 	public function food_feedback(){
-		if (isset($_SESSION['dietitian_name'])) {
+		if (isset($_SESSION['username'])) {
 
 			$reaction = $this->input->post('reaction');
 			$meal_id = $this->input->post('meal_id');
