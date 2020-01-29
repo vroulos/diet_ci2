@@ -37,8 +37,9 @@ class User_model extends CI_Model {
 			'email'      => $email,
 			'password'   => $this->hash_password($password),
 			'created_at' => date('Y-m-j H:i:s'),
+			'dietitianId' => 1
 		);
-		
+		//$this->db->select('dietitianId')->from('dietitian')->where('dietitianId', 1);
 		return $this->db->insert('users', $data);
 		
 	}
@@ -288,11 +289,11 @@ class User_model extends CI_Model {
 
 	}
 
-	public function add_weight_model($weight){
+	public function add_weight_model($weight , $userId){
 		if (isset($_SESSION['username'])){
 		$cust = $_SESSION['username'];
 		// $this->db->query("insert INTO personal_data(customer, date) values('$cust', 'CURRENT_TIMESTAMP()')");
-		$this->db->query("insert INTO personal_data(customer, date, weight ) values('$cust', NOW(), '$weight') ");
+		$this->db->query("INSERT INTO personal_data(customer, date, weight, userId ) values('$cust', NOW(), '$weight', (SELECT id FROM users WHERE id = '$userId')) ");
 	}else{
 		redirect('user/login','refresh');
 	}

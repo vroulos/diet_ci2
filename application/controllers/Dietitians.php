@@ -502,10 +502,9 @@ class Dietitians extends CI_controller
 	public function create_customer_secret_key(){
 		$data = NULL;
 		if(isset($_SESSION['dietitian_name'])){
-
-
-
-
+			$dietitian_name= $_SESSION['dietitian_name'];
+			$dietitian_id = $this->session->userdata('dietitian_id');
+			
 			if($_SERVER['REQUEST_METHOD'] == "POST" AND isset($_POST['submit_register_password'])){
 				$register_password = $this->input->post('register_password');
 				$user_email = $this->input->post('user_email');
@@ -516,13 +515,12 @@ class Dietitians extends CI_controller
 
 				if($this->form_validation->run() ){
 					
-					$this->dietitian_model->insert_new_register_password($register_password, $user_email);
+					$this->dietitian_model->insert_new_register_password($register_password, $user_email, $dietitian_id);
 				}
 				
 			}
 
-
-			$data['password'] = $this->dietitian_model->get_register_passwords();
+			$data['password'] = $this->dietitian_model->get_register_passwords($dietitian_id);
 
 			$this->load->view('dietitian/headerd');
 			$this->load->view('dietitian/create_customer_secret_key_view' , $data);

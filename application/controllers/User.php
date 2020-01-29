@@ -171,8 +171,9 @@ class User extends CI_Controller {
 				if ($this->form_validation->run()){
 					//pairnw to varos apo pou vazei o xristis
 					$user_weight = $this->input->post('weight');
+					$userId = $this->session->userdata('user_id');
 					//apotikeuo sti vasi to varos
-					$this->user_model->add_weight_model($user_weight);
+					$this->user_model->add_weight_model($user_weight, $userId);
 					// sti $weight vazw to trexon varos
 					$data['weight'] = $this->user_model->get_weight();
 				}
@@ -568,7 +569,7 @@ class User extends CI_Controller {
 					$_SESSION['username']     = (string)$user->username;
 					$_SESSION['logged_in']    = (bool)true;
 					$_SESSION['is_confirmed'] = (bool)$user->is_confirmed;
-					$_SESSION['is_admin']     = (bool)$user->is_admin;
+					//$_SESSION['is_admin']     = (bool)$user->is_admin;
 					
 					// user login ok
 					$this->load->view('header');

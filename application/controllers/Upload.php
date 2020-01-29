@@ -15,7 +15,7 @@ class Upload extends CI_Controller {
         if (isset($_SESSION['username'])){
 
             $this->load->view('header');
-            $this->load->view('upload/upload_form', array('error' => ' ' ));
+            $this->load->view('upload/AR', array('error' => ' ' ));
             $this->load->view('footer');
         }else{
             redirect('user/login','refresh');

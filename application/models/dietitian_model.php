@@ -50,8 +50,8 @@ class Dietitian_model extends CI_Model
 	public function insert_dietitian(){
 		$dpassword = "12345";
 		$data = array(
-			'dietitian_name'   => 'solinas4',
-			'dietitian_email'      => 'sol@gmail.com',
+			'dietitian_name'   => 'aName',
+			'dietitian_email'      => 'aName@gmail.com',
 			'dietitian_password'   => $this->hash_password1($dpassword),
 			//'created_at' => date('Y-m-j H:i:s'),
 		);
@@ -385,8 +385,8 @@ class Dietitian_model extends CI_Model
 		}
 	}
 
-		public function get_register_passwords(){
-		$query = $this->db->query("SELECT * FROM user_secret_key");
+		public function get_register_passwords($dietitian_id){
+		$query = $this->db->query("SELECT * FROM user_secret_key where dietitian_id = '$dietitian_id' ");
 
 		$affected_rows = $this->db->affected_rows();
 		
@@ -395,9 +395,9 @@ class Dietitian_model extends CI_Model
 		return $query->result();
 	}
 	//vazei o diaitologos ston pinaka user_secret_key to kodiko pou epithimei . An valei to idio email tote kanei update ton kodiko
-	public function insert_new_register_password($password, $user_email){
+	public function insert_new_register_password($password, $user_email, $dietitian_id){
 		
-		$query = $this->db->query("INSERT INTO user_secret_key(password_id, user_email) values('$password', '$user_email' ) ON DUPLICATE KEY UPDATE password_id = '$password'");
+		$query = $this->db->query("INSERT INTO user_secret_key(password_id, user_email, dietitian_id) values('$password', '$user_email', (SELECT dietitian_id FROM dietitian WHERE dietitian_id = '$dietitian_id') ) ON DUPLICATE KEY UPDATE password_id = '$password'");
 			
 	}
 
