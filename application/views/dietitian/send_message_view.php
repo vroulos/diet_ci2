@@ -54,6 +54,7 @@ $success = $this->session->flashdata('success');
         <p class="card-text" ><?php echo $row->message; //echo $row->id ?></p>
         <?php 
         //display all the answers
+        if(isset($answers)){
         foreach ($answers as $row2 ) {
         	if ($row->id == $row2->message_id) {
         		
@@ -88,6 +89,8 @@ $success = $this->session->flashdata('success');
   
   <?php 
 	} 
+
+}
   ?>
 
 

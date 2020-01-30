@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 06, 2018 at 08:22 PM
+-- Generation Time: Jan 30, 2020 at 08:28 PM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.10
 
@@ -53,6 +53,7 @@ INSERT INTO `ci_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES
 ('3a6t81e1cdsmt57k3q0fqmkdmm', '::1', 1540820372, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303832303337323b),
 ('3f8odk8v661h6d8malgnpkos23', '::1', 1540644954, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303634343935343b),
 ('400djhvgdrefvnao13hm33efor', '::1', 1540820157, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303832303135373b),
+('41igukbfp55jd2vcnvmu4pc5f1', '::1', 1544467190, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534343436373139303b),
 ('4b92a9unar69gq1tolgkb89mh3', '::1', 1540819022, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303831393032323b),
 ('4bbifv8fu37mqp19o5boafc8lo', '::1', 1540553442, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303535333434323b),
 ('4htlq0mdoo4h1aaghmiurts63o', '::1', 1540488541, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303438383534313b),
@@ -72,6 +73,7 @@ INSERT INTO `ci_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES
 ('7kjttvgrhi9e51jhg0jje7ov9n', '::1', 1540814088, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303831343038383b),
 ('8f27kr7ju7nimmjr4rbqge8678', '::1', 1540570613, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303537303631333b),
 ('8l1reij2bi4vne9kq8jhebl657', '::1', 1540486853, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303438363835333b),
+('8n8hgv1hiiq83neaoe1or36goa', '::1', 1544696707, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534343639363730373b),
 ('8ohgltsnudi7rghsi8p524qnvh', '::1', 1540814868, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303831343836383b),
 ('8ro17advnosf821a8si2jse6sp', '::1', 1540644276, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303634343237363b),
 ('9ann08r2dis6rublgffk6fp6hb', '::1', 1540641115, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303634313131353b),
@@ -111,7 +113,9 @@ INSERT INTO `ci_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES
 ('j4jht5t826l8ve20ptq05d2824', '::1', 1540816203, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303831363230333b),
 ('ja6gbimcc8g5e4r01vskphlvip', '::1', 1540553421, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303535333432313b),
 ('jdi04esstv2scsl6evjtd8eetf', '::1', 1540818706, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303831383730363b),
+('jnk1qfouueddndgcthdh33vrbf', '::1', 1545035798, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534353033353739383b),
 ('jvs2gsdkcga43ea0b29haroroh', '::1', 1540553435, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303535333433353b),
+('k0bbro7bu4sbdtucq8ejiv232v', '::1', 1544830999, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534343833303939393b),
 ('k9olco1labhq7ejd533gj2sdpr', '::1', 1540822658, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303832323635383b),
 ('kbg0h136gsgio44ajomr2v64qg', '::1', 1540557457, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303535373435373b),
 ('kk9f48kbqi7k6j5b6ivdj1stm3', '::1', 1540814615, 0x5f5f63695f6c6173745f726567656e65726174657c693a313534303831343631353b),
@@ -165,25 +169,6 @@ INSERT INTO `ci_sessions` (`id`, `ip_address`, `timestamp`, `data`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `data1`
---
-
-CREATE TABLE `data1` (
-  `id` int(43) NOT NULL,
-  `time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `name` varchar(32) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `data1`
---
-
-INSERT INTO `data1` (`id`, `time`, `name`) VALUES
-(4, '2018-11-22 18:00:16', 'nipis');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `dietitian`
 --
 
@@ -191,7 +176,7 @@ CREATE TABLE `dietitian` (
   `dietitian_id` int(11) NOT NULL,
   `dietitian_name` varchar(50) NOT NULL,
   `dietitian_email` varchar(50) NOT NULL,
-  `dietitian_password` varchar(50) NOT NULL,
+  `dietitian_password` varchar(255) CHARACTER SET utf8 NOT NULL,
   `dietitian_age` int(11) NOT NULL,
   `dietitian_mobile` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -201,9 +186,7 @@ CREATE TABLE `dietitian` (
 --
 
 INSERT INTO `dietitian` (`dietitian_id`, `dietitian_name`, `dietitian_email`, `dietitian_password`, `dietitian_age`, `dietitian_mobile`) VALUES
-(1, 'solinas3', 'sol@gmail.com', '$2y$10$xO4zoTeUIeOx44Sh.mnTUOba8dQhRQ9eDg85CtCuLYP', 0, 0),
-(2, 'solinas4', 'sol@gmail.com', '$2y$10$v3r76tC0Dj5BF6N.J1IwJeaFjyPuoQj26j/GgCkS0BI', 0, 0),
-(3, 'solinas4', 'sol@gmail.com', '$2y$10$NZ0IZYJyJ4JNBlnysMeTFei1eRFWNX./5pBVZyHKTvZ', 0, 0);
+(1, 'aName', 'aName@gmail.com', '$2y$10$4qHBXorL2.iYs6N21rNVqeJZKiAyK6pZqMZfq6MuFTBT2ovo.mn4q', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -215,8 +198,16 @@ CREATE TABLE `food` (
   `id` int(11) NOT NULL,
   `foodname` varchar(122) NOT NULL,
   `food_type` varchar(132) NOT NULL,
-  `calories_per_100` int(50) NOT NULL
+  `calories_per_100` int(50) NOT NULL,
+  `dietitianId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `food`
+--
+
+INSERT INTO `food` (`id`, `foodname`, `food_type`, `calories_per_100`, `dietitianId`) VALUES
+(1, 'αρακάς', 'όσπρια', 100, 0);
 
 -- --------------------------------------------------------
 
@@ -227,57 +218,16 @@ CREATE TABLE `food` (
 CREATE TABLE `messages` (
   `id` int(255) NOT NULL,
   `customer` varchar(255) NOT NULL,
-  `message` text NOT NULL
+  `message` text NOT NULL,
+  `date_sent` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `messages`
 --
 
-INSERT INTO `messages` (`id`, `customer`, `message`) VALUES
-(3, 'nipis', 'είσαι πολύ τυχερός . Συνέχισε'),
-(5, 'nipis', 'Θα σε πιάσω από τα αυτιά'),
-(6, 'nipis', 'δώσε πόνο δικέ μου'),
-(9, '', 'το μεσημέρι έχει μουσακά'),
-(10, '', 'το μεσημέρι έχει μουσακά'),
-(11, '', 'Είσαι σε πολύ καλό δρόμο'),
-(13, 'saliaris', 'fvdgfdgf'),
-(14, 'saliaris', 'jjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj'),
-(15, 'pipikas', 'gfdsgds'),
-(16, 'pipikas', 'gfdsgfdsg');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `nutricion_program`
---
-
-CREATE TABLE `nutricion_program` (
-  `id` int(255) NOT NULL,
-  `user_id` int(11) UNSIGNED NOT NULL,
-  `monday_break` varchar(255) NOT NULL,
-  `monday_lau` varchar(255) NOT NULL,
-  `monday_din` varchar(255) NOT NULL,
-  `tuesday_break` varchar(255) NOT NULL,
-  `tuesday_lau` varchar(255) NOT NULL,
-  `tuesday_din` varchar(255) NOT NULL,
-  `wendsday_break` varchar(255) NOT NULL,
-  `wendsday_lau` varchar(255) NOT NULL,
-  `wendsday_din` varchar(255) NOT NULL,
-  `thursday_break` varchar(255) NOT NULL,
-  `thursday_lau` varchar(255) NOT NULL,
-  `thursday_din` varchar(255) NOT NULL,
-  `friday_break` varchar(255) NOT NULL,
-  `friday_lau` varchar(255) NOT NULL,
-  `friday_din` varchar(255) NOT NULL,
-  `saturday_break` varchar(255) NOT NULL,
-  `saturday_lau` varchar(255) NOT NULL,
-  `saturday_din` varchar(255) NOT NULL,
-  `sunday_break` varchar(255) NOT NULL,
-  `sunday_lau` varchar(255) NOT NULL,
-  `sunday_din` varchar(255) NOT NULL,
-  `customer_name` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO `messages` (`id`, `customer`, `message`, `date_sent`) VALUES
+(1, 'trakas', 'Συνέχισε έτσι', '2020-01-30 19:06:34');
 
 -- --------------------------------------------------------
 
@@ -289,92 +239,17 @@ CREATE TABLE `personal_data` (
   `id` int(11) NOT NULL,
   `customer` varchar(222) NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `weight` int(23) NOT NULL
+  `weight` int(23) NOT NULL,
+  `userId` int(255) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `personal_data`
 --
 
-INSERT INTO `personal_data` (`id`, `customer`, `date`, `weight`) VALUES
-(26, 'saliaris', '2018-11-23 18:07:59', 67),
-(27, 'saliaris', '2018-11-23 18:09:43', 67),
-(29, 'saliaris', '2018-11-23 18:17:08', 67),
-(30, 'saliaris', '2018-11-23 18:18:15', 67),
-(31, 'saliaris', '2018-11-23 18:18:19', 67),
-(32, 'saliaris', '2018-11-23 18:18:46', 67),
-(35, 'saliaris', '2018-11-26 17:53:00', 80),
-(36, 'saliaris', '2018-11-27 15:22:45', 91),
-(37, 'saliaris', '2018-11-27 15:31:03', 91),
-(38, 'saliaris', '2018-11-27 15:31:48', 91),
-(39, 'saliaris', '2018-11-27 15:38:09', 67),
-(40, 'saliaris', '2018-11-27 15:49:27', 80),
-(41, 'saliaris', '2018-11-27 15:49:47', 89),
-(42, 'saliaris', '2018-11-27 15:50:37', 80),
-(43, 'saliaris', '2018-11-27 15:59:05', 101),
-(44, 'saliaris', '2018-11-27 15:59:32', 110),
-(45, 'saliaris', '2018-11-27 16:34:18', 68),
-(46, 'saliaris', '2018-11-28 12:46:25', 89),
-(47, 'saliaris', '2018-11-28 14:10:11', 89),
-(48, 'saliaris', '2018-11-28 14:12:46', 89),
-(49, 'saliaris', '2018-11-28 14:16:31', 80),
-(50, 'saliaris', '2018-11-28 14:17:15', 80),
-(51, 'saliaris', '2018-11-28 14:19:28', 121),
-(52, 'saliaris', '2018-11-28 14:32:56', 121),
-(53, 'saliaris', '2018-11-28 14:46:53', 121),
-(54, 'saliaris', '2018-11-28 14:50:41', 121),
-(55, 'saliaris', '2018-11-28 14:51:55', 121),
-(56, 'saliaris', '2018-12-03 13:20:59', 88),
-(57, 'saliaris', '2018-12-03 13:22:07', 90),
-(58, 'saliaris', '2018-12-03 13:30:04', 34),
-(59, 'saliaris', '2018-12-03 13:39:04', 34),
-(60, 'saliaris', '2018-12-03 13:39:59', 34),
-(61, 'saliaris', '2018-12-03 13:42:40', 34),
-(62, 'saliaris', '2018-12-03 13:46:50', 34),
-(63, 'saliaris', '2018-12-03 13:47:18', 65),
-(64, 'saliaris', '2018-12-03 13:47:55', 55),
-(65, 'saliaris', '2018-12-03 13:49:03', 90),
-(66, 'saliaris', '2018-12-03 13:49:47', 88),
-(67, 'saliaris', '2018-12-03 13:51:43', 98),
-(68, 'saliaris', '2018-12-03 13:52:09', 88),
-(69, 'saliaris', '2018-12-03 13:53:46', 77),
-(70, 'saliaris', '2018-12-03 13:54:09', 87),
-(71, 'saliaris', '2018-12-03 13:57:11', 87),
-(72, 'saliaris', '2018-12-03 13:57:20', 77),
-(73, 'saliaris', '2018-12-03 14:06:23', 78),
-(74, 'saliaris', '2018-12-03 14:08:48', 90),
-(75, 'saliaris', '2018-12-03 14:09:32', 76),
-(76, 'saliaris', '2018-12-03 14:18:27', 67),
-(77, 'saliaris', '2018-12-03 14:19:00', 68),
-(78, 'saliaris', '2018-12-03 14:20:18', 68),
-(79, 'saliaris', '2018-12-03 14:32:15', 78),
-(80, 'saliaris', '2018-12-03 14:33:07', 80),
-(81, 'saliaris', '2018-12-03 14:33:34', 78),
-(82, 'saliaris', '2018-12-03 14:34:00', 78),
-(83, 'saliaris', '2018-12-03 14:34:32', 80),
-(84, 'saliaris', '2018-12-03 14:34:52', 78),
-(85, 'saliaris', '2018-12-03 14:35:19', 78),
-(86, 'saliaris', '2018-12-03 14:35:47', 78),
-(87, 'saliaris', '2018-12-03 14:36:01', 78),
-(88, 'saliaris', '2018-12-03 18:34:24', 77),
-(89, 'saliaris', '2018-12-05 15:12:06', 78),
-(90, 'saliaris', '2018-12-05 15:24:27', 78),
-(91, 'saliaris', '2018-12-05 15:48:35', 78),
-(92, 'saliaris', '2018-12-05 16:00:12', 78),
-(93, 'saliaris', '2018-12-05 16:22:28', 54),
-(94, 'saliaris', '2018-12-06 10:24:49', 88),
-(95, 'saliaris', '2018-12-06 10:25:00', 98),
-(96, 'saliaris', '2018-12-06 13:16:03', 65),
-(97, 'saliaris', '2018-12-06 16:41:46', 78),
-(98, 'saliaris', '2018-12-06 16:49:03', 60),
-(99, 'saliaris', '2018-12-06 16:49:30', 60),
-(100, 'saliaris', '2018-12-06 16:57:38', 80),
-(101, 'saliaris', '2018-12-06 16:59:28', 80),
-(102, 'saliaris', '2018-12-06 17:00:47', 70),
-(103, 'saliaris', '2018-12-06 17:01:40', 70),
-(104, 'saliaris', '2018-12-06 17:05:50', 91),
-(105, 'saliaris', '2018-12-06 17:06:12', 87),
-(106, 'saliaris', '2018-12-06 17:06:39', 87);
+INSERT INTO `personal_data` (`id`, `customer`, `date`, `weight`, `userId`) VALUES
+(2, 'trakas', '2020-01-29 19:51:15', 80, 3),
+(3, 'trakas', '2020-01-30 19:12:57', 83, 3);
 
 -- --------------------------------------------------------
 
@@ -383,30 +258,26 @@ INSERT INTO `personal_data` (`id`, `customer`, `date`, `weight`) VALUES
 --
 
 CREATE TABLE `users` (
-  `id` int(11) UNSIGNED NOT NULL,
+  `id` int(255) UNSIGNED NOT NULL,
   `username` varchar(255) NOT NULL DEFAULT '',
   `email` varchar(255) NOT NULL DEFAULT '',
   `password` varchar(255) NOT NULL DEFAULT '',
   `avatar` varchar(255) DEFAULT 'default.jpg',
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
-  `is_admin` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
   `is_confirmed` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
-  `is_deleted` tinyint(1) UNSIGNED NOT NULL DEFAULT '0'
+  `is_deleted` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `is_deactivated` tinyint(1) UNSIGNED NOT NULL DEFAULT '0',
+  `dietitianId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `email`, `password`, `avatar`, `created_at`, `updated_at`, `is_admin`, `is_confirmed`, `is_deleted`) VALUES
-(1, 'qwer', 'vrfr@gmail.com', '$2y$10$WU7f5.4XArynOCkCxXIKCeyA9EPY/2UBdaA4oLpa2FOj97QiRFFR6', 'default.jpg', '2018-10-25 19:00:49', NULL, 0, 0, 0),
-(2, 'nipis', 'olamesa@gmail.com', '$2y$10$xShFHp3gjYLdZr3g6ru41.x3euO1/Ni81Hy.xqK4Pz0hMBSPhK0Ta', 'default.jpg', '2018-10-29 17:27:15', NULL, 0, 0, 0),
-(3, 'pipikas', 'fdsa@fd.com', '$2y$10$wUEB8W9q1yCZqeEUhJX9DeLE1Y78md/3m5dvdGAhlkl2NG/pqk19.', 'default.jpg', '2018-10-30 14:24:38', NULL, 0, 0, 0),
-(4, 'saliaris', 'fsafsa@gmail.com', '$2y$10$WaQaAyLJiEbG.D.KiBsn6eLWHSDYuvEZchn0nm8p165pfHbrcac5O', 'default.jpg', '2018-11-05 16:09:42', NULL, 0, 0, 0),
-(5, 'saliatakas', 'fsaf@gmail.com', '$2y$10$C3eaIJlMUg25ZRcN5Zn98eiWRi/JGOp5iJms..Met0O1jFp4EyJD2', 'default.jpg', '2018-11-09 19:07:02', NULL, 0, 0, 0),
-(6, 'kakavias', 'fdsaf@fdsa.com', '$2y$10$icjWP4eJ6/Y6J4wrbGYMYelkvsN31pRrKYZZ.SsiUtuoCHENDwnDK', 'default.jpg', '2018-11-21 12:26:06', NULL, 0, 0, 0),
-(7, 'krotalias', 'fdsaf@fds.com', '$2y$10$eaejAlFL/DEjDChNJqOu3u8qnrI8Tr7kBQNRt1Dajep71ir2t0/qm', 'default.jpg', '2018-11-21 12:26:37', NULL, 0, 0, 0);
+INSERT INTO `users` (`id`, `username`, `email`, `password`, `avatar`, `created_at`, `updated_at`, `is_confirmed`, `is_deleted`, `is_deactivated`, `dietitianId`) VALUES
+(2, 'tredsa', 'pelatis@gmail.com', '$2y$10$3A7bF51XgRKy2o0DFiKJ1enPnwVWnbmOZq5DzIStf0eVqi73XWfkK', 'default.jpg', '2020-01-29 20:28:49', NULL, 0, 0, 0, 1),
+(3, 'trakas', 'aname@email.gr', '$2y$10$3URwV6SNpTez1qQ9BFgpUeJd1pOcxeequK.DHQ/SVqvW8MCG6kISC', 'default.jpg', '2020-01-29 20:33:25', NULL, 0, 0, 0, 1);
 
 --
 -- Indexes for dumped tables
@@ -418,12 +289,6 @@ INSERT INTO `users` (`id`, `username`, `email`, `password`, `avatar`, `created_a
 ALTER TABLE `ci_sessions`
   ADD PRIMARY KEY (`id`),
   ADD KEY `ci_sessions_timestamp` (`timestamp`);
-
---
--- Indexes for table `data1`
---
-ALTER TABLE `data1`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `dietitian`
@@ -446,80 +311,69 @@ ALTER TABLE `messages`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `nutricion_program`
---
-ALTER TABLE `nutricion_program`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`);
-
---
 -- Indexes for table `personal_data`
 --
 ALTER TABLE `personal_data`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_to_userid` (`userId`);
 
 --
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `username` (`username`);
+  ADD KEY `username` (`username`),
+  ADD KEY `fk_to_dietitian` (`dietitianId`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT for table `data1`
---
-ALTER TABLE `data1`
-  MODIFY `id` int(43) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
 -- AUTO_INCREMENT for table `dietitian`
 --
 ALTER TABLE `dietitian`
-  MODIFY `dietitian_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `dietitian_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `food`
 --
 ALTER TABLE `food`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-
---
--- AUTO_INCREMENT for table `nutricion_program`
---
-ALTER TABLE `nutricion_program`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `personal_data`
 --
 ALTER TABLE `personal_data`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(255) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `nutricion_program`
+-- Constraints for table `personal_data`
 --
-ALTER TABLE `nutricion_program`
-  ADD CONSTRAINT `nutricion_with_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+ALTER TABLE `personal_data`
+  ADD CONSTRAINT `fk_to_userid` FOREIGN KEY (`userId`) REFERENCES `users` (`id`);
+
+--
+-- Constraints for table `users`
+--
+ALTER TABLE `users`
+  ADD CONSTRAINT `fk_to_dietitian` FOREIGN KEY (`dietitianId`) REFERENCES `dietitian` (`dietitian_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
