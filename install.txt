@@ -1,0 +1,6 @@
+1. Κατεβάζεις το xampp και στον path xampp/htdocs/ βάζεις τον φάκελο diet_ci2 ή πηγαίνοτας στο path με το CLI και κάνεις clone
+git clone https://github.com/vroulos/diet_ci2.git.
+
+2. Τρέχεις την βάση δεδομένων ή την κάνεις import στο phpmyadmin (dimploma.sql).
+
+3. Γράφοντας αυτό το link http://localhost/diet_ci2/mywebapp/first τρέχει η εφαρμογή.
