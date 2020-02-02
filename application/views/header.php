@@ -43,6 +43,7 @@
     <link href="<?php echo base_url('assets/bootstrap/css/bootstrap.min.css'); ?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/bootstrap/css/bootstrap.css'); ?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/css/style.css'); ?>" rel="stylesheet">
+    <script src="<?php echo base_url('assets/js/push/bin/push.min.js') ?>"></script>
 
   </head>
   <body>
@@ -101,18 +102,91 @@
 			<?php endif; ?>
 	</div>
 	</nav>
+	<?php 
+		
+	 ?>
+
+	<script>
+
+		var now = new Date();
+		var millisTill8 = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 8, 0, 0, 0) - now;
+		var millisTill10 = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 10, 0, 0, 0) - now;
+		var millisTill14 = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 14, 0, 0, 0) - now;
+		var millisTill20 = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 20 ,0, 0, 0) - now;
+		if (millisTill8 < 0) {
+     		millisTill8 += 86400000; // it's after 10am, try 10am tomorrow.
+		}
+		if (millisTill10 < 0) {
+     		millisTill10 += 86400000; // it's after 10am, try 10am tomorrow.
+		}
+		if (millisTill14 < 0) {
+     		millisTill14 += 86400000; // it's after 10am, try 10am tomorrow.
+		}
+		if (millisTill20 < 0) {
+     		millisTill20 += 86400000; // it's after 10am, try 10am tomorrow.
+		}
+		setTimeout(function(){
+					        Push.create("Ώρα για πρωινό", {
+						    body: "Να τρως αργά",
+						    icon: '<?php echo base_url('assets/images/diet.png') ?>',
+						    // timeout: 4000,
+						    vibrate : [200,100],
+						    requireInteraction : true,
+						    onClick: function () {
+						        window.focus();
+						        this.close();
+						    }
+						});
+		}, millisTill8);
+		setTimeout(function(){
+					        Push.create("Ώρα για δεκατιανό", {
+						    body: "Ένα από τα πιο σημαντικά γεύματα της ημέρας",
+						    icon: '<?php echo base_url('assets/images/diet.png') ?>',
+						    // timeout: 4000,
+						    requireInteraction : true,
+						    onClick: function () {
+						        window.focus();
+						        this.close();
+						    }
+						});
+		}, millisTill10);
+		setTimeout(function(){
+					        Push.create("Ώρα για μεσημεριανό", {
+						    body: "Για μεσημεριανό έχει κεφτεδάκια",
+						    icon: '<?php echo base_url('assets/images/diet.png') ?>',
+						    // timeout: 4000,
+						    requireInteraction : true,
+						    onClick: function () {
+						        window.focus();
+						        this.close();
+						    }
+						});
+		}, millisTill14);
+		setTimeout(function(){
+					        Push.create("Ώρα για φαγητό", {
+						    body: "Για βραδινό έχει κεφτεδάκια",
+						    icon: '<?php echo base_url('assets/images/diet.png') ?>',
+						    // timeout: 4000,
+						    requireInteraction : true,
+						    onClick: function () {
+						        window.focus();
+						        this.close();
+						    }
+						});
+		}, millisTill20);
+			window.setInterval(function () {
+
+}			, 30000);
+
+
+
+
+  </script>
+ 
+
+
 
 	<main id="site-content" role="main">
 
-<!-- 		<?php //if (isset($_SESSION)) : ?>
-			<div class="container">
-				<div class="row">
-					<div class="col-md-12">
-				<?php// var_dump($_SESSION); //This function displays structured 
-											//information about  $SESSION
-				?>
-			</div>
-		</div><!-- .row -->
-	<!-- </div> --><!-- .container -->
-<?php //endif; ?> 
+
 
