@@ -17,38 +17,35 @@
 		<?php endif; ?>
 		<div class="col-md-12">
 			<div class="page-header">
-				<h3>Κάνε εγγραφή για να βελτιώσεις τον βάρος σου<br> και την διατροφή σου</h3>
+				<h3>Εγγραφή</h3>
+				<p>Η διαδικασία είναι εύκολη και γρήγορη</p> 
 			</div>
 			<?= form_open() ?>
 				<div class="form-group">
-					<label for="username">Όνομα χρήστη</label>
-					<input type="text" class="form-control" id="username" name="username" placeholder="Όνομα χρήστη">
-					<p class="help-block">Τουλαχιστον 4 χαρακτήρες, γράμματα ή αριθμοί μόνο</p>
+					
+					<input type="text" class="form-control" id="username" name="username" placeholder="Όνομα">
+					<!-- <p class="help-block">Τουλαχιστον 4 χαρακτήρες, γράμματα ή αριθμοί μόνο</p> -->
 				</div>
 				<div class="form-group">
-					<label for="email">Email</label>
-					<input type="email" class="form-control" id="email" name="email" placeholder="Συμπλήρωσε το email σου">
-					<p class="help-block">Έγκυρη διεύθυνση email</p>
+					<!-- <label for="email">Email</label> -->
+					<input type="email" class="form-control" id="email" name="email" placeholder="email">
+					<!-- <p class="help-block">Έγκυρη διεύθυνση email</p> -->
 				</div>
 				<div class="form-group">
-					<label for="password">Κωδικός</label>
-					<input type="password" class="form-control" id="password" name="password" placeholder="Εισαγωγή κωδικού">
-					<p class="help-block">Τουλάχιστον 6 χαρακτήρες</p>
+					<input type="password" class="form-control" id="password" name="password" placeholder="κωδικός">
+					<!-- <p class="help-block">Τουλάχιστον 6 χαρακτήρες</p> -->
 				</div>
 				<div class="form-group">
-					<label for="password_confirm">Επιβεβαίωση κωδικού</label>
-					<input type="password" class="form-control" id="password_confirm" name="password_confirm" placeholder="Επιβεβαίωση">
-					<p class="help-block">Πρέπει να είναι ίδιος</p>
+					<input type="password" class="form-control" id="password_confirm" name="password_confirm" placeholder="Επαλήθευση κωδικού">
 				</div>
 				<div class="form-group">
-					<label for="password_recognition">Κωδικός ταυτοποίησης</label>
 					<input type="password" class="form-control" id="password" name="password_identity" placeholder="ταυτοποίση ">
 				</div>
 				<div class="form-group">
-					<input type="submit" class="btn btn-default" value="Εγγραφή" style="margin-top: 10px">
+					<input type="submit" class="btn btn-warning" value="Εγγραφή" style="margin-top: 10px">
 				</div>
 			</form>
-			
+			<hr/>
 			<?php //echo form_open('get_unique_password_to_email'); ?>
 			<div class="form-group">
 					<label>Email:</label>

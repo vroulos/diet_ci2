@@ -257,7 +257,8 @@ class Dietitians extends CI_controller
 			}else if($_SERVER['REQUEST_METHOD'] == "POST" AND isset($_POST['chooseTemplate'])){
 
 				$choosenTemplate = $this->input->post('load_template');
-				echo $choosenTemplate;
+				//echo $choosenTemplate;
+
 
 				$this->session->set_userdata('choosenTemplate', $choosenTemplate );
 
@@ -288,7 +289,7 @@ class Dietitians extends CI_controller
 					
 				}
 				$data['weeks'] = $this->dietitian_model->get_weeks($user_id);
-				echo 'week is '.$week;
+				//echo 'week is '.$week;
 				if (empty($week)) {
 					$week = 1;
 					$this->session->set_userdata('week', 1);
@@ -467,6 +468,7 @@ class Dietitians extends CI_controller
 
 				if($result){
 					$this->session->set_flashdata('success', 'Το μήνυμα στάλθηκε');
+					
 				}else{
 					$this->session->set_flashdata('error', 'Αποτυχία αποστολής');
 				}
@@ -603,8 +605,8 @@ class Dietitians extends CI_controller
 				$newEmail = $_POST['newEmail'];
 				$newAge = $_POST['newAge'];
 				$newMobile = $_POST['newMobile'];
-				echo $newName."</br>";
-				echo $newAge;
+				// echo $newName."</br>";
+				// echo $newAge;
 
 				$this->form_validation->set_rules('newDietitianName', 'fieldlabel', 'trim|required|min_length[5]|max_length[12]');
 				$this->form_validation->set_rules('newEmail', 'Email', 'trim|required|valid_email');

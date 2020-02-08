@@ -106,13 +106,16 @@
 		
 	 ?>
 
+
+
+
 	<script>
 
 		var now = new Date();
 		var millisTill8 = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 8, 0, 0, 0) - now;
 		var millisTill10 = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 10, 0, 0, 0) - now;
 		var millisTill14 = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 14, 0, 0, 0) - now;
-		var millisTill20 = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 20 ,0, 0, 0) - now;
+		var millisTill20 = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 20 , 0, 0, 0) - now;
 		if (millisTill8 < 0) {
      		millisTill8 += 86400000; // it's after 10am, try 10am tomorrow.
 		}
@@ -152,9 +155,10 @@
 		}, millisTill10);
 		setTimeout(function(){
 					        Push.create("Ώρα για μεσημεριανό", {
-						    body: "Για μεσημεριανό έχει κεφτεδάκια",
+						    body: "Μην παραλείπεις τα γεύματα",
 						    icon: '<?php echo base_url('assets/images/diet.png') ?>',
 						    // timeout: 4000,
+						    link : '<?php echo base_url('user/view_program') ?>',
 						    requireInteraction : true,
 						    onClick: function () {
 						        window.focus();
@@ -164,9 +168,10 @@
 		}, millisTill14);
 		setTimeout(function(){
 					        Push.create("Ώρα για φαγητό", {
-						    body: "Για βραδινό έχει κεφτεδάκια",
+						    body: "Το βράδυ να τρως ελαφριά",
 						    icon: '<?php echo base_url('assets/images/diet.png') ?>',
 						    // timeout: 4000,
+						    ink : '<?php echo base_url('user/view_program') ?>',
 						    requireInteraction : true,
 						    onClick: function () {
 						        window.focus();
@@ -176,16 +181,10 @@
 		}, millisTill20);
 			window.setInterval(function () {
 
-}			, 30000);
+	}			, 30000);
 
-
-
-
-  </script>
+</script>
  
-
-
-
 	<main id="site-content" role="main">
 
 

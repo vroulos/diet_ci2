@@ -17,7 +17,6 @@ $(document).ready(function() {
 			$.ajax({
 				url: '<?php echo base_url('user/food_feedback') ?>',
 				type: 'POST',
-				
 				data: {
 					'reaction': 'like',
 					'meal_id' : $value

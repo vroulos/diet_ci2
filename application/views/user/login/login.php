@@ -29,7 +29,7 @@
 					<input type="password" class="form-control" id="password" name="password" placeholder="Ο Κωδικός σου" style="max-width: 230px">
 				</div>
 				<div class="form-group">
-					<input type="submit" class="btn btn-default" value="Σύνδεση" style="margin-top: 10px">
+					<input type="submit" class="btn btn-dark" value="Σύνδεση" style="margin-top: 10px">
 				</div>
 			</form>
 		</div>

@@ -32,7 +32,7 @@
 					<label for="password">Κωδικός</label>
 					<input type="password" class="form-control" id="password" name="password" placeholder="Κωδικός">
 				</div>
-			<?php echo form_submit('mysubmit', 'Υποβολή',"class='btn btn-dark'"); ?>
+			<?php echo form_submit('mysubmit', 'Σύνδεση',"class='btn btn-dark'"); ?>
 		</div>
 
 	</div>

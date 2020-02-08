@@ -14,6 +14,8 @@ class User extends CI_Controller {
 	 * @access public
 	 * @return void
 	 */
+	
+
 	public function __construct() {
 		
 		parent::__construct();
@@ -24,12 +26,21 @@ class User extends CI_Controller {
 		$this->load->library('form_validation');
 		$this->load->database();
 		
+			
+
+		
+		
 	}
 	
 	
 	public function index() {
 
 		$data = new stdClass;
+		$user_id = $_SESSION['user_id'];
+		//$notifications = $this->user_model->get_meal_notifiation($user_id);
+
+
+
 		
 		$this->load->view('header');
 		$this->load->view('user/login/login_success', $data);
@@ -40,12 +51,21 @@ class User extends CI_Controller {
 
 	//the user sees his program
 	public function view_program(){
+
 		$data = NULL;
 		if (isset($_SESSION['username'])){
 
 			$name = $_SESSION['username'];
 			$user_id = $_SESSION['user_id'];
 			
+			$dayName = date("l");
+			$dayName = strtolower($dayName);
+			//echo $dayName;
+			//notifications = $this->user_model->get_meal_notifiation($user_id, $dayName);
+
+		// foreach ($notifications as  $value) {
+		// 	//echo $value->day;
+		// }
 			
 			$week = $this->session->userdata('week_that_user_see');
 
@@ -259,18 +279,22 @@ class User extends CI_Controller {
 
 
 	public function food_feedback(){
-		if (isset($_SESSION['username'])) {
+		
+		
 
 			$reaction = $this->input->post('reaction');
 			$meal_id = $this->input->post('meal_id');
 			$textReaction = $this->input->post('textreaction');
+		
 			if (isset($textReaction)) {
 				$result = $this->user_model->add_text_reaction($meal_id, $textReaction);
+				echo "textReaction";
 			}else if (isset($reaction)) {
 				$result = $this->user_model->add_reaction($reaction, $meal_id);
+				echo "reaction";
 			}
 			
-		}
+		
 	}
 
 	// display and add the user notes
@@ -537,7 +561,7 @@ class User extends CI_Controller {
 		$this->load->library('form_validation');
 		
 		// set validation rules
-		$this->form_validation->set_rules('username', 'Username', 'required|alpha_numeric');
+		$this->form_validation->set_rules('username', 'Username', 'required');
 		$this->form_validation->set_rules('password', 'Password', 'required');
 		
 		if (!isset($_SESSION['username'])) {

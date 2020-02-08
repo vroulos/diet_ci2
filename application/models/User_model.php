@@ -190,11 +190,13 @@ class User_model extends CI_Model {
 
 	public function add_reaction($reaction, $meal_id){
 		
-		$query = $this->db->query("INSERT INTO feedback (reaction, meal_id) values ('$reaction', '$meal_id') ON DUPLICATE KEY UPDATE reaction = '$reaction' ");
+		$query = $this->db->query("INSERT INTO feedback1 (reaction, meal_id) values ('$reaction', (SELECT id FROM nutricion_program_v2 WHERE id = '$meal_id')) ON DUPLICATE KEY UPDATE reaction = '$reaction' ");
 
 		if ($this->db->affected_rows() > 0) {
+			echo"naiiii";
 			return true;
 		}else{
+			echo "noooo";
 			return false;
 		}
 
@@ -203,7 +205,7 @@ class User_model extends CI_Model {
 
 		public function add_text_reaction($meal_id, $textReaction){
 		
-		$query = $this->db->query("INSERT INTO feedback (meal_id, text) values ('$meal_id', '$textReaction') ON DUPLICATE KEY UPDATE text = '$textReaction' ");
+		$query = $this->db->query("INSERT INTO feedback1 (meal_id, text_reaction) values ('$meal_id', '$textReaction') ON DUPLICATE KEY UPDATE text_reaction = '$textReaction' ");
 
 		if ($this->db->affected_rows() > 0) {
 			return true;
@@ -215,7 +217,7 @@ class User_model extends CI_Model {
 
 
 	public function check_reaction($food_id){
-		$query = $this->db->query("SELECT * FROM feedback WHERE meal_id = '$food_id' ");
+		$query = $this->db->query("SELECT * FROM feedback1 WHERE meal_id = '$food_id' ");
 
 		if ($this->db->affected_rows() > 0) {
 			
@@ -340,6 +342,17 @@ class User_model extends CI_Model {
 
 			}
 
+	// public function get_meal_notifiation($user_id, $dayName){
+	// 	$query = $this->db->query("SELECT * FROM nutricion_program_v2 WHERE  (user_id = '$user_id' &&  day ='$dayName' ) ");
+
+	// 	$affected_rows = $this->db->affected_rows();
+	// 	if ($affected_rows >0) {
+	// 		return $query->result();
+	// 	}else{
+	// 		return false;
+	// 	}
+	// }		
+
 	public function get_notes(){
 		$user_id = $_SESSION['user_id'];
 		$user = $_SESSION['username'];
@@ -423,7 +436,10 @@ class User_model extends CI_Model {
 		
 		$query = $this->db->query("SELECT * FROM users WHERE username = '$username' ");
 
-		return $query->row()->is_deactivated;
+		if($this->db->affected_rows() > 0){
+			return $query->row()->is_deactivated;
+		}
+		
 
 	}
 
