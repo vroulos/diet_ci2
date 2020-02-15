@@ -15,7 +15,11 @@
     </thead>
     <tbody>
       <?php // emfanizontai oloi oi pelates se morfi pinaka ?>
-      <?php foreach ($users as $row) { ?>
+      <?php
+      if(isset($users)) {
+
+
+       foreach ($users as $row) { ?>
         <tr>
           <td><a id="users" href="<?php echo base_url()?>dietitians/customer?id=<?php echo $row->id  ?>"><?php echo $row->username; ?></a></td>
        <?php if ($row->is_deactivated == 0) { ?>
@@ -26,6 +30,7 @@
       <?php 
     } 
   }
+}
   ?>
     </tbody>
 

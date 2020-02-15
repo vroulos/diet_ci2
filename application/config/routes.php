@@ -57,6 +57,6 @@ $route['get_unique_password_to_email'] = 'user/get_unique_password_to_email';
 
 $route['logind'] = 'dietitians/logind';
 
-$route['default_controller'] = '';
+$route['default_controller'] = 'Mywebapp/first';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

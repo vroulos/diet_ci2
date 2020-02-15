@@ -24,6 +24,14 @@ class Dietitian_model extends CI_Model
 		return $answer; //i return 1 because i had a problem with the verify_password
 		
 	}
+
+	public function create_dietitian1($username, $email, $password){
+		$query = $this->db->query("INSERT INTO dietitian (dietitian_name, dietitian_email, dietitian_password) values ('$username', '$email', $this->hash_password1($dpassword)) ");
+
+		return $query;
+	}
+
+
 	public function get_dietitian($duser_id) {
 		// echo 'get dietitian aaaaan';
 		$this->db->from('dietitian');
@@ -47,17 +55,17 @@ class Dietitian_model extends CI_Model
 		
 	}
 
-	public function insert_dietitian(){
-		$dpassword = "12345";
+	public function create_dietitian($username, $email, $password){
+		
 		$data = array(
-			'dietitian_name'   => 'aName',
-			'dietitian_email'      => 'aName@gmail.com',
-			'dietitian_password'   => $this->hash_password1($dpassword),
+			'dietitian_name'   => $username,
+			'dietitian_email'      => $email,
+			'dietitian_password'   => $this->hash_password1($password),
 			//'created_at' => date('Y-m-j H:i:s'),
 		);
 		
-		$this->db->insert('dietitian', $data);
-		echo 'data inserted !';
+		return $this->db->insert('dietitian', $data);
+		
 		
 		
 	}
@@ -255,10 +263,13 @@ class Dietitian_model extends CI_Model
 
 
 	
-	public function get_customers(){
-		$query = $this->db->query("SELECT * FROM users");
+	public function display_customers($dietitian_id){
+		$query = $this->db->query("SELECT * FROM users WHERE (dietitianId = '$dietitian_id')");
 
-		return $query->result();
+		if($this->db->affected_rows() > 0){
+			return $query->result();
+		}
+		
 
 	}
 

@@ -24,8 +24,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 //$config['base_url'] = 'https://192.168.2.2/diet_ci2/';
-$config['base_url'] = 'https://0cadff7a.ngrok.io/diet_ci2/';
-//$config['base_url'] = 'http://localhost/diet_ci2/';
+//$config['base_url'] = 'https://0cadff7a.ngrok.io/diet_ci2/';
+$config['base_url'] = 'http://localhost/diet_ci2/';
+//$config['base_url'] = 'http://mywebapp.epizy.com/diet_ci2/';
+
 
 /*
 |--------------------------------------------------------------------------

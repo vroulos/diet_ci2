@@ -54,6 +54,8 @@
 				<?php if (!isset($_SESSION['dietitian_name'])){ ?>
 					<li class="nav-item active">
 					<a class="nav-link" href="<?php echo base_url('mywebapp/first') ?>">Αρχική</a>
+						<li><a class="nav-link" href="<?= base_url('dietitians/registerd') ?>">Εγγραφή</a></li>
+				<li><a class="nav-link" href="<?= base_url('dietitians/logind') ?>">Σύνδεση</a></li>
 				</li>
 			<?php } ?>
 
@@ -81,16 +83,18 @@
 						<div class="dropdown-divider"></div>
 						<a class="dropdown-item" href="<?php echo base_url('dietitians/my_meals') ?>">Τα γεύματά μου</a>
 
-					</div>
-				</li>
-				<?php } ?>
-				<li class="nav-item dropdown">
+							<li class="nav-item dropdown">
 					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 						διαιτολόγος
 					</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 						<a class="dropdown-item" href="<?= base_url('dietitians/add_template')  ?>">Προσθήκη και επιλογή <br>προτύπου</a>
 				</li>
+
+					</div>
+				</li>
+				<?php } ?>
+			
 				
 				
 			

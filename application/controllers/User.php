@@ -39,8 +39,6 @@ class User extends CI_Controller {
 		$user_id = $_SESSION['user_id'];
 		//$notifications = $this->user_model->get_meal_notifiation($user_id);
 
-
-
 		
 		$this->load->view('header');
 		$this->load->view('user/login/login_success', $data);
