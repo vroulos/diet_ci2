@@ -117,195 +117,178 @@ class Dietitians extends CI_controller
 
 		}
 	}
-	
-	//add and display the nutricion program
-	public function add_nutricion_program_v2(){
-		if (isset($_SESSION['dietitian_name']) AND isset($_SESSION['customer_name'])) {
-			$data = null;
-			//fortonw to user model gia an xrisimopoiiso ti sunartisi get_nutricion_program()
-			$this->load->model('user_model');
-			$name = $_SESSION['customer_name'];
-			$user_id = $_SESSION['customer_id'];
-			$data['weeks'] = $this->dietitian_model->get_weeks($user_id);
-			$week = $this->session->userdata('week');
-			$duser_id = $_SESSION['dietitian_id'];
-			$data['templates'] = $this->dietitian_model->get_templates($duser_id);
+		
+//add and display the nutricion program
+public function add_nutricion_program_v2(){
+if (isset($_SESSION['dietitian_name']) AND isset($_SESSION['customer_name'])) {
+	$data = null;
+	//fortonw to user model gia an xrisimopoiiso ti sunartisi get_nutricion_program()
+	$this->load->model('user_model');
+	$name = $_SESSION['customer_name'];
+	$user_id = $_SESSION['customer_id'];
+	$data['weeks'] = $this->dietitian_model->get_weeks($user_id);
+	$week = $this->session->userdata('week');
+	$duser_id = $_SESSION['dietitian_id'];
+	$data['templates'] = $this->dietitian_model->get_templates($duser_id);
 
-			$data['program'] = $this->user_model->get_nutricion_program_v2($week, $name , $user_id);
-
-
-			//if the dietitian add a meal with pushing the button
-			if ($_SERVER['REQUEST_METHOD'] == 'POST' AND isset($_POST['submit_program']) ){
-
-				if (!empty($this->input->post('week'))) {
-					$week = $_POST['week'];
-				}else{
-					$this->session->set_userdata('week', 1);
-				}
-				
-				$this->session->set_userdata('week', $week);
-				
-				$day = $_POST['day_of_week'];
-				$mealtime = $_POST['mealtime_category'];
-				$meal = $_POST['food'];
-				
-				
-				$user_id = $_SESSION['customer_id'];
-				$duser_id = $_SESSION['dietitian_id'];
-
-				//add the meal to the the table nutricion_program_v2
-				$this->dietitian_model->add_meal($week, $day, $mealtime, $meal, $user_id, $duser_id);
+	$data['program'] = $this->user_model->get_nutricion_program_v2($week, $name , $user_id);
 
 
+	//if the dietitian add a meal with pushing the button
+	if ($_SERVER['REQUEST_METHOD'] == 'POST' AND isset($_POST['submit_program']) ){
 
-				//save the current customer program and save it to $data
-				$data['program'] = $this->user_model->get_nutricion_program_v2($week, $name , $user_id);
-
-
-				$this->load->view('dietitian/headerd');
-				$this->load->view('dietitian/add_nutricion_program_view_v2', $data);
-				$this->load->view('user/nutricion_program_view_v2', $data);
-				$this->load->view('footer');
-
-				
-			//add new week to the customer nutricion program
-			}else if($_SERVER['REQUEST_METHOD'] == 'POST' AND isset($_POST['addNewWeek'])){
-					
-					
-				$user_id = $_SESSION['customer_id'];
-				//check if exists at least one week
-				$week_exist = $this->dietitian_model->week_exist($user_id);
-
-				$result = $this->dietitian_model->get_latest_date($user_id, $week);
-				if ($result) {
-					$current_date = $result->date;
-					$current_date_obj = date_create($current_date);
-					$date_plus_one_week_obj = date_add($current_date_obj,date_interval_create_from_date_string("7 days"));
-					$date_plus_one_week = $date_plus_one_week_obj->format('Y-m-d H:i:s');
-
-					//get the latest week from database 
-					$result_week = $this->dietitian_model->get_latest_week($user_id);
-
-					$current_week = $result_week->week;
-					//add the new week
-					$new_week = $current_week+1;					
-					$meal = '';
-					$this->dietitian_model->add_new_week($new_week, $user_id, $duser_id, $date_plus_one_week, $meal);
-					$data['weeks'] = $this->dietitian_model->get_weeks($user_id);
-					$data['program'] = $this->user_model->get_nutricion_program_v2($week, $name , $user_id);
-				}else{
-
-				}
-				
-
-				$this->load->view('dietitian/headerd');
-				$this->load->view('dietitian/add_nutricion_program_view_v2', $data);
-				$this->load->view('user/nutricion_program_view_v2', $data);
-				$this->load->view('footer');
-
-			}else if($_SERVER['REQUEST_METHOD'] == 'POST' AND isset($_POST['submitTemplate'])){
-
-				$this->session->set_userdata('week', $week);
-				$templateName = $this->session->userdata('choosenTemplate');
-				$template = $this->dietitian_model->get_current_template($templateName);
-				//$week = $this->session->userdata('week');
-
-				$result = $this->dietitian_model->get_current_date($user_id, $week);
-				if ($result) {
-					$current_date = $result->date;
-					$current_date_obj = date_create($current_date);
-					$date_plus_one_week_obj = date_add($current_date_obj,date_interval_create_from_date_string("7 days"));
-					$date_plus_one_week = $date_plus_one_week_obj->format('Y-m-d H:i:s');
-
-
-					if (!isset($temlate) and !empty($template)) {
-						foreach ($template as $value) {
-						$meal = $value->food;
-						$day = $value->day;
-						$mealtime = $value->hour;
-
-						$this->dietitian_model->add_meal_from_template($week, $day, $mealtime, $meal, $user_id, $duser_id, $current_date);
-						
-					}
-				}else{
-					$data['message'] = 'Δεν έχει επιλέξει πρότυπο';				}	
-				}
-				
-
-				$data['program'] = $this->user_model->get_nutricion_program_v2($week, $name , $user_id);
-
-				$this->load->view('dietitian/headerd');
-				$this->load->view('dietitian/add_nutricion_program_view_v2', $data);
-				$this->load->view('user/nutricion_program_view_v2', $data);
-				$this->load->view('footer');
-				//$this->dietitian_model->load_template();
-
-
-
-			}
-			else if($_SERVER['REQUEST_METHOD'] == 'POST' AND isset($_POST['chooseWeek'])){
-
-				$week = $this->input->post('week');
-				$this->session->set_userdata('week', $week );
-				$data['program'] = $this->user_model->get_nutricion_program_v2($week, $name , $user_id);
-
-				$this->load->view('dietitian/headerd');
-				$this->load->view('dietitian/add_nutricion_program_view_v2', $data);
-				$this->load->view('user/nutricion_program_view_v2', $data);
-				$this->load->view('footer');
-
-			}else if($_SERVER['REQUEST_METHOD'] == "POST" AND isset($_POST['chooseTemplate'])){
-
-				$choosenTemplate = $this->input->post('load_template');
-				//echo $choosenTemplate;
-
-
-				$this->session->set_userdata('choosenTemplate', $choosenTemplate );
-
-				$this->load->view('dietitian/headerd');
-				$this->load->view('dietitian/add_nutricion_program_view_v2', $data);
-				$this->load->view('user/nutricion_program_view_v2', $data);
-				$this->load->view('footer');
-							
-			}
-			else {
-				
-				
-				$week = $this->session->userdata('week');
-				$week_exist = $this->dietitian_model->week_exist($user_id);
-				
-				if (!isset($week) and empty($week) and !$week_exist) {
-
-				$this->session->set_userdata('week', 1);
-				$week = $this->session->userdata('week');
-				$day = 'monday';
-				$mealtime = 'breakfast';
-				$meal = '';	
-				$user_id = $_SESSION['customer_id'];
-				$duser_id = $_SESSION['dietitian_id'];
-
-				//add the meal to the the table nutricion_program_v2
-				$this->dietitian_model->add_meal($week, $day, $mealtime, $meal, $user_id, $duser_id);
-					
-				}
-				$data['weeks'] = $this->dietitian_model->get_weeks($user_id);
-				//echo 'week is '.$week;
-				if (empty($week)) {
-					$week = 1;
-					$this->session->set_userdata('week', 1);
-				}
-					//get the current customer program and save it to $data
-				$data['program'] = $this->user_model->get_nutricion_program_v2($week, $name , $user_id);
-
-				$this->load->view('dietitian/headerd');
-				$this->load->view('dietitian/add_nutricion_program_view_v2', $data);
-				$this->load->view('user/nutricion_program_view_v2', $data);
-				$this->load->view('footer');
-			}
-		}else {
-			redirect('dietitians/logind','refresh');
+		if (!empty($this->input->post('week'))) {
+			$week = $_POST['week'];
+		}else{
+			$this->session->set_userdata('week', 1);
 		}
+		
+		$this->session->set_userdata('week', $week);
+		
+		$day = $_POST['day_of_week'];
+		$mealtime = $_POST['mealtime_category'];
+		$meal = $_POST['food'];
+		
+		
+		$user_id = $_SESSION['customer_id'];
+		$duser_id = $_SESSION['dietitian_id'];
+
+		//add the meal to the the table nutricion_program_v2
+		$this->dietitian_model->add_meal($week, $day, $mealtime, $meal, $user_id, $duser_id);
+
+		//save the current customer program and save it to $data
+		$data['program'] = $this->user_model->get_nutricion_program_v2($week, $name , $user_id);
+
+		$this->load->view('dietitian/headerd');
+		$this->load->view('dietitian/add_nutricion_program_view_v2', $data);
+		$this->load->view('user/nutricion_program_view_v2', $data);
+		$this->load->view('footer');
+		
+	//add new week to the customer nutricion program
+	}else if($_SERVER['REQUEST_METHOD'] == 'POST' AND isset($_POST['addNewWeek'])){
+			
+		$user_id = $_SESSION['customer_id'];
+		//check if exists at least one week
+		$week_exist = $this->dietitian_model->week_exist($user_id);
+		$result = $this->dietitian_model->get_latest_date($user_id, $week);
+		if ($result) {
+			$current_date = $result->date;
+			$current_date_obj = date_create($current_date);
+			$date_plus_one_week_obj = date_add($current_date_obj,date_interval_create_from_date_string("7 days"));
+			$date_plus_one_week = $date_plus_one_week_obj->format('Y-m-d H:i:s');
+
+			//get the latest week from database 
+			$result_week = $this->dietitian_model->get_latest_week($user_id);
+
+			$current_week = $result_week->week;
+			//add the new week
+			$new_week = $current_week+1;					
+			$meal = '';
+			$this->dietitian_model->add_new_week($new_week, $user_id, $duser_id, $date_plus_one_week, $meal);
+			$data['weeks'] = $this->dietitian_model->get_weeks($user_id);
+			$data['program'] = $this->user_model->get_nutricion_program_v2($week, $name , $user_id);
+		}
+
+		$this->load->view('dietitian/headerd');
+		$this->load->view('dietitian/add_nutricion_program_view_v2', $data);
+		$this->load->view('user/nutricion_program_view_v2', $data);
+		$this->load->view('footer');
+	
+	//load template to user nutricion program		
+	}else if($_SERVER['REQUEST_METHOD'] == 'POST' AND isset($_POST['submitTemplate'])){
+
+		$this->session->set_userdata('week', $week);
+		$templateName = $this->session->userdata('choosenTemplate');
+		$template = $this->dietitian_model->get_current_template($templateName);
+		//$week = $this->session->userdata('week');
+
+		$result = $this->dietitian_model->get_current_date($user_id, $week);
+		if ($result) {
+			$current_date = $result->date;
+			$current_date_obj = date_create($current_date);
+			$date_plus_one_week_obj = date_add($current_date_obj,date_interval_create_from_date_string("7 days"));
+			$date_plus_one_week = $date_plus_one_week_obj->format('Y-m-d H:i:s');
+
+
+			if (isset($template) and !empty($template)) {
+				foreach ($template as $value) {
+				$meal = $value->food;
+				$day = $value->day;
+				$mealtime = $value->hour;
+
+				$this->dietitian_model->add_meal_from_template($week, $day, $mealtime, $meal, $user_id, $duser_id, $current_date);
+			}
+			}else{
+				$data['message'] = 'Δεν έχει επιλέξει πρότυπο';				
+			}	
+		}
+		
+		$data['program'] = $this->user_model->get_nutricion_program_v2($week, $name , $user_id);
+
+		$this->load->view('dietitian/headerd');
+		$this->load->view('dietitian/add_nutricion_program_view_v2', $data);
+		$this->load->view('user/nutricion_program_view_v2', $data);
+		$this->load->view('footer');
+		//$this->dietitian_model->load_template();
 	}
+	else if($_SERVER['REQUEST_METHOD'] == 'POST' AND isset($_POST['chooseWeek'])){
+
+		$week = $this->input->post('week');
+		$this->session->set_userdata('week', $week );
+		$data['program'] = $this->user_model->get_nutricion_program_v2($week, $name , $user_id);
+
+		$this->load->view('dietitian/headerd');
+		$this->load->view('dietitian/add_nutricion_program_view_v2', $data);
+		$this->load->view('user/nutricion_program_view_v2', $data);
+		$this->load->view('footer');
+
+	}else if($_SERVER['REQUEST_METHOD'] == "POST" AND isset($_POST['chooseTemplate'])){
+
+		$choosenTemplate = $this->input->post('load_template');
+		//echo $choosenTemplate;
+
+		$this->session->set_userdata('choosenTemplate', $choosenTemplate );
+
+		$this->load->view('dietitian/headerd');
+		$this->load->view('dietitian/add_nutricion_program_view_v2', $data);
+		$this->load->view('user/nutricion_program_view_v2', $data);
+		$this->load->view('footer');			
+	}
+	else {
+		$week = $this->session->userdata('week');
+		$week_exist = $this->dietitian_model->week_exist($user_id);
+		
+		if (!isset($week) and empty($week) and !$week_exist) {
+
+		$this->session->set_userdata('week', 1);
+		$week = $this->session->userdata('week');
+		$day = 'monday';
+		$mealtime = 'breakfast';
+		$meal = '';	
+		$user_id = $_SESSION['customer_id'];
+		$duser_id = $_SESSION['dietitian_id'];
+
+		//add the meal to the the table nutricion_program_v2
+		$this->dietitian_model->add_meal($week, $day, $mealtime, $meal, $user_id, $duser_id);
+		}
+		$data['weeks'] = $this->dietitian_model->get_weeks($user_id);
+		//echo 'week is '.$week;
+		if (empty($week)) {
+			$week = 1;
+			$this->session->set_userdata('week', 1);
+		}
+			//get the current customer program and save it to $data
+		$data['program'] = $this->user_model->get_nutricion_program_v2($week, $name , $user_id);
+
+		$this->load->view('dietitian/headerd');
+		$this->load->view('dietitian/add_nutricion_program_view_v2', $data);
+		$this->load->view('user/nutricion_program_view_v2', $data);
+		$this->load->view('footer');
+	}
+}else {
+	redirect('dietitians/logind','refresh');
+}
+}
 
 
 	public function add_template(){
@@ -325,9 +308,8 @@ class Dietitians extends CI_controller
 					$this->dietitian_model->add_meal_to_template($templateName, $day, $mealtime, $meal, $duser_id);
 
 					$data['template'] = $this->dietitian_model->get_current_template($templateName);
-				
 				}
-				
+			//add the template to database
 			}else if($_SERVER['REQUEST_METHOD'] == "POST" AND isset($_POST['addTemplate'])){
 
 			
@@ -340,7 +322,7 @@ class Dietitians extends CI_controller
 
 					 $this->dietitian_model->add_template($templateName, $day, $mealtime, $meal, $duser_id);
 					 $data['templates'] = $this->dietitian_model->get_templates($duser_id);
-
+			//choose the template you want to edit
 			}else if($_SERVER['REQUEST_METHOD'] == "POST" AND isset($_POST['chooseTemplate'])){
 
 				$choosenTemplate = $this->input->post('add_template');
@@ -370,7 +352,6 @@ class Dietitians extends CI_controller
 
 					$this->load->view('dietitian/headerd', $data);
 					$this->load->view('dietitian/add_template_view', $data );
-					
 					$this->load->view('footer');
 				}
 			
@@ -426,64 +407,63 @@ class Dietitians extends CI_controller
 		}
 	}
 
-	public function send_message(){
-		//check if dietitian has choose a customer to proccess
-		if(isset($_SESSION['customer_name']) && $_SESSION['dietitian_name']){
+public function send_message(){
+	//check if dietitian has choose a customer to proccess
+	if(isset($_SESSION['customer_name']) && $_SESSION['dietitian_name']){
 
-			//get the reanswer of dietitian to the user
-			$response = $this->input->post('reanswer');
-			//the message id of the comversation
-			$message_id = $this->input->post('message_id');
-			
+		//get the reanswer of dietitian to the user
+		$response = $this->input->post('reanswer');
+		//the message id of the comversation
+		$message_id = $this->input->post('message_id');
+		$username = $_SESSION['customer_name'];
+		$this->load->model('user_model');
 
-			$username = $_SESSION['customer_name'];
-			$this->load->model('user_model');
-
-			//get the messages from database and store them in the $data
-			$data['messages'] = $this->user_model->get_messages($username);
-			$data['answers'] = $this->user_model->get_answers($username);
-
-			
-
-			//if the dietitian reanswer to user 
-			if (isset($response)) {
-				$reanswer = $this->user_model->reanswer_to_user($response, $message_id);
-
-				$this->load->view('dietitian/headerd');
-				$this->load->view('dietitian/send_message_view', $data);
-				$this->load->view('footer');
-			}else{
-				//if yes 
-			$this->form_validation->set_rules('send_message', 'Send_message', 'trim|required|min_length[5]|max_length[12000]');
+		//get the messages from database and store them in the $data
+		$data['messages'] = $this->user_model->get_messages($username);
+		$data['answers'] = $this->user_model->get_answers($username);
 
 		
-			// if form is not submited the displays the views
-			if ($this->form_validation->run() == false){
-				$this->load->view('dietitian/headerd');
-				$this->load->view('dietitian/send_message_view', $data);
-				$this->load->view('footer');
 
-			//if form submited send the message
-			}else{
-				$result = $this->dietitian_model->send_message_model();
+		//if the dietitian reanswer to user 
+		if (isset($response)) {
+			$reanswer = $this->user_model->reanswer_to_user($response, $message_id);
 
-				if($result){
-					$this->session->set_flashdata('success', 'Το μήνυμα στάλθηκε');
-					
-				}else{
-					$this->session->set_flashdata('error', 'Αποτυχία αποστολής');
-				}
-
-				$this->load->view('dietitian/headerd');
-				$this->load->view('dietitian/send_message_view', $data);
-				$this->load->view('footer');
-			}
-			}
-			
+			$this->load->view('dietitian/headerd');
+			$this->load->view('dietitian/send_message_view', $data);
+			$this->load->view('footer');
 		}else{
-			redirect('dietitians/logind','refresh');
+			//if yes 
+		$this->form_validation->set_rules('send_message', 'Send_message', 'trim|required|min_length[5]|max_length[12000]');
+
+	
+		// if form is not submited the displays the views
+		if ($this->form_validation->run() == false){
+			$this->load->view('dietitian/headerd');
+			$this->load->view('dietitian/send_message_view', $data);
+			$this->load->view('footer');
+
+		//if form submited send the message
+		}else{
+			$result = $this->dietitian_model->send_message_model();
+
+			if($result){
+				$this->session->set_flashdata('success', 'Το μήνυμα στάλθηκε');
+			}else{
+				$this->session->set_flashdata('error', 'Αποτυχία αποστολής');
+			}
+
+			$this->load->view('dietitian/headerd');
+			$this->load->view('dietitian/send_message_view', $data);
+			$this->load->view('footer');
 		}
+		}
+		
+	}else{
+		redirect('dietitians/logind','refresh');
 	}
+}
+
+
 	//o dietologos vlepei tin proodo varous toy pelati se grafima 
 	public function customer_progress(){
 		if (isset($_SESSION['dietitian_name'])){
@@ -656,114 +636,114 @@ class Dietitians extends CI_controller
 	}
 
 
-	//login dietitian
-	public function logind(){
+//login dietitian
+public function logind(){
 
-		// create the data object
-		$data = new stdClass();
+	// create the data object
+	$data = new stdClass();
 
-		$diet_username = $this->input->post('dietname');
-		//check if the dietitian is logged in . If yes is stays . If not goes to login page
-		if ($this->session->userdata($diet_username) && $_SESSION['dietitian_name'] = $diet_username) {
-			
+	$diet_username = $this->input->post('dietname');
+	//check if the dietitian is logged in . If yes is stays . If not goes to login page
+	if ($this->session->userdata($diet_username) && $_SESSION['dietitian_name'] = $diet_username) {
+		
+		$this->load->view('dietitian/headerd');
+		$this->load->view('dietitian/login/logind_success');
+		$this->load->view('footer');
+	}else{
+
+		$this->load->helper('form');
+		$this->load->library('form_validation');
+
+		$this->form_validation->set_rules('dietname', 'Dietname', 'trim|required|min_length[5]|max_length[12]');
+		$this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[5]|max_length[12]');
+
+		if ($this->form_validation->run() == false) {
+
+		// validation not ok, send validation errors to the view
 			$this->load->view('dietitian/headerd');
-			$this->load->view('dietitian/login/logind_success');
-			$this->load->view('footer');
-		}else{
+			$this->load->view('dietitian/login/logind');
+			$this->load->view('footer');	
+		}
+		else {
+			// set variables from the form
+			$dusername = $this->input->post('dietname');
+			$dpassword = $this->input->post('password');
 
-			$this->load->helper('form');
-			$this->load->library('form_validation');
+			if ($this->dietitian_model->resolve_dietitian_login($dusername, $dpassword)) {
 
-			$this->form_validation->set_rules('dietname', 'Dietname', 'trim|required|min_length[5]|max_length[12]');
-			$this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[5]|max_length[12]');
-
-			if ($this->form_validation->run() == false) {
-
-			// validation not ok, send validation errors to the view
+				$duser_id = $this->dietitian_model->get_dietitian_id_from_username($dusername);
+				$duser    = $this->dietitian_model->get_dietitian($duser_id);
+				//
+				$newdata = array('dietitian_name' => $dusername,
+								 'dietitian_id' => $duser_id );
+				//set the session variables
+				$this->session->set_userdata($newdata);
+				
+			// user login ok
 				$this->load->view('dietitian/headerd');
-				$this->load->view('dietitian/login/logind');
+				$this->load->view('dietitian/login/logind_success');
 				$this->load->view('footer');	
-			}
-			else {
-				// set variables from the form
-				$dusername = $this->input->post('dietname');
-				$dpassword = $this->input->post('password');
 
-				if ($this->dietitian_model->resolve_dietitian_login($dusername, $dpassword)) {
-
-					$duser_id = $this->dietitian_model->get_dietitian_id_from_username($dusername);
-					$duser    = $this->dietitian_model->get_dietitian($duser_id);
-					//
-					$newdata = array('dietitian_name' => $dusername,
-									 'dietitian_id' => $duser_id );
-					//set the session variables
-					$this->session->set_userdata($newdata);
-					
-				// user login ok
-					$this->load->view('dietitian/headerd');
-					$this->load->view('dietitian/login/logind_success');
-					$this->load->view('footer');	
-
-				}else{
-					redirect('dietitians/logind','refresh');
-				}
+			}else{
+				redirect('dietitians/logind','refresh');
 			}
 		}
 	}
+}
 
-	public function registerd() {
+public function registerd() {
+	
+	// create the data object
+	$data = new stdClass();
+	
+	// load form helper and validation library
+	$this->load->helper('form');
+	$this->load->library('form_validation');
+	
+	// set validation rules
+	$this->form_validation->set_rules('username', 'Username', 'trim|required|alpha_numeric|min_length[4]|is_unique[users.username]', array('is_unique' => 'This username already exists. Please choose another one.'));
+	$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|is_unique[users.email]');
+	$this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[6]');
+	$this->form_validation->set_rules('password_confirm', 'Confirm Password', 'trim|required|min_length[6]|matches[password]');
+	// //here i am using a callback function to check the secret user key
+	// $this->form_validation->set_rules('password_identity', 'Recognition Password', 'trim|required|min_length[4]|callback_check_pass_recognition['.$this->input->post('email').']');
+	
+	if ($this->form_validation->run() === false) {
 		
-		// create the data object
-		$data = new stdClass();
+		// validation not ok, send validation errors to the view
+		$this->load->view('dietitian/headerd');
+		$this->load->view('dietitian/register/registerd', $data);
+		$this->load->view('footer');
 		
-		// load form helper and validation library
-		$this->load->helper('form');
-		$this->load->library('form_validation');
+	} else {
 		
-		// set validation rules
-		$this->form_validation->set_rules('username', 'Username', 'trim|required|alpha_numeric|min_length[4]|is_unique[users.username]', array('is_unique' => 'This username already exists. Please choose another one.'));
-		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email|is_unique[users.email]');
-		$this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[6]');
-		$this->form_validation->set_rules('password_confirm', 'Confirm Password', 'trim|required|min_length[6]|matches[password]');
-		// //here i am using a callback function to check the secret user key
-		// $this->form_validation->set_rules('password_identity', 'Recognition Password', 'trim|required|min_length[4]|callback_check_pass_recognition['.$this->input->post('email').']');
+		// set variables from the form
+		$username = $this->input->post('username');
+		$email    = $this->input->post('email');
+		$password = $this->input->post('password');
+		$pass_id = $this->input->post('password_identity');
 		
-		if ($this->form_validation->run() === false) {
-			
-			// validation not ok, send validation errors to the view
+		if ($this->dietitian_model->create_dietitian($username, $email, $password)) {
+
+			//$this->user_model->delete_secret_key($username ,$pass_id );
+			// user creation ok
 			$this->load->view('dietitian/headerd');
-			$this->load->view('dietitian/register/registerd', $data);
+			$this->load->view('dietitian/register/registerd_success', $data);
 			$this->load->view('footer');
 			
 		} else {
 			
-			// set variables from the form
-			$username = $this->input->post('username');
-			$email    = $this->input->post('email');
-			$password = $this->input->post('password');
-			$pass_id = $this->input->post('password_identity');
+			// user creation failed, this should never happen
+			$data->error = 'There was a problem creating your new account. Please try again.';
 			
-			if ($this->dietitian_model->create_dietitian($username, $email, $password)) {
-
-				//$this->user_model->delete_secret_key($username ,$pass_id );
-				// user creation ok
-				$this->load->view('dietitian/headerd');
-				$this->load->view('dietitian/register/registerd_success', $data);
-				$this->load->view('footer');
-				
-			} else {
-				
-				// user creation failed, this should never happen
-				$data->error = 'There was a problem creating your new account. Please try again.';
-				
-				// send error to the view
-				$this->load->view('dietitian/headerd');
-				$this->load->view('dietitian/register/registerd', $data);
-				$this->load->view('footer');
-				
-			}	
-		}		
-	}
+			// send error to the view
+			$this->load->view('dietitian/headerd');
+			$this->load->view('dietitian/register/registerd', $data);
+			$this->load->view('footer');
+			
+		}	
+	}		
+}
 
 
 // logout dietitian

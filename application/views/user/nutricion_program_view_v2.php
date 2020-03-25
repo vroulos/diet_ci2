@@ -60,6 +60,7 @@ $(document).ready(function() {
 				var $value =  $(this).parent().find("#sendMessage").attr("value");
 				var $text = $(this).parentsUntil(".feedback").find("#inputValue").val();
 
+
 			$.ajax({
 				url: '<?php echo base_url('user/food_feedback') ?>',
 				type: 'POST',
@@ -203,21 +204,20 @@ $(document).ready(function() {
 
 								if (isset($_SESSION['dietitian_name'])) {
 									$this->load->model('user_model');
+									//fetch the reaction for specific meal
 									$meal_reaction = $this->user_model->check_reaction($rs->id);
 									if ($meal_reaction) {
 										if ($meal_reaction->reaction == 'like') {
 											echo '<i  id = "heartd" value = "'.$rs->id.'" class="fa fa-heart-o" ></i>';	
 										}else if($meal_reaction->reaction == 'dislike'){
-										
 											echo '<i  id = "disliked" value = "'.$rs->id.'" class="fa fa-thumbs-down" ></i>';	
 										}
-										if (!empty($meal_reaction->text)) {
+										if (!empty($meal_reaction->text_reaction)) {
 											echo '<div style = "padding: 0px;" class="alert alert-info" role="alert">';
-											echo $meal_reaction->text;
+											echo $meal_reaction->text_reaction;
 											echo '</div>';
 										}
-									}
-								
+									}								
 									
 								}
 							echo '</div>';

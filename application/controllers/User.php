@@ -25,25 +25,23 @@ class User extends CI_Controller {
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 		$this->load->database();
-		
-			
-
-		
-		
+		$this->load->helper('captcha');
 	}
 	
 	
 	public function index() {
-
-		$data = new stdClass;
-		$user_id = $_SESSION['user_id'];
-		//$notifications = $this->user_model->get_meal_notifiation($user_id);
-
-		
-		$this->load->view('header');
-		$this->load->view('user/login/login_success', $data);
-		$this->load->view('footer');
-		
+		if (isset($_SESSION['username'])){
+			$data = new stdClass;
+			$user_id = $_SESSION['user_id'];
+			//$notifications = $this->user_model->get_meal_notifiation($user_id);
+			$dietitianId = $this->user_model->get_my_dietitian_id($user_id);
+			$this->user_model->in_use_secret_key('9epf89wapf89ajf');
+									
+			
+			$this->load->view('header');
+			$this->load->view('user/login/login_success', $data);
+			$this->load->view('footer');
+		}
 	}
 
 
@@ -420,7 +418,8 @@ class User extends CI_Controller {
 	public function register() {
 		
 		// create the data object
-		$data = new stdClass();
+		$data = null;
+
 		
 		// load form helper and validation library
 		$this->load->helper('form');
@@ -433,6 +432,7 @@ class User extends CI_Controller {
 		$this->form_validation->set_rules('password_confirm', 'Confirm Password', 'trim|required|min_length[6]|matches[password]');
 		//here i am using a callback function to check the secret user key
 		$this->form_validation->set_rules('password_identity', 'Recognition Password', 'trim|required|min_length[4]|callback_check_pass_recognition['.$this->input->post('email').']');
+       
 		
 		if ($this->form_validation->run() === false) {
 			
@@ -440,6 +440,7 @@ class User extends CI_Controller {
 			$this->load->view('header');
 			$this->load->view('user/register/register', $data);
 			$this->load->view('footer');
+						
 			
 		} else {
 			
@@ -451,14 +452,18 @@ class User extends CI_Controller {
 			
 			if ($this->user_model->create_user($username, $email, $password)) {
 
-				$this->user_model->delete_secret_key($username ,$pass_id );
 				// user creation ok
 				$this->load->view('header');
 				$this->load->view('user/register/register_success', $data);
 				$this->load->view('footer');
 				
 			} else {
-				
+								if($this->user_model->in_use_secret_key('9epf89wapf89ajf')){
+									echo '33333333333';
+								}else{
+									echo'4444444 false  ';
+								}
+
 				// user creation failed, this should never happen
 				$data->error = 'There was a problem creating your new account. Please try again.';
 				
@@ -496,6 +501,66 @@ class User extends CI_Controller {
 			}
 		} 
 	}
+
+
+	    public function indexCaptcha(){
+        // If captcha form is submitted
+        if($this->input->post('submit')){
+            $inputCaptcha = $this->input->post('captcha');
+            $sessCaptcha = $this->session->userdata('captchaCode');
+            if($inputCaptcha === $sessCaptcha){
+                redirect('user/register','refresh');
+            }else{
+                echo 'Ο Captcha code δεν ταιριάζει, παρακαλώ δοκιμάστε ξανά.';
+            }
+        }
+        
+        // Captcha configuration
+        $config = array(
+            'img_path'      => 'captcha_images/',
+            'img_url'       => base_url().'captcha_images/',
+            'font_path'     => 'diet_ci2/system/fonts/texb.ttf',
+            'img_width'     => '200',
+            'img_height'    => 50,
+            'word_length'   => 4,
+            'font_size'     => 12,
+        );
+        $captcha = create_captcha($config);
+        
+        // Unset previous captcha and set new captcha word
+        $this->session->unset_userdata('captchaCode');
+        $this->session->set_userdata('captchaCode', $captcha['word']);
+        
+        // Pass captcha image to view
+        $data['captchaImg'] = $captcha['image'];
+        
+        // Load the view
+        $this->load->view('header');
+        $this->load->view('user/captcha/index', $data);
+        $this->load->view('footer');
+    }
+
+    
+    public function refresh(){
+        // Captcha configuration
+        $config = array(
+            'img_path'      => 'captcha_images/',
+            'img_url'       => base_url().'captcha_images/',
+            'font_path'     => 'diet_ci2/system/fonts/texb.ttf',
+            'img_width'     => '180',
+            'img_height'    => 70,
+            'word_length'   => 4,
+            'font_size'     => 100
+        );
+        $captcha = create_captcha($config);
+        
+        // Unset previous captcha and set new captcha word
+        $this->session->unset_userdata('captchaCode');
+        $this->session->set_userdata('captchaCode',$captcha['word']);
+        
+        // Display captcha image
+        echo $captcha['image'];
+    }
 
 
 	//send the email to the user. Here i am sending him the registration password

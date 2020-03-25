@@ -407,18 +407,26 @@ class User_model extends CI_Model {
 	//check if the secret key is ok
 	public function check_recognition_pass($pass, $email){
 		$query = $this->db->query("SELECT * FROM user_secret_key where (password_id = '$pass') and (user_email = '$email') " ); 
-		echo "the user email is : ". $email."<br>";
-		echo "the user password is : ". $pass."<br>";
+		// echo "the user email is : ". $email."<br>";
+		// echo "the user password is : ". $pass."<br>";
 
 		$rec_pass_exist = $this->db->affected_rows($query);
 
 		return $rec_pass_exist;
 	}
 	// otan o pelatis oloklirosei tin eggrafi diagrafetai o kodikos pistopoiisis
-	public function delete_secret_key($username , $password_id){
+	public function in_use_secret_key($password_id){
+		
+		// $query = $this->db->query("INSERT INTO user_secret_key(in_use) values ('$number') WHERE user_email = 'neosPelatis@email.com' ");
+		$query = $this->db->query("INSERT INTO user_secret_key(in_use, dietitian_id) VALUES (1, (SELECT dietitian_id FROM dietitian WHERE dietitian_id =1))");
 
-		$this->db->query("DELETE FROM user_secret_key WHERE password_id = '$password_id'");
-
+		if($this->db->affected_rows() > 0){
+			print "trela ";
+			return true;
+		}else{
+			echo " no trela";
+			return false;
+		}
 		//$this->db->query("UPDATE user_secret_key SET user_id = '1' where username = '$username' ");
 	}
 
@@ -430,6 +438,14 @@ class User_model extends CI_Model {
 		$this->db->where('user_email' , $email);
 		
 		return $this->db->get()->row('password_id');
+	}
+
+	public function get_my_dietitian_id($userId){
+		$query = $this->db->query("SELECT dietitianId FROM users WHERE id = '$userId' ");
+
+		if($this->db->affected_rows() > 0){
+			return $query->result();
+		}
 	}
 
 	public function check_user_activation($username){

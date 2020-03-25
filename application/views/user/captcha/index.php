@@ -1,0 +1,35 @@
+<div class="container" style="margin-top: 50px"></div>
+<div class="container">
+	<h4>Υποβολή Captcha Code</h4>
+
+
+			<p id="captImg" ><?php echo $captchaImg;  ?></p>
+		
+
+	
+	<p>Δεν μπορείς να διαβάσεις την εικόνα; πάτησε  <a href="javascript:void(0);" class="refreshCaptcha">εδώ</a> για ανανέωση.</p>
+	<form method="post">
+		<div class="form-group">
+	    Πληκτρολόγησε τον κωδικό : 
+	    <input type="text" class="form-control" name="captcha" value=""/>
+	</div>
+	    <!-- <input type="submit" name="submit" value="SUBMIT"/> -->
+	    <button type="submit" name="submit" value="submit" class="btn btn-alert">Υποβολή</button>
+
+	</form>
+</div>
+
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- captcha refresh code -->
+<script>
+$(document).ready(function(){
+    $('.refreshCaptcha').on('click', function(){
+        $.get('<?php echo base_url().'user/refresh'; ?>', function(data){
+            $('#captImg').html(data);
+        });
+    });
+});
+</script>
