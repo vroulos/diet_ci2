@@ -4,9 +4,8 @@ echo form_open('dietitians/add_nutricion_program_v2'); ?>
 <div class="container-fluid" style=" margin-top: 30px">
 	<div class="row">
 		<div class="col-sm-6 col-md-6 col-lg-4" >
-			<div class="form-group">
-				
-					<label for="weekweek">Εβδομάδα</label>
+			<div class="form-group">				
+				<label for="weekweek">Εβδομάδα</label>
 					<select  class="form-control" name="week">
 						<?php 
 						$selected = $_SESSION['week'];

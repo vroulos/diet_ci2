@@ -503,42 +503,42 @@ class User extends CI_Controller {
 	}
 
 
-	    public function indexCaptcha(){
-        // If captcha form is submitted
-        if($this->input->post('submit')){
-            $inputCaptcha = $this->input->post('captcha');
-            $sessCaptcha = $this->session->userdata('captchaCode');
-            if($inputCaptcha === $sessCaptcha){
-                redirect('user/register','refresh');
-            }else{
-                echo 'Ο Captcha code δεν ταιριάζει, παρακαλώ δοκιμάστε ξανά.';
-            }
-        }
-        
-        // Captcha configuration
-        $config = array(
-            'img_path'      => 'captcha_images/',
-            'img_url'       => base_url().'captcha_images/',
-            'font_path'     => 'diet_ci2/system/fonts/texb.ttf',
-            'img_width'     => '200',
-            'img_height'    => 50,
-            'word_length'   => 4,
-            'font_size'     => 12,
-        );
-        $captcha = create_captcha($config);
-        
-        // Unset previous captcha and set new captcha word
-        $this->session->unset_userdata('captchaCode');
-        $this->session->set_userdata('captchaCode', $captcha['word']);
-        
-        // Pass captcha image to view
-        $data['captchaImg'] = $captcha['image'];
-        
-        // Load the view
-        $this->load->view('header');
-        $this->load->view('user/captcha/index', $data);
-        $this->load->view('footer');
-    }
+    public function indexCaptcha(){
+	    // If captcha form is submitted
+	    if($this->input->post('submit')){
+	        $inputCaptcha = $this->input->post('captcha');
+	        $sessCaptcha = $this->session->userdata('captchaCode');
+	        if($inputCaptcha === $sessCaptcha){
+	            redirect('user/register','refresh');
+	        }else{
+	            echo 'Ο Captcha code δεν ταιριάζει, παρακαλώ δοκιμάστε ξανά.';
+	        }
+	    }
+	    
+	    // Captcha configuration
+	    $config = array(
+	        'img_path'      => 'captcha_images/',
+	        'img_url'       => base_url().'captcha_images/',
+	        'font_path'     => 'diet_ci2/system/fonts/texb.ttf',
+	        'img_width'     => '200',
+	        'img_height'    => 50,
+	        'word_length'   => 4,
+	        'font_size'     => 12,
+	    );
+	    $captcha = create_captcha($config);
+	    
+	    // Unset previous captcha and set new captcha word
+	    $this->session->unset_userdata('captchaCode');
+	    $this->session->set_userdata('captchaCode', $captcha['word']);
+	    
+	    // Pass captcha image to view
+	    $data['captchaImg'] = $captcha['image'];
+	    
+	    // Load the view
+	    $this->load->view('header');
+	    $this->load->view('user/captcha/index', $data);
+	    $this->load->view('footer');
+	}
 
     
     public function refresh(){

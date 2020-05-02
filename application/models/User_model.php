@@ -64,8 +64,8 @@ class User_model extends CI_Model {
 		$this->db->from('users');
 		$this->db->where('username', $username);
 		$hash = $this->db->get()->row('password');
-		$nainai = $this->verify_password_hash($password, $hash);
-		return $nainai;
+		$ifPasswordIsVerified = $this->verify_password_hash($password, $hash);
+		return $ifPasswordIsVerified;
 		
 	}
 	
@@ -424,7 +424,7 @@ class User_model extends CI_Model {
 			print "trela ";
 			return true;
 		}else{
-			echo " no trela";
+			//echo " no trela";
 			return false;
 		}
 		//$this->db->query("UPDATE user_secret_key SET user_id = '1' where username = '$username' ");
