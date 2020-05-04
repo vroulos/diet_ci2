@@ -408,6 +408,17 @@ class User extends CI_Controller {
 			redirect('user/login','refresh');
 		}
 	}
+
+	public function video_user_call(){
+		if (isset($_SESSION['username'])) {
+			$data = null;
+
+				$this->load->view('header');
+				$this->load->view('videoCall' , $data);
+				$this->load->view('footer', $data );
+		}
+
+	}
 	
 	/**
 	 * register function.

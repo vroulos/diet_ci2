@@ -74,6 +74,7 @@ crossorigin="anonymous">
 									<div class="dropdown-divider"></div>
 									<a class="dropdown-item" href="<?php echo base_url('user/add_user_note'); ?>">προσωπικές σημειώσεις</a>
 									<a class="dropdown-item" href="<?=base_url('user/messages')?>">μηνύματα</a>
+									<a class="dropdown-item" href="<?= base_url('user/video_user_call')  ?>">Video κλήση</a>
 									<div class="dropdown-divider"></div>
 									<a class="dropdown-item" href="<?php echo base_url('upload/'); ?>">Ανέβασμα Φωτογραφίας</a>
 									<a class="dropdown-item" href="<?php echo base_url('upload/display_images'); ?>">Οι φωτογραφίες μου</a>

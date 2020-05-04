@@ -464,6 +464,21 @@ public function send_message(){
 }
 
 
+	public function video_call(){
+		if (isset($_SESSION['dietitian_name'])){
+			$data = null;
+
+			$this->load->view('dietitian/headerd');
+			$this->load->view('videoCall' , $data);
+			$this->load->view('footer');
+		}else{
+			//redirect to login page
+			redirect('dietitians/logind','refresh');
+		}
+
+	}
+
+
 	//o dietologos vlepei tin proodo varous toy pelati se grafima 
 	public function customer_progress(){
 		if (isset($_SESSION['dietitian_name'])){

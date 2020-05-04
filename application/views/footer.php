@@ -1,9 +1,9 @@
- <a class="btn btn-warning" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" style="margin-top: 50px; margin-left: 100px">
+<!--  <a class="btn btn-warning" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" style="margin-top: 50px; margin-left: 100px">
     Cross Site Request Forgery (CSRF)
-  </a>
+  </a> -->
 <div class="collapse" id="collapseExample" >
 
-<div class="container">
+<div class="container" style="display: none;">
 Cross Site Request Forgery (CSRF) is one of the most common vulnerabilities in websites and web applications. As announced, CodeIgniter 2.0 will feature a built-in CSRF protection, which I’d like to analyze for you.<!--more-->
 <p class="warning">Hint: This is the transcript of a post from my old blog, which I've replaced. I've taken it over since it still seems to receive some attention.</p>
 In this year’s <a href="http://www.owasp.org/index.php/Category:OWASP_Top_Ten_Project" target="_blank">Top 10 of the Most Critical Security Risks in Web Applications</a>, which is issued by the <a href="http://www.owasp.org/index.php/Main_Page" target="_blank">OWASP</a>, CSRF ranks fifth, a rank which it has had for more than four years now. For a reason – its rather high complexity, multitude of attack vectors and massive damage potential make it one of the most dangerous attacks on websites. Developers often tend to underestimate the problem or don’t know how to implement an effective protection.
