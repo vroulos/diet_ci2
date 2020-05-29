@@ -17,7 +17,7 @@
 		<?php endif; ?>
 		<div class="col-md-12">
 			<div class="page-header">
-				<h1 style="font-family: sans-serif;">Σύνδεση</h1>
+				<h2 style="font-family: sans-serif;">Σύνδεση ως πελάτης</h2>
 			</div>
 			<?= form_open() ?>
 				<div class="form-group">

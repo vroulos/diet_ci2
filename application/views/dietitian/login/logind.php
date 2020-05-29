@@ -20,7 +20,7 @@
 		<?php endif; ?>
 		<div class="col-md-3">
 			<div class="page-header">
-				<h1>Είσοδος</h1>
+				<h2>Σύνδεση ως διαιτολόγος</h2>
 			</div>
 		<?= form_open(); ?>
 		<div class="form-group">

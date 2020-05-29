@@ -516,13 +516,18 @@ class User extends CI_Controller {
 
     public function indexCaptcha(){
 	    // If captcha form is submitted
+	    //echo "oh yes";
 	    if($this->input->post('submit')){
+	    	//echo "inside if";
 	        $inputCaptcha = $this->input->post('captcha');
 	        $sessCaptcha = $this->session->userdata('captchaCode');
 	        if($inputCaptcha === $sessCaptcha){
 	            redirect('user/register','refresh');
 	        }else{
-	            echo 'Ο Captcha code δεν ταιριάζει, παρακαλώ δοκιμάστε ξανά.';
+	            //echo 'Ο Captcha code δεν ταιριάζει, παρακαλώ δοκιμάστε ξανά.';
+	            $myError = "Ο Captcha code δεν ταιριάζει, παρακαλώ δοκιμάστε ξανά.";
+	             $this->session->set_flashdata('error', $myError);
+	             //redirect('user/indexCaptcha','refresh');
 	        }
 	    }
 	    
@@ -544,6 +549,9 @@ class User extends CI_Controller {
 	    
 	    // Pass captcha image to view
 	    $data['captchaImg'] = $captcha['image'];
+	    if (!empty($this->session->flashdata('error'))) {
+   			 $data['error'] = $this->session->flashdata('error');
+		} 
 	    
 	    // Load the view
 	    $this->load->view('header');
