@@ -275,7 +275,7 @@ class User extends CI_Controller {
 
 
 	public function food_feedback(){
-		
+		echo "food feedback";
 		
 
 			$reaction = $this->input->post('reaction');
@@ -286,6 +286,7 @@ class User extends CI_Controller {
 				$result = $this->user_model->add_text_reaction($meal_id, $textReaction);
 				echo "textReaction";
 			}else if (isset($reaction)) {
+				echo "reaction is ok";
 				$result = $this->user_model->add_reaction($reaction, $meal_id);
 				echo "reaction";
 			}

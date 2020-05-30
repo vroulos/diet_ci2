@@ -14,6 +14,8 @@ $(document).ready(function() {
 
 		$(".feedback").find("#heart").click(function(event) {
 			var $value = $(this).parent().find("#heart").attr("value");
+			alert($value);
+
 			$.ajax({
 				url: '<?php echo base_url('user/food_feedback') ?>',
 				type: 'POST',
@@ -135,6 +137,10 @@ $(document).ready(function() {
                      Επόμενη<i class="fa fa-chevron-right"></i>
                 </button>
 		</div>
+			<script type="text/javascript">
+				$('.toast').toast('show');
+			</script>
+
 	
 	<?php 
 
@@ -142,6 +148,22 @@ $(document).ready(function() {
 		}
 	 ?>
 	 </div>
+
+	 	<div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;">
+			<div class="toast" style="position: absolute; top: 0; right: 0;">
+				<div class="toast-header">
+					<img src="..." class="rounded mr-2" alt="...">
+					<strong class="mr-auto">Bootstrap</strong>
+					<small>11 mins ago</small>
+					<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="toast-body">
+					Η εβδομάδα προστέθηκε.
+				</div>
+			</div>
+		</div>
 	<div class="table-responsive">
 		
 	
