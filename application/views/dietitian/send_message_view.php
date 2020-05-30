@@ -71,7 +71,7 @@ $success = $this->session->flashdata('success');
          ?>
        
     <?php }} ?>
-        <form action="<?php echo base_url('dietitians/send_message') ?>" method="post">
+          <?php echo form_open('dietitians/send_message'); ?>
           <input type="hidden" name="message_id" value="<?php echo $row->id ?>">
           
           <div class="card-body" id="search">
@@ -82,7 +82,7 @@ $success = $this->session->flashdata('success');
            
           </div>
           <input type="submit" style=" max-width: 100%;" name="delete_message" class="btn btn-primary" value="διαγραφή μηνύματος" >
-        </form>
+        <?php echo form_close(); ?>
         
       </div>
     </div>

@@ -46,7 +46,7 @@
     </div>
   </div>
 
-    <script>
+<!--     <script>
     Push.create("Hello world!", {
     body: "How's it hangin'?",
     icon: '/icon.png',
@@ -57,7 +57,7 @@
     }
 });
 
-  </script>
+  </script> -->
  
     
   <?php } ?>
@@ -68,7 +68,7 @@
   echo "you have not messages yet";
 } ?>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 
   $(document).ready(function() {
   $('#reply').click(function() {
@@ -77,4 +77,4 @@
 });
 
 </script>
-
+ -->
