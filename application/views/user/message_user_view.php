@@ -31,7 +31,7 @@
      }
       }
         } ?>
-        <form action="<?php echo base_url('user/messages') ?>" method="post">
+          <?php echo form_open('user/messages'); ?>
           <input type="hidden" name="message_id" value="<?php echo $row->id ?>">
           
          
@@ -41,8 +41,7 @@
             <input style="margin-top: 10px; max-width: 100%;" type="submit"  id="reply" name="reply" class="btn btn-dark" value="Απάντηση" >
           </div>
           <input type="submit" style=" max-width: 100%;" name="delete_message" class="btn btn-primary" value="διαγραφή μηνύματος" >
-        </form>
-        
+          <?php echo form_close(); ?>
       </div>
     </div>
   </div>

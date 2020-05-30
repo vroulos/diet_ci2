@@ -376,6 +376,7 @@ class User extends CI_Controller {
 	
 			$id = $this->input->post('message_id');
 			$delete_message = $this->input->post('message_to_delete');
+			//answer from customer comes from form
 			$answer = $this->input->post('answer');
 
 			$data['answers'] = $this->user_model->get_answers($customer_name);
@@ -383,7 +384,7 @@ class User extends CI_Controller {
 
 			if (isset($answer)) {
 				$this->user_model->send_answer_to_dietitian($answer, $id);
-				
+				$data['answers'] = $this->user_model->get_answers($customer_name);
 			}
 			//if the message_to_delete pressed then i delete the message
 			else if(isset($delete_message)){
