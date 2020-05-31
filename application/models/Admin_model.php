@@ -72,6 +72,14 @@ class Admin_model extends CI_Model
 		
 	}
 	
+	public function get_all_dietitians(){
+		$query = $this->db->query("SELECT * FROM dietitian");
+		if($this->db->affected_rows() > 0){
+			return $query->result();
+		}
+		
+
+	}
 
 
 

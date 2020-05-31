@@ -110,14 +110,18 @@ class AdminPanel extends CI_controller
 
 	public function admin_panel(){
 		if(isset($_SESSION['username-admin'])){
-			$data = "my data";
-		$this->load->view('headerPanel');
-		$this->load->view('admin/admin_panel_view', $data);
-		$this->load->view('footer');
+			$this->load->model('admin_model');
+			$data['dietitians'] = $this->admin_model->get_all_dietitians();
+			
+			$this->load->view('headerPanel');
+			$this->load->view('admin/admin_panel_view', $data);
+			$this->load->view('footer');
 		}else{
 			redirect('adminPanel/login','refresh');
 		}
 	}
+
+
 		
 
 	public function adminLogout(){
