@@ -93,7 +93,7 @@
 				</li>
 
 					</div>
-				</li>
+				<!-- </li> -->
 				<?php } ?>
 			
 				
@@ -102,11 +102,11 @@
 			<!-- if the dietitian has logged in -->
 			<?php if (isset($_SESSION['dietitian_name'])) { ?>
 				<li class="nav-item">
-					<a class="nav-link disabled" href="<?= base_url('dietitians/settings') ?>">Προφίλ</a>
+					<a class="nav-link " href="<?= base_url('dietitians/settings') ?>">Προφίλ</a>
 				</li>
 				
 					<li class="nav-item">
-					<a class="nav-link disabled" href="<?= base_url('dietitians/logoutd') ?>">Αποσύνδεση</a>
+					<a class="nav-link " href="<?= base_url('dietitians/logoutd') ?>">Αποσύνδεση</a>
 				</li>
 
 			<?php } ?>

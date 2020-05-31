@@ -51,6 +51,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 
 $route['register'] = 'user/register';
+$route['admin'] = 'adminpanel/login/';
 $route['login'] = 'user/login';
 $route['logout'] = 'user/logout';
 $route['get_unique_password_to_email'] = 'user/get_unique_password_to_email';

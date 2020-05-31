@@ -24,14 +24,16 @@
 
       <div class="collapse navbar-collapse" id="navbarsExample04">
         <ul class="navbar-nav mr-auto">
-          
-          <li class="nav-item dropdown">
+          <li class="nav-item">
+            <a class="nav-link " href="<?= base_url('adminPanel/adminLogout') ?>">Αποσύνδεση</a>
+          </li>
+<!--           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="https://example.com" id="dropdown04" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Σύνδεση</a>
             <div class="dropdown-menu" aria-labelledby="dropdown04">
               <a class="dropdown-item" href="<?= base_url('dietitians/logind') ?>">Διαιτολόγος</a>
               <a class="dropdown-item" href="<?= base_url('user/login') ?>">Πελάτης</a>
             </div>
-          </li>
+          </li> -->
         </ul>
         
       </div>
