@@ -173,6 +173,15 @@ img:hover {
     height: 500px;
   }
 
+  .text-left, .font-weight-bold{
+    width: 70vw;
+    margin-left: 100px;
+  }
+  #grey-div-mywebapp{
+    background-color: #f0f0f0;
+    height: 300px;
+  }
+
  @media all and (max-width: 360px){
   hr{
     margin-right: 5px;
@@ -213,5 +222,25 @@ img:hover {
     width: 100vw;
     
   }
+
+  .text-left, .font-weight-bold{
+    width: 90vw;
+    margin-left: 0px;
+  }
+
+   }
+
+   @media all and (max-width: 860px){
+  hr{
+    margin-right: 5px;
+  }
+  .text-left, .font-weight-bold{
+    width: 80vw;
+    margin: 4vw;
+  }
+#grey-div-mywebapp{
+    height: 500px;
+  }
+
 
    }

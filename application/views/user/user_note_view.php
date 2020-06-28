@@ -6,7 +6,7 @@
       <script>
         $(document).ready(function() {
           $('#change').submit(function() {
-            alert("deleted");
+            //alert("deleted");
             var id = $('#message').val();
             $.ajax({
               type:'POST',
