@@ -149,7 +149,7 @@ $(document).ready(function() {
 	 ?>
 	 </div>
 
-	 	<div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;">
+	 	<div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 20px;">
 			<div class="toast" style="position: absolute; top: 0; right: 0;">
 				<div class="toast-header">
 					<img src="..." class="rounded mr-2" alt="...">
@@ -260,6 +260,19 @@ $(document).ready(function() {
 
 	</tbody>
 </table>
+</div>
+<p>
+  <a class="btn btn-info" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" style="margin: 50px;">
+    Επιπρόσθετες πληροφορίες
+  </a>
+  <button class="btn btn-primary" type="button"  data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" style="display: none;">
+    Button with data-target
+  </button>
+</p>
+<div class="collapse" id="collapseExample">
+  <div class="card card-body">
+   Το πρόγραμμα διατροφής του περιλαμβάνει 
+  </div>
 </div>
 </div>
 
