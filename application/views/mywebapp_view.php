@@ -9,7 +9,7 @@
 
 	<title>connect to eat better</title>
 
-	<style type="text/css">
+<!-- 	<style type="text/css">
 		.container {
 			display: flex; /* or inline-flex */
 			justify-content: space-around;
@@ -22,20 +22,13 @@
 		}
 		h1{
 
-
 			font-family: 'Roboto', sans-serif;
 
-
 		}
-
-
-	</style>
-
+	</style> -->
 </head>
 <body style="background-color: #fafafa">
-	<h1 class="text-left">Καλως όρισες στην εφαρμογή </h1>
-
-
+	
 
 	<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		<ul class="nav navbar-nav navbar-right">
@@ -45,15 +38,23 @@
 		</ul>
 	</div>
 
-	<div class="container-fluid" >
-		
+	<div class="row" style="width: 100vw;">
+    	<div class="bg clearfix">
+    		<div class="text-center" id="image_text" >Λογισμικό για διαιτολόγους και επαγγελματίες διατροφής</div>
+<!--     		<div class="text-center" id="image_text" style="margin-top: 20px;" >διατροφής </div>
+ -->    		<!-- <div class="col-md-6">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium optio itaque quas ab facere, ipsa cumque consequatur nam id voluptatibus numquam, sapiente suscipit doloremque blanditiis non, ipsam sint vel molestias.</div> -->
+    	<div class="col-md-6">two</div>
+    </div>
+ </div>
+<!-- 	<div class="container-fluid" >
+
 		<img src="<?= base_url('assets/images/nutricion.jpg')?>">
 		<img src="<?= base_url('assets/images/consistency.jpg')?>">
 		<img src="<?= base_url('assets/images/exercise.jpg')?>">
 
-	</div>
-	<div>
-		<p class="font-weight-bold">Εξατομικευμένη διατροφή για όλους</p>
+	</div> -->
+	<div >
+		<p class="font-weight-bold" id="food_for_all">Εξατομικευμένη διατροφή για όλους</p>
 		<p class="text-left">Το σύστημα είναι ένα λογισμικό διατροφής για διαιτολόγους και επαγγελματίες της διατροφής που παρέχει την τεχνολογία για να δίνουν εύκολα εξατομικευμένη διατροφή, να προσαρμόζουν τα προγράμματα διατροφής σε πραγματικό χρόνο και να παραμένουν συνδεδεμένοι με κάθε έναν από τους πελάτες τους.</p>
 		<div id="grey-div-mywebapp" >
 			<p class="font-weight-bold text-center" style="font-size: 30px">Γιατί να επιλέξετε το nutricio</p>
@@ -86,7 +87,7 @@
 		<p class="font-weight-bold">Responsive σχεδιασμός</p>
 		<p class="text-left">Η εφαρμογή είναι προσβάσιμη ανά πάσα στιγμή, οπουδήποτε, από οποιαδήποτε συσκευή.</p>
 		<p class="font-weight-bold">Μείνετε πλήρως συνδεδεμένοι με τους ασθενείς σας μέσω του λογισμικού διατροφής</p>
-		<p class="text-left">Εξαρτάται από εσάς πότε και πώς επικοινωνείτε, κάτι που σας δίνει τόσο την ελευθερία να σχεδιάσετε το πρόγραμμά σας όσο και την ευκαιρία να εξασφαλίσετε εξαιρετικά αποτελέσματα, όταν είστε εκεί για τους ασθενείς όποτε χρειάζονται και δίνοντάς τους κίνητρα.</p>
+		<p class="text-left" style="margin-bottom: 110px;">Εξαρτάται από εσάς πότε και πώς επικοινωνείτε, κάτι που σας δίνει τόσο την ελευθερία να σχεδιάσετε το πρόγραμμά σας όσο και την ευκαιρία να εξασφαλίσετε εξαιρετικά αποτελέσματα, όταν είστε εκεί για τους ασθενείς όποτε χρειάζονται και δίνοντάς τους κίνητρα.</p>
 	</div>
 </div>
 </body>
