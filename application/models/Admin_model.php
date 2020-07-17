@@ -81,6 +81,11 @@ class Admin_model extends CI_Model
 
 	}
 
+	public function get_users_of_this_dietitian($id){
+		$query = $this->db->query("SELECT * FROM users where dietitianId = $id ");
+	
+		return $query->result();
+	}
 
 
 }

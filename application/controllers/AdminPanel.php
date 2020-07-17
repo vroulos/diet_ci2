@@ -11,7 +11,8 @@ class AdminPanel extends CI_controller
 		parent::__construct();
 		$this->load->library('session');
 		$this->load->helper(array('url'));
-		$this->load->model('dietitian_model');	
+		$this->load->model('dietitian_model');
+		$this->load->model('admin_model');	
 		$this->load->library('session');
 		$this->load->helper('form');
 		$this->load->library('form_validation');
@@ -38,7 +39,7 @@ class AdminPanel extends CI_controller
 		// create the data object
 		$data = new stdClass();
 		$this->load->model('admin_model');
-		$this->admin_model->create_admin1('admin', 'admin@gmail.com', '123456');
+		//$this->admin_model->create_admin1('admin', 'admin@gmail.com', '123456');
 		
 		// load form helper and validation library
 		$this->load->helper('form');
@@ -118,6 +119,17 @@ class AdminPanel extends CI_controller
 			$this->load->view('footer');
 		}else{
 			redirect('adminPanel/login','refresh');
+		}
+	}
+
+	//display the customers of choosen dietitian
+	public function dietitian_info(){
+		if(isset($_SESSION['username-admin'])){
+			$id = $this->input->get('id');
+			$data['customers'] = $this->admin_model->get_users_of_this_dietitian($id);
+			$this->load->view('headerPanel');
+			$this->load->view('admin/dietitian_info', $data);
+			$this->load->view('footer');
 		}
 	}
 

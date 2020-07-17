@@ -43,7 +43,6 @@
     		<div class="text-center" id="image_text" >Λογισμικό για διαιτολόγους και επαγγελματίες διατροφής</div>
 <!--     		<div class="text-center" id="image_text" style="margin-top: 20px;" >διατροφής </div>
  -->    		<!-- <div class="col-md-6">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium optio itaque quas ab facere, ipsa cumque consequatur nam id voluptatibus numquam, sapiente suscipit doloremque blanditiis non, ipsam sint vel molestias.</div> -->
-    	<div class="col-md-6">two</div>
     </div>
  </div>
 <!-- 	<div class="container-fluid" >

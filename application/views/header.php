@@ -34,11 +34,12 @@
 <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
 
 <script
-src="https://code.jquery.com/jquery-3.4.1.js"
-integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-crossorigin="anonymous">
-
+			  src="https://code.jquery.com/jquery-3.5.1.js"
+			  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+			  crossorigin="anonymous">			  	
 </script>
+<script src="https://cdn.jsdelivr.net/gh/StephanWagner/jBox@v1.2.0/dist/jBox.all.min.js"></script>
+<link href="https://cdn.jsdelivr.net/gh/StephanWagner/jBox@v1.2.0/dist/jBox.all.min.css" rel="stylesheet">
 
 <link href="<?php echo base_url('assets/bootstrap/css/bootstrap.min.css'); ?>" rel="stylesheet">
 <link href="<?php echo base_url('assets/bootstrap/css/bootstrap.css'); ?>" rel="stylesheet">
@@ -93,7 +94,8 @@ crossorigin="anonymous">
 						</form>
 						<?php else : ?>
 							<li ><a class="nav-link" href="<?= base_url('mywebapp/first') ?>">Αρχική</a></li>
-							<li><a class="nav-link" href="<?= base_url('user/indexCaptcha') ?>">Εγγραφή</a></li>
+							<!-- <li><a class="nav-link" href="<?= base_url('user/indexCaptcha') ?>">Εγγραφή</a></li> -->
+							<li><a class="nav-link" href="<?= base_url('user/register') ?>">Εγγραφή</a></li>
 							<li><a class="nav-link" href="<?= base_url('login') ?>">Σύνδεση</a></li>
 						<?php endif; ?>
 					</div>
