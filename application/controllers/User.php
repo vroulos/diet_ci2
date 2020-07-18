@@ -462,9 +462,14 @@ class User extends CI_Controller {
 			$email    = $this->input->post('email');
 			$password = $this->input->post('password');
 			$pass_id = $this->input->post('password_identity');
-			
-			if ($this->user_model->create_user($username, $email, $password)) {
 
+			$dietitianId = $this->user_model->get_my_dietitian_id_from_pass_id($pass_id);
+			echo $dietitianId."      &&&&&   ";
+			if ($this->user_model->create_user($username, $email, $password, $dietitianId)) {
+
+				$user_id = $this->user_model->get_user_id_from_username($username);
+				//$dietitianId = $this->user_model->get_my_dietitian_id($user_id);
+				$this->user_model->increase_customer_number($dietitianId, $email);
 				// user creation ok
 				$this->load->view('header');
 				$this->load->view('user/register/register_success', $data);

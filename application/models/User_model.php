@@ -30,14 +30,14 @@ class User_model extends CI_Model {
 	 * @param mixed $password
 	 * @return bool true on success, false on failure
 	 */
-	public function create_user($username, $email, $password) {
+	public function create_user($username, $email, $password, $dietitianId) {
 		
 		$data = array(
 			'username'   => $username,
 			'email'      => $email,
 			'password'   => $this->hash_password($password),
 			'created_at' => date('Y-m-j H:i:s'),
-			'dietitianId' => 1
+			'dietitianId' => $dietitianId
 		);
 		//$this->db->select('dietitianId')->from('dietitian')->where('dietitianId', 1);
 		return $this->db->insert('users', $data);
@@ -444,9 +444,19 @@ class User_model extends CI_Model {
 		$query = $this->db->query("SELECT dietitianId FROM users WHERE id = '$userId' ");
 
 		if($this->db->affected_rows() > 0){
-			return $query->result();
+			return $query->row()->dietitianId;
 		}
 	}
+
+
+	function get_my_dietitian_id_from_pass_id($pass_id){
+		$query = $this->db->query("SELECT dietitian_id FROM user_secret_key WHERE password_id = '$pass_id' ");
+
+		if($this->db->affected_rows() > 0){
+			return $query->row()->dietitian_id;
+		}
+	}
+
 
 	public function check_user_activation($username){
 		
@@ -457,6 +467,10 @@ class User_model extends CI_Model {
 		}
 		
 
+	}
+
+	public function increase_customer_number($dietitianId, $userEmail){
+		$query = $this->db->query("UPDATE  dietitian SET number_of_customers = number_of_customers + 1 WHERE dietitian_id = '$dietitianId' ");
 	}
 
 }

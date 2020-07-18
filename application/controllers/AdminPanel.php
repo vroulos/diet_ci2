@@ -44,21 +44,18 @@ class AdminPanel extends CI_controller
 		// load form helper and validation library
 		$this->load->helper('form');
 		$this->load->library('form_validation');
-		
-		// set validation rules
-		$this->form_validation->set_rules('username', 'Username', 'required');
-		$this->form_validation->set_rules('password', 'Password', 'required');
-		
-		if (!isset($_SESSION['username'])) {
+		if (!isset($_SESSION['username-admin'])) {
+			// set validation rules
+			$this->form_validation->set_rules('username', 'Username', 'required');
+			$this->form_validation->set_rules('password', 'Password', 'required');
+
 			if ($this->form_validation->run() == false) {
 				
 				// validation not ok, send validation errors to the view
 				$this->load->view('headerPanel');
 				$this->load->view('admin/admin_login');
 				$this->load->view('footer');
-			}
-
-			else {
+			}else {
 				
 				// set variables from the form
 				$username = $this->input->post('username');
@@ -130,6 +127,8 @@ class AdminPanel extends CI_controller
 			$this->load->view('headerPanel');
 			$this->load->view('admin/dietitian_info', $data);
 			$this->load->view('footer');
+		}else{
+			redirect('adminPanel/login','refresh');
 		}
 	}
 
