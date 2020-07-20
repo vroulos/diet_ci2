@@ -1,5 +1,5 @@
 
-<div id="choose_customer_view">
+<div id="table-responsive" style="margin: 7vw;">
 <table class="table">
 	<thead>
 		<th>Πελάτες</th>

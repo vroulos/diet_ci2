@@ -210,6 +210,12 @@ img:hover {
     margin-top: 50px;
   }
 
+  .toast{
+    position: absolute;
+    top: 70px;
+    right: 10px;
+  }
+
  @media all and (max-width: 360px){
   hr{
     margin-right: 5px;
@@ -262,7 +268,23 @@ img:hover {
    margin-top: 0px;
 }
 
+.toast{
+    position: relative;
+    top: 200px;
+    right: 0;
+  }
+
    }
+
+    @media all and (max-width: 500px){
+      .toast{
+    position: relative;
+    top: 10px;
+    right: 0;
+    
+  }
+    }
+
 
    @media all and (max-width: 860px){
   hr{

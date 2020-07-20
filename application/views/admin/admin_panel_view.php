@@ -1,6 +1,5 @@
- <div id="choose_customer_view">
-
- <table class="table">
+<div id="table-responsive" style="margin: 7vw; ">
+   <table class="table" >
     <thead>
       <th>Διαιτολόγος</th>
       <th>Αριθμός πελατών</th>
@@ -29,3 +28,6 @@
   </table>
 
 </div>
+
+
+

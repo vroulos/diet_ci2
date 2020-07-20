@@ -473,4 +473,33 @@ class User_model extends CI_Model {
 		$query = $this->db->query("UPDATE  dietitian SET number_of_customers = number_of_customers + 1 WHERE dietitian_id = '$dietitianId' ");
 	}
 
+	public function save_my_data($weight, $gender, $height, $age, $user_id){
+		
+		$query = $this->db->query("INSERT INTO user_personal_information (weight, height, gender, age, user_info_Id) VALUES ('$weight', '$height', '$gender', '$age', '$user_id')  ");
+
+		if($this->db->affected_rows() > 0){
+			return true;
+		}else{
+			echo "nooo my" .$user_id;
+		}
+	}
+
+	public function check_user_my_data($user_id){
+		$query = $this->db->query("SELECT * FROM user_personal_information WHERE user_info_id = '$user_id' ");
+
+		if($this->db->affected_rows() > 0){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
+	public function get_my_data($user_id){
+		$query = $this->db->query("SELECT * FROM user_personal_information WHERE user_info_id = '$user_id' ");
+
+		if($this->db->affected_rows() > 0){
+			return $query->row();
+		}
+	}
+
 }

@@ -72,6 +72,7 @@
 								</a>
 								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 									<a class="dropdown-item" href="<?php echo base_url('user/add_weight') ?>">προσθήκη προσωπικών δεδομένων<br> και εμφάνισή τους</a>
+									<a class="dropdown-item" href="<?=base_url('user/my_data');?>">Τα στοιχεία μου</a>
 									<div class="dropdown-divider"></div>
 									<a class="dropdown-item" href="<?php echo base_url('user/add_user_note'); ?>">προσωπικές σημειώσεις</a>
 									<a class="dropdown-item" href="<?=base_url('user/messages')?>">μηνύματα</a>
@@ -85,7 +86,14 @@
 							</li>
 							<li><a class="nav-link" href="<?=base_url('user/my_meals')?>">Γεύματα</a>
 							</li>
-							<li><a class="nav-link" href="<?= base_url('logout') ?>">Αποσύνδεση</a>
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<?php echo $_SESSION['username']; ?> 
+								</a>
+
+								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+									<a class="dropdown-item" href="<?= base_url('logout') ?>">Αποσύνδεση</a>
+								</div>
 							</li>
 						</ul>
 						<form class="form-inline my-2 my-lg-0" action="<?php echo base_url('user/search_food') ?>">
@@ -100,7 +108,14 @@
 						<?php endif; ?>
 					</div>
 				</nav>
-				<?php ?>
+
+		
+				
+		<!-- 		<script>
+					$(document).ready(function(){
+					  $('.toast').toast('show');
+					});
+				</script> -->
 				
 				<script>
 				//this script is for notification. It uses push.js repository.					

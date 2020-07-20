@@ -22,9 +22,9 @@ $user_id = $_SESSION['user_id']; ?>
 	
 </div> -->
 
-<div class="images" >
+<div class="images" style="margin: ">
 	
-	<?php   if(isset($map)){
+	<?php   if(isset($map) and $map != null){
 			$i = 0;
 		  		foreach ($map as $k) { 
 
@@ -35,6 +35,8 @@ $user_id = $_SESSION['user_id']; ?>
 					<button type="submit"  class="btn btn-dark" value="'.$k'." name="<?php echo $k; ?>" id="<?php echo $i; ?>" >delete</button>				
 	<?php 
 			$i++;}
+			}else{
+				echo "<p>Δεν έχεις προσθεσει ακόμη φωτογραφίες</p>";
 			}?> 
 	
 </div>

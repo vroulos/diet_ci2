@@ -31,8 +31,11 @@ class User extends CI_Controller {
 	
 	public function index() {
 		if (isset($_SESSION['username'])){
-			$data = new stdClass;
 			$user_id = $_SESSION['user_id'];
+			//chech if the user has inserted his personal information such as weight, gender, age etc.
+			$check_if_user_has_my_data = $this->user_model->check_user_my_data($user_id);
+			$data['data_is_inserted'] =  $check_if_user_has_my_data;
+			
 			//$notifications = $this->user_model->get_meal_notifiation($user_id);
 			$dietitianId = $this->user_model->get_my_dietitian_id($user_id);
 			$this->user_model->in_use_secret_key('9epf89wapf89ajf');
@@ -41,6 +44,8 @@ class User extends CI_Controller {
 			$this->load->view('header');
 			$this->load->view('user/login/login_success', $data);
 			$this->load->view('footer');
+		}else{
+			redirect('user/login','refresh');
 		}
 	}
 
@@ -199,6 +204,55 @@ class User extends CI_Controller {
 			$this->load->view('user/add_personal_data_view' , $data);
 			$this->load->view('footer', $data );
 		} else {
+			redirect('user/login','refresh');
+		}
+	}
+
+
+	public function my_data(){
+			// create the data object
+		$data = [];
+		
+		// load form helper and validation library
+		$this->load->helper('form');
+		$this->load->library('form_validation');
+		// set validation rules
+		$this->form_validation->set_rules('weight', 'Βάρος', 'required');
+		//$this->form_validation->set_rules('gender', 'Φύλο', 'required');
+		$this->form_validation->set_rules('height', 'Ύψος', 'required');
+		$this->form_validation->set_rules('age', 'Ηλικία', 'required');
+
+		if(isset($_SESSION['username'])){
+			$user_id = $this->session->userdata('user_id');
+			$check_if_user_has_my_data = $this->user_model->check_user_my_data($user_id);
+			$data['data_is_inserted'] =  $check_if_user_has_my_data;
+			$data['my_data'] = $this->user_model->get_my_data($user_id);
+			if($this->form_validation->run() == false){
+				// user login ok
+					$this->load->view('header');
+					$this->load->view('user/my_data_view', $data);
+					$this->load->view('footer');
+			}else{
+				$weight = $this->input->post('weight');
+				$gender = $this->input->post('gender');
+				$height = $this->input->post('height');
+				$age = $this->input->post('age');
+				
+
+				$is_my_data_inserted = $this->user_model->save_my_data($weight, $gender, $height, $age, $user_id);
+				if($is_my_data_inserted){
+					$data['my_data'] =  array('weight' => $weight,
+												'gender' => $gender,
+												'height' => $height,
+												'age' => $age );
+				}
+
+				// user login ok
+					$this->load->view('header');
+					$this->load->view('user/my_data_view', $data);
+					$this->load->view('footer');
+			}
+		}else{
 			redirect('user/login','refresh');
 		}
 	}
@@ -642,8 +696,6 @@ class User extends CI_Controller {
 	 */
 	public function login() {
 		
-		// create the data object
-		$data = new stdClass();
 		
 		// load form helper and validation library
 		$this->load->helper('form');
@@ -676,6 +728,10 @@ class User extends CI_Controller {
 					
 					$user_id = $this->user_model->get_user_id_from_username($username);
 					$user    = $this->user_model->get_user($user_id);
+
+					//chech if the user has inserted his personal information such as weight, gender, age etc.
+					$check_if_user_has_my_data = $this->user_model->check_user_my_data($user_id);
+					$data['data_is_inserted'] =  $check_if_user_has_my_data;
 
 					// set session user datas
 					$_SESSION['user_id']      = (int)$user->id;
