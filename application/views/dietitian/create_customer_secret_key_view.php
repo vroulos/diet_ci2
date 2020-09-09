@@ -15,13 +15,14 @@
 
   <?php echo validation_errors(); ?>
   <hr>
-  <P>Προσθέτεις τον κωδικό . Μετά ο πελάτης τον λαμβάνει μέσω email. </P>
+  <P>Προσθέτεις τον κωδικό . Στην συνέχεια αποστέλλεις τον κωδικό στον πελάτης ώστε να μπορεί να ολοκληρώσει την εγγραφή. </P>
   <table class="table col-sm-4">
     <thead>
       <tr>
         <th scope="col">#</th>
         <th scope="col">Κωδικός ταυτοποίσης</th>   
-        <th scope="col">email πελάτη</th>  
+        <th scope="col">email πελάτη</th>
+        <th scope="col">Κατάσταση πελάτη</th>  
       </tr>
   </thead>
   <tbody>
@@ -31,6 +32,7 @@
          <th scope="row"><?php echo $row->id; ?></th>
          <td><?php echo $row->password_id ?></td>
          <td><?php echo $row->user_email; ?></td>
+         <td><?php echo ($row->in_use == 1 ? "Εγγεγραμμένος": "Αναμονή για εγγραφή"); ?></td>
      </tr>
    <?php } } ?>
   </tbody>

@@ -10,12 +10,9 @@ $(document).ready(function() {
 		$(".feedback").find("#editText").click(function(event) {
 			$(this).next().toggle();
 		});
-
-
 		$(".feedback").find("#heart").click(function(event) {
 			var $value = $(this).parent().find("#heart").attr("value");
 			alert($value);
-
 			$.ajax({
 				url: '<?php echo base_url('user/food_feedback') ?>',
 				type: 'POST',
@@ -29,9 +26,7 @@ $(document).ready(function() {
 						$("#success-alert").hide(); 
 					}, 1000);
 				}
-
 			})
-			
 		});
 
 		$(".feedback").find("#thumbsDown").click(function(event) {
@@ -88,7 +83,7 @@ $(document).ready(function() {
 
 </script>
 
-<div class="container" style="margin-top: 90px">
+<div class="container" style="margin-top: 90px; max-width: 90vw;">
 	<div class="alert alert-success" id="success-alert" style="display:none"> Η αξιολόγηση στάλθηκε επιτυχώς</div>
 	<div class="alert alert-success" id="success-feedback" style="display:none"> Η αξιολόγηση στάλθηκε επιτυχώς</div>
 	<div class="row">
@@ -198,7 +193,7 @@ $(document).ready(function() {
 						if ($rs->day == $day && $rs->hour == $hour) {
 							
 							echo '<div class= "row" id="mealInProgram">';
-								echo '<div id="meal">';
+								echo '<div id="meal" >';
 									echo $rs->food;
 								echo '</div>';
 								if (isset($_SESSION['username'])) {
@@ -261,14 +256,14 @@ $(document).ready(function() {
 	</tbody>
 </table>
 </div>
-<p>
+<!-- <p>
   <a class="btn btn-info" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample" style="margin: 50px;">
     Επιπρόσθετες πληροφορίες
   </a>
   <button class="btn btn-primary" type="button"  data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample" style="display: none;">
     Button with data-target
   </button>
-</p>
+</p> -->
 <div class="collapse" id="collapseExample">
   <div class="card card-body">
    Το πρόγραμμα διατροφής του περιλαμβάνει 

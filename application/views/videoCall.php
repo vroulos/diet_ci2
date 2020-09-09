@@ -42,21 +42,17 @@
 
 <script src="https://meet.jit.si/external_api.js"></script>
         <script>
-        	//var roomName = "ikaria"
         	function stopVideoCall(){
-        		//api.executeCommand('toggleShareScreen');
-				location.reload();
+				    location.reload();
         	}
 
         	function setRoomName() {
-  			roomName = document.getElementById("submitCall").value;
- 			 console.log(roomName);
-			}
-
-        	function startVideoCall(){
-        		roomName = document.getElementById("startCall").value;
- 			 	console.log(roomName);
-        		var domain = "meet.jit.si";
+  			    roomName = document.getElementById("submitCall").value;
+			     }
+        	 function startVideoCall(){
+        		  roomName = document.getElementById("startCall").value;
+ 			 	      console.log(roomName);
+        		  var domain = "meet.jit.si";
 	            var options = {
 	                roomName: roomName,
 	                width: window.screen.width ,
@@ -66,12 +62,7 @@
 	                interfaceConfigOverwrite: {
 	                    filmStripOnly: false
 	                }
-	                //interfaceConfigOverwrit
 	            }
 	            var api = new JitsiMeetExternalAPI(domain, options);
         	}
-            
-            //api.executeCommand('toggleTileView');
-
-           
         </script>

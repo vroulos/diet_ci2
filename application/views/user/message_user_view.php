@@ -65,7 +65,12 @@
 
 </div>
 <?php }else{
-  echo "you have not messages yet";
+  echo '<div class="jumbotron jumbotron-fluid">';
+  echo '<div class="container">';
+    echo "<h3 class='display-4'>Δεν έχεις μηνύματα</h3>";
+    echo "<p class='lead'>Θα επικοινωνήσει ο διαιτολογος μαζί σας και μετά θα μπορείτε να στείλετε</p>";
+  echo "</div>";
+echo "</div>";
 } ?>
 
 <!-- <script type="text/javascript">

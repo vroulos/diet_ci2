@@ -502,4 +502,17 @@ class User_model extends CI_Model {
 		}
 	}
 
+
+	public function set_user_registration_is_true($user_email){
+		//echo "user_model/ $user_id :". $user_id;
+		$query = $this->db->query("UPDATE user_secret_key SET in_use = 1 WHERE user_email = '$user_email' ");
+
+		if($this->db->affected_rows() > 0){
+			return true;
+		}else{
+			return false;
+		}
+
+	}
+
 }

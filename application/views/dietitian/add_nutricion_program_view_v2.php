@@ -1,13 +1,13 @@
 
 <?php 
-var_dump($my_meals[0]->foodname);
+//var_dump($my_meals[0]->foodname);
 //var_dump();
 $my_meals = (array) $my_meals;
 //var_dump($my_meals);
 foreach ($my_meals as $meal) {
 	$myArray[] = $meal->foodname;
 }
-var_dump(json_encode($myArray));
+//var_dump(json_encode($myArray));
 echo form_open('dietitians/add_nutricion_program_v2'); ?>
 <div class="container-fluid" style=" margin-top: 30px">
 	<div class="row">
@@ -71,7 +71,7 @@ echo form_open('dietitians/add_nutricion_program_v2'); ?>
 				</div>
 				<div class="form-group">
 					<label for="item">Γεύμα</label>
-					<input type="text" name="food" class="form-control" placeholder="φαγητό" id="meal">
+					<input type="text" name="food" class="form-control" autocomplete="off" placeholder="φαγητό" id="meal">
 				</div>
 
 				

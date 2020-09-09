@@ -5,7 +5,7 @@
 		<?php echo form_open('User/add_weight'); ?>
 		<div class="form-group" >
 			<label for="water">Προσθήκη βάρους</label>
-			<input type="number" class="form-control" name="weight" id="1"  placeholder="κενό">
+			<input type="number" min="0" class="form-control" name="weight" id="1"  placeholder="κενό">
 		</div>
 		<input type="submit" name="addWeight" value="Υποβολή" class="btn btn-secondary" style=" margin-bottom: 10px">
 
@@ -24,9 +24,9 @@
 		<?php echo form_open('User/add_percent_fat'); ?>
 		<div class="form-group" >
 			<label for="water">Ποστοστό λίπους</label>
-			<input type="number" class="form-control" name="fat" id="1"  placeholder="%">
+			<input type="number" min="0" class="form-control" name="fat" id="1"  placeholder="%">
 
-			<input type="submit" name="addFat" value="Υποβολή" class="btn btn-secondary">
+			<input type="submit" name="addFat" value="Υποβολή" class="btn btn-secondary" style=" margin-top:  10px">
 			<form action="<?php echo base_url('user/add_percent_fat') ?>" method = "post">
 				<input type="submit" name="fatHistory" class="btn btn-primary" value="ιστορικό ποσοστού λίπους" style="margin-top: 20px" />
 			</form>	
@@ -38,7 +38,7 @@
 		<?php echo form_open('User/add_waistline'); ?>
 		<div class="form-group">
 			<label for="water">Περιφέρεια μέσης</label>
-			<input type="number" class="form-control" name="waistline" id="cm"  placeholder="cm">
+			<input type="number" min="0" class="form-control" name="waistline" id="cm"  placeholder="cm">
 			<input type="submit" name="addWaistline" value="Υποβολή" class="btn btn-secondary" style="margin-top: 10px; margin-bottom: 10px">
 			<?php echo form_close(); ?>
 
@@ -60,7 +60,7 @@
 	</div>
 	
 
-		<?php if(isset($weight_history)){ //if the $weight_history is set then run the chart ?>
+		<?php if(isset($weight_history) and $weight_history != null){ //if the $weight_history is set then run the chart ?>
 			<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 			<script type="text/javascript">
 				google.charts.load('current', {'packages':['corechart']});
@@ -102,7 +102,7 @@
 
 
 	
-			<?php if(isset($fatPercentageHistory)){ //if the $weight_history is set then run the chart ?>
+			<?php if(isset($fatPercentageHistory) and $fatPercentageHistory != null){ //if the $weight_history is set then run the chart ?>
 
 
 				<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -144,7 +144,7 @@
 			<div id="chart_div">
 			</div>
 
-			<?php if(isset($waistlineValues)){ //if the $weight_history is set then run the chart ?>
+			<?php if(isset($waistlineValues) and $waistlineValues != null){ //if the $weight_history is set then run the chart ?>
 				<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 				<script type="text/javascript">
 					google.charts.load('current', {'packages':['corechart']});

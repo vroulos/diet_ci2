@@ -20,4 +20,6 @@ If you select customer from index page you must also login . You can browse in t
 
 <img src = "assets/images/userWeight.png" width = "800">
 
+You can visit app here: http://mywebapp.epizy.com/diet_ci2/mywebapp/first
+
 There is also an app for android phone to use if you want (mynutricion)

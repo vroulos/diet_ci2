@@ -115,22 +115,35 @@ img:hover {
 
   #user_answer{
     display: block;
+    /*position: fixed;*/
     background-color: #428bca;
-    margin-bottom: 15px;
-    margin-top: 15px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    margin-right: 5px;
     display: inline-flex;
-    float: right;
-  
+    max-width: 500px;
+    /*float: right;*/
+      
 }
 
    #dietitian_answer{
     display: block;
     background-color: grey;
-    margin-bottom: 15px;
-    margin-top: 15px;
+    margin-bottom: 5px;
+    margin-top: 5px;
     display: inline-flex;
-    float: left;
+    margin-left: 500px;
+    
+  }
 
+  #mealInProgram{
+    max-width: 250px;
+    margin-left: 10px;
+  }
+
+  #foodInTemplate{
+     max-width: 250px;
+    margin-left: 10px;
   }
 
   .form-group{
@@ -216,6 +229,15 @@ img:hover {
     right: 10px;
   }
 
+   @media all and (max-width: 1400px){
+
+      #card_send_message_dietitian{
+      margin-bottom: 50px; 
+      text-decoration: underline;
+      width: 80vw;
+      }
+   }
+
  @media all and (max-width: 360px){
   hr{
     margin-right: 5px;
@@ -281,6 +303,24 @@ img:hover {
     position: relative;
     top: 10px;
     right: 0;
+  }
+
+     #card_send_message_dietitian{
+      margin-bottom: 50px; 
+      text-decoration: underline;
+      width: 90vw;
+      }
+
+    #user_answer{
+   /**/
+    max-width: 100px;
+    /*float: right;*/
+      
+}
+
+   #dietitian_answer{
+   
+    margin-left: 100px;
     
   }
     }
@@ -311,5 +351,25 @@ img:hover {
 
 }
 
+   #card_send_message_dietitian{
+      margin-bottom: 5px; 
+      text-decoration: underline;
+      width: 90vw;
+
+
 
    }
+
+    #user_answer{
+   /**/
+    max-width: 300px;
+    /*float: right;*/
+      
+}
+
+   #dietitian_answer{
+   
+    margin-left: 300px;
+    
+  }
+ }

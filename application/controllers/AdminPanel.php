@@ -31,6 +31,8 @@ class AdminPanel extends CI_controller
 	// 	$this->load->view('headerPanel', $data);
 	// 	$this->load->view('admin/admin_login', $data);
 	// 	$this->load->view('footer');
+
+	
 			public function login() {
 	// }
 
@@ -62,11 +64,11 @@ class AdminPanel extends CI_controller
 				$password = $this->input->post('password');
 
 
-				$resolve_user_login = $this->admin_model->resolve_admin_login($username, $password);
+				$resolve_admin_login = $this->admin_model->resolve_admin_login($username, $password);
 				// $is_deactivated = $this->user_model->check_user_activation($username);
 
 				// if ($resolve_user_login and $is_deactivated == 0) {
-					
+					if($resolve_admin_login){
 					$admin_id = $this->admin_model->get_admin_id_from_username($username);
 					$admin    = $this->admin_model->get_admin($admin_id);
 
@@ -81,7 +83,13 @@ class AdminPanel extends CI_controller
 					redirect('adminPanel/admin_panel','refresh');
 					//redirect to index function 
 					//redirect('user/index' , 'refresh');
-					
+					}else{
+						$data->error = 'Λάθος κωδικός ή όνομα χρήστη.';
+
+						$this->load->view('headerPanel');
+						$this->load->view('admin/admin_login', $data);
+						$this->load->view('footer');
+					}
 				// } else {
 					
 				// 	// login failed
