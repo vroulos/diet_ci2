@@ -36,6 +36,16 @@
 			<li><a href="<?= base_url('user/login') ?>">Είσοδος Χρήστη</a></li>
 			<li><a href="<?= base_url('dietitians/logind') ?>">Είσοδος Διαιτολόγου</a></li>
 		</ul>
+		<div class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown09" data-toggle="dropdown"
+				aria-haspopup="true" aria-expanded="false"><span class="flag-icon flag-icon-us"> </span>
+			English</a>
+			<div class="dropdown-menu" aria-labelledby="dropdown09">
+				<a class="dropdown-item" href="#fr"><span class="flag-icon flag-icon-fr"> </span> French</a>
+				<a class="dropdown-item" href="#it"><span class="flag-icon flag-icon-it"> </span> Italian</a>
+				<a class="dropdown-item" href="#ru"><span class="flag-icon flag-icon-ru"> </span> Russian</a>
+			</div>
+		</div>
 	</div>
 
 	<div class="row" style="width: 100vw;">

@@ -259,6 +259,16 @@ class User extends CI_Controller {
 		}
 	}
 
+	public function myCalendar(){
+		$data = [];
+		if(isset($_SESSION['username'])){
+			$this->load->view('header', $data);
+			$this->load->view('user/calendar_view', $data);
+			$this->load->view('footer', $data );
+		}else{
+		}
+	}
+
 
 	//prosthetei kai emfanizei to pososto lipous
 	public function add_percent_fat(){
@@ -453,6 +463,7 @@ class User extends CI_Controller {
 
 				$this->load->view('header');
 				$this->load->view('user/message_user_view' , $data);
+				$this->load->view('user/chat_app_view' , $data);
 				$this->load->view('footer', $data );
 			}else{
 				$data = null;

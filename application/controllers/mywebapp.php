@@ -20,6 +20,16 @@ class mywebapp extends CI_Controller
 		$this->load->view('footer', $data);
 
 	}
+
+		public function firstEng(){
+		$data = NULL;
+		$this->load->view('headerAppEng', $data);
+		$this->load->view('mywebapp_view_eng');
+		$this->load->view('footer_eng', $data);
+
+	}
+
+
 }
 
 

@@ -3,6 +3,8 @@
 <head>
   <title>MyWebApp</title>
   <link rel="icon"  href="<?php echo base_url('assets/images/favicon.png'); ?>">
+   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+        crossorigin="anonymous">
   <!-- load the jquery from cdn because the toggle navigation was not working -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
   <!-- load local bootstrap css -->
@@ -33,6 +35,23 @@
             </div>
           </li>
         </ul>
+     
+       
+          
         
       </div>
+           
+        <div class="nav-item dropdown">
+          <ul>
+                <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown09" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false"><span class="flag-icon flag-icon-us"> </span>
+                    Γλώσσα</a>
+                <div class="dropdown-menu" aria-labelledby="dropdown09">
+                    <a class="dropdown-item" href="<?= base_url('mywebapp/first') ?>"><span class=".fa-flag-o"> </span>Ελληνικά</a>
+                     <a class="dropdown-item" href="<?= base_url('mywebapp/firstEng') ?>"><span class=".fa-flag-o"> </span>English</a>
+                </div>
+                   </ul>
+            </div>
+
+     
     </nav>

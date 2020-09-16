@@ -129,7 +129,7 @@ If you’re not using CodeIgniter 2.0 yet and don’t plan on doing so for a whi
 </body>
 <footer class="footer bg-dark" style="float: left">
   <div class="container">
-    <span class="text-muted">Διπλωματική εργασία</span>
+    <span class="text-muted">Vroulos Michail &copy; 2019-<?php echo date("Y"); ?></span>
   </div>
   
 
