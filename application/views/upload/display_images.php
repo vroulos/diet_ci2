@@ -22,20 +22,61 @@ $user_id = $_SESSION['user_id']; ?>
 	
 </div> -->
 
-<div class="images" >
+<div class="images" style="margin: ">
 	
-	<?php   if(isset($map)){
+	<?php   if(isset($map) and $map != null){
 			$i = 0;
 		  		foreach ($map as $k) { 
 
 		  			?>
 
 					<img class="col-md-4 col-sm-4 col-xs-6" class="img-responsive" src="<?php echo base_url($dir.'/'.$k);?>" id = "<?php echo $i ?>">
-					
-					<button type="submit"  class="btn btn-dark" value="'.$k'." name="<?php echo $k; ?>" id="<?php echo $i; ?>" >delete</button>				
+				<!-- 	<script>
+						$("#<?php echo $i ?>").on("click", function() {
+						   $('#imagepreview').attr('src', $('#imageresource').attr('src')); // here asign the image to the modal when the user click the enlarge link
+						   $('#<?php echo "imagemodal".$i; ?>').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
+						});	 
+					</script> -->
+					<button type="submit"  class="btn btn-dark" value="'.$k'." name="<?php echo $k; ?>" id="<?php echo $i; ?>" >delete</button>	
+
+						<!-- Creates the bootstrap modal where the image will appear -->
+	<!-- 				<div class="modal fade" id="<?php echo "imagemodal".$i; ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					  <div class="modal-dialog">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+					        <h4 class="modal-title" id="myModalLabel">Image preview</h4>
+					      </div>
+					      <div class="modal-body">
+					        <img src="<?php echo base_url($dir.'/'.$k);?>" id="imagepreview" style="width: 400px; height: 264px;" >
+					      </div>
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					      </div>
+					    </div>
+					  </div>
+					</div>	 -->			
 	<?php 
 			$i++;}
 			}?> 
+
+	<!-- Creates the bootstrap modal where the image will appear -->
+	<div class="modal fade" id="imagemodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+	        <h4 class="modal-title" id="myModalLabel">Image preview</h4>
+	      </div>
+	      <div class="modal-body">
+	        <img src="" id="imagepreview" style="width: 400px; height: 264px;" >
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>		
 	
 </div>
 
@@ -116,6 +157,8 @@ $user_id = $_SESSION['user_id']; ?>
 	}
 });
 	 
+
+
 
 </script>
 

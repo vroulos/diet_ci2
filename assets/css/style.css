@@ -116,22 +116,35 @@ img:hover {
 
   #user_answer{
     display: block;
+    /*position: fixed;*/
     background-color: #428bca;
-    margin-bottom: 15px;
-    margin-top: 15px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    margin-right: 5px;
     display: inline-flex;
-    float: right;
-  
+    max-width: 500px;
+    /*float: right;*/
+      
 }
 
    #dietitian_answer{
     display: block;
     background-color: grey;
-    margin-bottom: 15px;
-    margin-top: 15px;
+    margin-bottom: 5px;
+    margin-top: 5px;
     display: inline-flex;
-    float: left;
+    margin-left: 500px;
+    
+  }
 
+  #mealInProgram{
+    max-width: 250px;
+    margin-left: 10px;
+  }
+
+  #foodInTemplate{
+     max-width: 250px;
+    margin-left: 10px;
   }
 
   .form-group{
@@ -174,6 +187,58 @@ img:hover {
     height: 500px;
   }
 
+  .text-left, .font-weight-bold{
+    width: 70vw;
+    margin-left: 100px;
+  }
+  #grey-div-mywebapp{
+    background-color: #f0f0f0;
+    height: 300px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+  }
+
+  .bg{
+    background-image:url('http://localhost/diet_ci2/assets/images/nutricion1.jpg');
+    background-position:center;
+    background-size:cover;
+    width: 100vw;
+    height: 600px;
+
+    
+  }
+
+  #image_text{
+    font-weight: bold; font-size: 50px; color: white;
+     text-shadow: 2px 2px black;
+    font-family: 'Montserrat', sans-serif;
+     margin-top: 100px;
+     letter-spacing: 0px;
+  }
+
+  #index_text{
+    margin-left: 20vw
+  }
+
+  #food_for_all{
+    margin-top: 50px;
+  }
+
+  .toast{
+    position: absolute;
+    top: 70px;
+    right: 10px;
+  }
+
+   @media all and (max-width: 1400px){
+
+      #card_send_message_dietitian{
+      margin-bottom: 50px; 
+      text-decoration: underline;
+      width: 80vw;
+      }
+   }
+
  @media all and (max-width: 360px){
   hr{
     margin-right: 5px;
@@ -215,4 +280,97 @@ img:hover {
     
   }
 
+  .text-left, .font-weight-bold{
+    width: 90vw;
+    margin-left: 0px;
+  }
+  #image_text{
+  font-size: 40px;
+   text-shadow: 2px 2px black;
+   font-family: 'Montserrat', sans-serif;
+   margin-top: 0px;
+}
+
+.toast{
+    position: relative;
+    top: 200px;
+    right: 0;
+  }
+
    }
+
+    @media all and (max-width: 500px){
+      .toast{
+    position: relative;
+    top: 10px;
+    right: 0;
+  }
+
+     #card_send_message_dietitian{
+      margin-bottom: 50px; 
+      text-decoration: underline;
+      width: 90vw;
+      }
+
+    #user_answer{
+   /**/
+    max-width: 100px;
+    /*float: right;*/
+      
+}
+
+   #dietitian_answer{
+   
+    margin-left: 100px;
+    
+  }
+    }
+
+
+   @media all and (max-width: 860px){
+  hr{
+    margin-right: 5px;
+  }
+  .text-left, .font-weight-bold{
+    width: 80vw;
+    margin: 4vw;
+  }
+#grey-div-mywebapp{
+    height: 500px;
+  }
+
+#image_text{
+  font-size: 40px;
+   text-shadow: 2px 2px black;
+   font-family: 'Roboto', sans-serif;
+   margin-top: 0px;
+   letter-spacing: 0px;
+}
+
+.bg{
+  height: 400px;
+
+}
+
+   #card_send_message_dietitian{
+      margin-bottom: 5px; 
+      text-decoration: underline;
+      width: 90vw;
+
+
+
+   }
+
+    #user_answer{
+   /**/
+    max-width: 300px;
+    /*float: right;*/
+      
+}
+
+   #dietitian_answer{
+   
+    margin-left: 300px;
+    
+  }
+ }

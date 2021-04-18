@@ -2,6 +2,13 @@
 		<p class="lead"><?php echo $row->message; ?></p>
 <?php } ?> -->
 
+<?php 
+  // $chatNodejs = "index.js";
+  // exec('/c/development/nodejs/'.$chatNodejs);
+  // echo $chatNodejs;
+  //exec("\"C:/development/nodejs/index.js\"");
+ ?>
+
 <?php if(isset($messages)){ ?>
 <div class="container-fluid">
 	<?php foreach ($messages as $row) { ?>
@@ -65,8 +72,32 @@
 
 </div>
 <?php }else{
-  echo "you have not messages yet";
+  echo '<div class="jumbotron jumbotron-fluid">';
+  echo '<div class="container">';
+    echo "<h3 class='display-4'>Δεν έχεις μηνύματα</h3>";
+    echo "<p class='lead'>Θα επικοινωνήσει ο διαιτολογος μαζί σας και μετά θα μπορείτε να στείλετε</p>";
+  echo "</div>";
+echo "</div>";
 } ?>
+
+<script type="text/javascript">
+    var conn = new WebSocket('ws://localhost:8080', 'echo-protocol');
+    console.log(conn);
+    conn.onopen = function(e) {
+    console.log("Connection established!");
+    alert("connection established");
+  };
+
+    conn.onmessage = function(e) {
+    console.log(e.data);
+ };
+
+
+</script>
+<script type="text/javascript">
+  conn.send("my first message");
+</script>
+
 
 <!-- <script type="text/javascript">
 

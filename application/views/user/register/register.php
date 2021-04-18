@@ -40,6 +40,7 @@
 				</div>
 				<div class="form-group">
 					<input type="password" class="form-control" id="password" name="password_identity" placeholder="ταυτοποίση ">
+					<i id="myModal" class="fa fa-question-circle-o" ></i>
 				</div>
 				<div class="form-group">
 					<input type="submit" class="btn btn-warning" value="Εγγραφή" style="margin-top: 10px">
@@ -87,4 +88,13 @@
 				);
 		});
 	});
+</script>
+
+<script>
+
+new jBox('Modal', {
+  attach: '#myModal',
+  content: 'Ο κωδικός ταυτοποίσης είναι μοναδικός και δίνεται από τον διαιτολόγο',
+  animation: 'flip'
+});
 </script>

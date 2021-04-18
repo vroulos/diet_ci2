@@ -163,8 +163,7 @@ class Dietitian_model extends CI_Model
 
 
 	public function get_templates($dietitian_id){
-
-		$query = $this->db->query("SELECT template_name FROM templates GROUP BY template_name");
+		$query = $this->db->query("SELECT template_name FROM templates WHERE dietitian_id = '$dietitian_id' GROUP BY template_name  ");
 		
 		if ($this->db->affected_rows() > 0 ) {
 			return $query->result();

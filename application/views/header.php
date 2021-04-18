@@ -34,11 +34,12 @@
 <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
 
 <script
-src="https://code.jquery.com/jquery-3.4.1.js"
-integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-crossorigin="anonymous">
-
+			  src="https://code.jquery.com/jquery-3.5.1.js"
+			  integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+			  crossorigin="anonymous">			  	
 </script>
+<script src="https://cdn.jsdelivr.net/gh/StephanWagner/jBox@v1.2.0/dist/jBox.all.min.js"></script>
+<link href="https://cdn.jsdelivr.net/gh/StephanWagner/jBox@v1.2.0/dist/jBox.all.min.css" rel="stylesheet">
 
 <link href="<?php echo base_url('assets/bootstrap/css/bootstrap.min.css'); ?>" rel="stylesheet">
 <link href="<?php echo base_url('assets/bootstrap/css/bootstrap.css'); ?>" rel="stylesheet">
@@ -50,7 +51,7 @@ crossorigin="anonymous">
 	<header id="site-header">
 		<!-- <nav class="navbar navbar-expand-lg navbar-light bg-light"> -->
 			<nav class="navbar navbar-fixed-top navbar-expand-md navbar-dark bg-dark">
-				<a class="navbar-brand" href="#">DietCi2</a>
+				<a class="navbar-brand" href="#">nutricio</a>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
@@ -71,9 +72,11 @@ crossorigin="anonymous">
 								</a>
 								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 									<a class="dropdown-item" href="<?php echo base_url('user/add_weight') ?>">προσθήκη προσωπικών δεδομένων<br> και εμφάνισή τους</a>
+									<a class="dropdown-item" href="<?=base_url('user/my_data');?>">Τα στοιχεία μου</a>
 									<div class="dropdown-divider"></div>
 									<a class="dropdown-item" href="<?php echo base_url('user/add_user_note'); ?>">προσωπικές σημειώσεις</a>
 									<a class="dropdown-item" href="<?=base_url('user/messages')?>">μηνύματα</a>
+									<a class="dropdown-item" href="<?=base_url('user/myCalendar')?>">Ημερολόγιο</a>
 									<a class="dropdown-item" href="<?= base_url('user/video_user_call')  ?>">Video κλήση</a>
 									<div class="dropdown-divider"></div>
 									<a class="dropdown-item" href="<?php echo base_url('upload/'); ?>">Ανέβασμα Φωτογραφίας</a>
@@ -84,7 +87,14 @@ crossorigin="anonymous">
 							</li>
 							<li><a class="nav-link" href="<?=base_url('user/my_meals')?>">Γεύματα</a>
 							</li>
-							<li><a class="nav-link" href="<?= base_url('logout') ?>">Αποσύνδεση</a>
+							<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<?php echo $_SESSION['username']; ?> 
+								</a>
+
+								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+									<a class="dropdown-item" href="<?= base_url('logout') ?>">Αποσύνδεση</a>
+								</div>
 							</li>
 						</ul>
 						<form class="form-inline my-2 my-lg-0" action="<?php echo base_url('user/search_food') ?>">
@@ -93,12 +103,20 @@ crossorigin="anonymous">
 						</form>
 						<?php else : ?>
 							<li ><a class="nav-link" href="<?= base_url('mywebapp/first') ?>">Αρχική</a></li>
-							<li><a class="nav-link" href="<?= base_url('user/indexCaptcha') ?>">Εγγραφή</a></li>
+							<!-- <li><a class="nav-link" href="<?= base_url('user/indexCaptcha') ?>">Εγγραφή</a></li> -->
+							<li><a class="nav-link" href="<?= base_url('user/register') ?>">Εγγραφή</a></li>
 							<li><a class="nav-link" href="<?= base_url('login') ?>">Σύνδεση</a></li>
 						<?php endif; ?>
 					</div>
 				</nav>
-				<?php ?>
+
+		
+				
+		<!-- 		<script>
+					$(document).ready(function(){
+					  $('.toast').toast('show');
+					});
+				</script> -->
 				
 				<script>
 				//this script is for notification. It uses push.js repository.					

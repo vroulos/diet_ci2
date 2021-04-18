@@ -42,7 +42,7 @@
 
 	<!-- <nav class="navbar navbar-expand-xl navbar-light bg-light"> -->
 		<nav class="navbar navbar-fixed-top navbar-expand-md navbar-dark bg-dark " >
-		<a class="navbar-brand" href="<?= base_url('dietitians/initial'); ?>">DietCi2</a>
+		<a class="navbar-brand" href="<?= base_url('dietitians/initial'); ?>">nutricio</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="navbar-toggler-icon"></span>
 		</button>
@@ -93,7 +93,7 @@
 				</li>
 
 					</div>
-				</li>
+				<!-- </li> -->
 				<?php } ?>
 			
 				
@@ -101,13 +101,26 @@
 			
 			<!-- if the dietitian has logged in -->
 			<?php if (isset($_SESSION['dietitian_name'])) { ?>
-				<li class="nav-item">
-					<a class="nav-link disabled" href="<?= base_url('dietitians/settings') ?>">Προφίλ</a>
+			<!-- 	<li class="nav-item">
+					<a class="nav-link " href="<?= base_url('dietitians/settings') ?>">Προφίλ</a>
 				</li>
 				
 					<li class="nav-item">
-					<a class="nav-link disabled" href="<?= base_url('dietitians/logoutd') ?>">Αποσύνδεση</a>
-				</li>
+					<a class="nav-link " href="<?= base_url('dietitians/logoutd') ?>">Αποσύνδεση</a>
+				</li> -->
+
+					<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<?php echo $_SESSION['dietitian_name']; ?> 
+								</a>
+
+
+								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+									<a class="dropdown-item " href="<?= base_url('dietitians/settings') ?>">Προφίλ</a>
+									<a class="dropdown-item" href="<?= base_url('dietitians/logoutd') ?>">Αποσύνδεση</a>
+								</div>
+							</li>
+						</ul>
 
 			<?php } ?>
 			

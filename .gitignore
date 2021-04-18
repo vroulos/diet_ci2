@@ -31,3 +31,4 @@ captcha_images/
 /tests/results/
 .*
 !/.gitignore
+/diet_ci2/application/config/database.php

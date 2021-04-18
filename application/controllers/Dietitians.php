@@ -132,8 +132,9 @@ if (isset($_SESSION['dietitian_name']) AND isset($_SESSION['customer_name'])) {
 	$data['templates'] = $this->dietitian_model->get_templates($duser_id);
 
 	$data['program'] = $this->user_model->get_nutricion_program_v2($week, $name , $user_id);
-
-
+	//get the meals from food table to pass the them for auto complete
+	$data['my_meals'] = $this->dietitian_model->get_my_meals();
+	
 	//if the dietitian add a meal with pushing the button
 	if ($_SERVER['REQUEST_METHOD'] == 'POST' AND isset($_POST['submit_program']) ){
 

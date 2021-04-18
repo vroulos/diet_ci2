@@ -8,7 +8,7 @@
     <textarea class="form-control" name="send_message" id="sendMessageId" rows="3" ></textarea>
   </div>
   	<!-- <button type="submit" class="btn btn-primary">Αποστολή</button> -->
-  <?php echo form_submit('send', 'Αποστολή', "class = 'btn btn-dark' "); 
+  <?php echo form_submit('send', 'Δημιουργία συζήτησης', "class = 'btn btn-dark' "); 
 
 $error = $this->session->flashdata('error');
 $success = $this->session->flashdata('success');
@@ -60,13 +60,15 @@ $success = $this->session->flashdata('success');
         		
         
         if ($row2->who_send_it  == 'dietitian') {
+          //echo "<div >";
         		echo "<div class='card' id = 'dietitian_answer'>"; 
-        		echo "<p class='card-text'>". $row2->answer; "</p>";
+        		echo "<p class='card-text' >". $row2->answer; "</p>";
         		echo '</div><br>';
         	}elseif ($row2->who_send_it  == 'user') {
         		echo "<div class='card' id = 'user_answer'>"; 
-        		echo "<p class='card-text'>". $row2->answer; "</p>";
+        		echo "<p class='card-text' >". $row2->answer; "</p>";
         		echo '</div><br>';
+            //echo "</div>";
         	}	
          ?>
        
@@ -81,7 +83,7 @@ $success = $this->session->flashdata('success');
           	
            
           </div>
-          <input type="submit" style=" max-width: 100%;" name="delete_message" class="btn btn-primary" value="διαγραφή μηνύματος" >
+          <input type="submit" style=" max-width: 100%;" name="delete_message" class="btn btn-primary" value="διαγραφή συζήτησης" >
         <?php echo form_close(); ?>
         
       </div>
@@ -96,7 +98,7 @@ $success = $this->session->flashdata('success');
 
 </div>
 <?php }else{
-  echo "Δεν έχεις στείλει ακόμη μήνυμα";
+  //echo "Δεν έχεις στείλει ακόμη μήνυμα";
 } ?>
 
 

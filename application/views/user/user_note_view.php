@@ -6,7 +6,7 @@
       <script>
         $(document).ready(function() {
           $('#change').submit(function() {
-            alert("deleted");
+            //alert("deleted");
             var id = $('#message').val();
             $.ajax({
               type:'POST',
@@ -41,7 +41,7 @@
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">Σημείωση</h5>
-            <p class="card-text"><?php echo $row->note; //echo $row->id ?><br>ημερομηνία : <?php echo $row->date_inserted; ?></p>
+            <p class="card-text"><?php echo $row->note; //echo $row->id ?><br><?php echo $row->date_inserted; ?></p>
             <form action=" <?php echo base_url('user/delete_note') ?>" method="post" id="change">
               <input type="hidden" id  = "message" name="note_to_delete" value="<?php echo $row->id ?>">
               <input id = "aButton" type="submit" name="note" class="btn btn-primary" value="διαγραφή" >

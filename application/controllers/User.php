@@ -31,8 +31,11 @@ class User extends CI_Controller {
 	
 	public function index() {
 		if (isset($_SESSION['username'])){
-			$data = new stdClass;
 			$user_id = $_SESSION['user_id'];
+			//chech if the user has inserted his personal information such as weight, gender, age etc.
+			$check_if_user_has_my_data = $this->user_model->check_user_my_data($user_id);
+			$data['data_is_inserted'] =  $check_if_user_has_my_data;
+			
 			//$notifications = $this->user_model->get_meal_notifiation($user_id);
 			$dietitianId = $this->user_model->get_my_dietitian_id($user_id);
 			$this->user_model->in_use_secret_key('9epf89wapf89ajf');
@@ -41,6 +44,8 @@ class User extends CI_Controller {
 			$this->load->view('header');
 			$this->load->view('user/login/login_success', $data);
 			$this->load->view('footer');
+		}else{
+			redirect('user/login','refresh');
 		}
 	}
 
@@ -176,7 +181,7 @@ class User extends CI_Controller {
 			elseif ($_SERVER['REQUEST_METHOD'] == "POST" and isset($_POST['addWeight']))
 			{	//set rules for the input data
 				$this->form_validation->set_rules
-				('weight', 'Weight', 'trim|required|min_length[2]|max_length[2]',
+				('weight', 'Weight', 'trim|required|min_length[2]|max_length[3]',
 					array(
 						'required'      => 'You have not provided a valid %s.',
 						'min_length'    => 'The %s you have provided is too low.',
@@ -200,6 +205,67 @@ class User extends CI_Controller {
 			$this->load->view('footer', $data );
 		} else {
 			redirect('user/login','refresh');
+		}
+	}
+
+
+	public function my_data(){
+			// create the data object
+		$data = [];
+		
+		// load form helper and validation library
+		$this->load->helper('form');
+		$this->load->library('form_validation');
+		// set validation rules
+		$this->form_validation->set_rules('weight', 'Βάρος', 'required');
+		//$this->form_validation->set_rules('gender', 'Φύλο', 'required');
+		$this->form_validation->set_rules('height', 'Ύψος', 'required');
+		$this->form_validation->set_rules('age', 'Ηλικία', 'required');
+
+		if(isset($_SESSION['username'])){
+			$user_id = $this->session->userdata('user_id');
+			$check_if_user_has_my_data = $this->user_model->check_user_my_data($user_id);
+			$data['data_is_inserted'] =  $check_if_user_has_my_data;
+			$data['my_data'] = $this->user_model->get_my_data($user_id);
+			if($this->form_validation->run() == false){
+				// user login ok
+					$this->load->view('header');
+					$this->load->view('user/my_data_view', $data);
+					$this->load->view('footer');
+			}else{
+				$weight = $this->input->post('weight');
+				$gender = $this->input->post('gender');
+				$height = $this->input->post('height');
+				$age = $this->input->post('age');
+				
+				$this->user_model->add_weight_model($weight, $user_id);
+				$is_my_data_inserted = $this->user_model->save_my_data($weight, $gender, $height, $age, $user_id);
+				if($is_my_data_inserted){
+					$data['my_data'] =  array('weight' => $weight,
+												'gender' => $gender,
+												'height' => $height,
+												'age' => $age );
+				}
+				//$data['my_data'] = $this->user_model->get_my_data($user_id);
+				// user login ok
+					$this->load->view('header');
+					$this->load->view('user/my_data_view', $data);
+					$this->load->view('footer');
+					// echo "fdsalfjdlsa;fjsaf";
+					 redirect('user/my_data', 'refresh'); 
+			}
+		}else{
+			redirect('user/login','refresh');
+		}
+	}
+
+	public function myCalendar(){
+		$data = [];
+		if(isset($_SESSION['username'])){
+			$this->load->view('header', $data);
+			$this->load->view('user/calendar_view', $data);
+			$this->load->view('footer', $data );
+		}else{
 		}
 	}
 
@@ -397,6 +463,7 @@ class User extends CI_Controller {
 
 				$this->load->view('header');
 				$this->load->view('user/message_user_view' , $data);
+				$this->load->view('user/chat_app_view' , $data);
 				$this->load->view('footer', $data );
 			}else{
 				$data = null;
@@ -421,6 +488,17 @@ class User extends CI_Controller {
 		}
 
 	}
+
+
+	// public function test(){
+	// 	$email = 'lamidas@gmail.com';
+	// 	$is_registered = $this->user_model->set_user_registration_is_true($email);
+	// 	if($is_registered){
+	// 		echo 'na na nan na';
+	// 	}else{
+	// 		echo "fuck";
+	// 	}
+	// }
 	
 	/**
 	 * register function.
@@ -462,9 +540,15 @@ class User extends CI_Controller {
 			$email    = $this->input->post('email');
 			$password = $this->input->post('password');
 			$pass_id = $this->input->post('password_identity');
-			
-			if ($this->user_model->create_user($username, $email, $password)) {
 
+			$dietitianId = $this->user_model->get_my_dietitian_id_from_pass_id($pass_id);
+			//echo $dietitianId."      &&&&&   ";
+			if ($this->user_model->create_user($username, $email, $password, $dietitianId)) {
+
+				$user_id = $this->user_model->get_user_id_from_username($username);
+				//$dietitianId = $this->user_model->get_my_dietitian_id($user_id);
+				$this->user_model->increase_customer_number($dietitianId, $email);
+				$this->user_model->set_user_registration_is_true($email);
 				// user creation ok
 				$this->load->view('header');
 				$this->load->view('user/register/register_success', $data);
@@ -637,8 +721,6 @@ class User extends CI_Controller {
 	 */
 	public function login() {
 		
-		// create the data object
-		$data = new stdClass();
 		
 		// load form helper and validation library
 		$this->load->helper('form');
@@ -672,6 +754,10 @@ class User extends CI_Controller {
 					$user_id = $this->user_model->get_user_id_from_username($username);
 					$user    = $this->user_model->get_user($user_id);
 
+					//chech if the user has inserted his personal information such as weight, gender, age etc.
+					$check_if_user_has_my_data = $this->user_model->check_user_my_data($user_id);
+					$data['data_is_inserted'] =  $check_if_user_has_my_data;
+
 					// set session user datas
 					$_SESSION['user_id']      = (int)$user->id;
 					$_SESSION['username']     = (string)$user->username;
@@ -680,17 +766,23 @@ class User extends CI_Controller {
 					//$_SESSION['is_admin']     = (bool)$user->is_admin;
 					
 					// user login ok
-					$this->load->view('header');
-					$this->load->view('user/login/login_success', $data);
-					$this->load->view('footer');
+					
+					if($check_if_user_has_my_data){
+						$this->load->view('header');
+						$this->load->view('user/login/login_success', $data);
+						$this->load->view('footer');
+					}else{
+						redirect('user/my_data','refresh');
+					}
+					
 
 					//redirect to index function 
 					//redirect('user/index' , 'refresh');
 					
 				} else {
-					
+					$data = new stdClass();
 					// login failed
-					if ($is_deactivated == 1) {
+					if (isset($is_deactivated) and $is_deactivated == 1) {
 						$data->error = 'Δεν έχεις πλέον δικαίωμα πρόσβασης . Επικοινώνισε με τον διαιτολόγο';
 					}else{
 						$data->error = 'Λάθος κωδικός ή όνομα χρήστη.';

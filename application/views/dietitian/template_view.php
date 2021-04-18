@@ -48,7 +48,7 @@
 				foreach ($meal_hour as $hour) {
 			// koitaw an exei eggrafh gia afth thn mera kai thn wra gevmatos
 			// an exei eggrafh thn emfanizw, alliws aplws ektypwnw to keli
-					echo "<td>";
+					echo "<td id = 'foodInTemplate'>";
 					foreach ($template as $rs) {
 						if ($rs->day == $day && $rs->hour == $hour) {
 							echo $rs->food;
