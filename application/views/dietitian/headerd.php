@@ -101,27 +101,18 @@
 			
 			<!-- if the dietitian has logged in -->
 			<?php if (isset($_SESSION['dietitian_name'])) { ?>
-			<!-- 	<li class="nav-item">
-					<a class="nav-link " href="<?= base_url('dietitians/settings') ?>">Προφίλ</a>
-				</li>
-				
-					<li class="nav-item">
-					<a class="nav-link " href="<?= base_url('dietitians/logoutd') ?>">Αποσύνδεση</a>
-				</li> -->
-
-					<li class="nav-item dropdown">
-								<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-									<?php echo $_SESSION['dietitian_name']; ?> 
-								</a>
+					<div class="nav-item dropdown list-unstyled">
+						<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+							<?php echo $_SESSION['dietitian_name']; ?> 
+						</a>
 
 
-								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-									<a class="dropdown-item " href="<?= base_url('dietitians/settings') ?>">Προφίλ</a>
-									<a class="dropdown-item" href="<?= base_url('dietitians/logoutd') ?>">Αποσύνδεση</a>
-								</div>
-							</li>
-						</ul>
-
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+							<a class="dropdown-item " href="<?= base_url('dietitians/settings') ?>">Προφίλ</a>
+							<a class="dropdown-item" href="<?= base_url('dietitians/logoutd') ?>">Αποσύνδεση</a>
+						</div>
+			</div>
+				</ul>
 			<?php } ?>
 			
 			</ul>
@@ -132,13 +123,8 @@
 				<button class="btn btn-outline-success my-2 my-sm-0"  type="submit">Search</button>
 			</form>
 			<?php } ?>
-
-
-			 
-			
 		</div>
 	</nav>
-
 </div>
 
 
